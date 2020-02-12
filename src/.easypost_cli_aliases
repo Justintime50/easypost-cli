@@ -1,0 +1,13 @@
+# EasyPost CLI Library Location
+EASYPOST_CLI_LOCATION="$HOME/easypost-cli"
+
+# Aliases
+alias ep-create-address="$EASYPOST_CLI_LOCATION/create/create-address.sh"
+alias ep-create-shipment="$EASYPOST_CLI_LOCATION/create/create-shipment.sh"
+alias ep-create-parcel="$EASYPOST_CLI_LOCATION/create/create-parcel.sh"
+
+alias ep-retrieve-parcel="$EASYPOST_CLI_LOCATION/retrieve/retrieve-parcel.sh"
+alias ep-retrieve-shipment="$EASYPOST_CLI_LOCATION/retrieve/retrieve-shipment.sh"
+alias ep-retrieve-parcel="$EASYPOST_CLI_LOCATION/retrieve/retrieve-parcel.sh"
+
+alias ep-buy-shipment="$EASYPOST_CLI_LOCATION/core/buy-shipment.sh"
