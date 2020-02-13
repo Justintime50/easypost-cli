@@ -2,5 +2,5 @@
 
 function ep-help {
     # Show the docs
-    cat "$EASYPOST_CLI_LOCATION"/docs/README.md
+    cat "$EASYPOST_CLI_LOCATION"/docs/DOCS.md
 }
