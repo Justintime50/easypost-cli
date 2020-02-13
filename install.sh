@@ -21,6 +21,5 @@ rm -rf "$HOME"/ep-cli-temp
 # API Key setup
 echo "Enter your EasyPost API key:"
 read -r KEY
-shopt -s dotglob # Ensure we can replace the hidden .env file
 sed -i '' -e "s/EASYPOST_API_KEY=/EASYPOST_API_KEY=$KEY/g" "$EASYPOST_CLI_LOCATION"/.env
 echo "EasyPost CLI installed!"
