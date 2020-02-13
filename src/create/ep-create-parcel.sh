@@ -18,5 +18,5 @@ function ep-create-parcel {
     -d "parcel[width]=$WIDTH" \
     -d "parcel[height]=$HEIGHT" \
     -d "parcel[weight]=$WEIGHT" \
-    | json_pp 
+    | json_pp
 }
