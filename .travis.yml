@@ -1,4 +1,8 @@
 language: bash
 
 scripts:
-    - shellcheck src/*.sh
+    - shellcheck *.sh
+    - shellcheck src/billing/*.sh
+    - shellcheck src/core/*.sh
+    - shellcheck src/create/*.sh
+    - shellcheck src/retrieve/*.sh
