@@ -23,6 +23,6 @@ function ep-create-insurance {
     -d "insurance[tracking_code]=$TRACKING" \
     -d "insurance[carrier]=$CARRIER" \
     -d "insurance[reference]=$REFERENCE" \
-    -d "insurance[amount]=$AMOUNT"
+    -d "insurance[amount]=$AMOUNT" \
     | json_pp
 }
