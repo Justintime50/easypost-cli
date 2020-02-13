@@ -5,29 +5,29 @@ Easily interact with the EasyPost API via the CLI.
 [![Build Status](https://travis-ci.org/Justintime50/easypost-cli.svg?branch=master)](https://travis-ci.org/Justintime50/easypost-cli)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-Written in pure shell and only requiring curl, the EasyPost CLI is portable and simple to use. View the official EasyPost [documentation here](https://www.easypost.com/docs/api) for more information.
+Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official EasyPost [documentation here](https://www.easypost.com/docs/api) for more information about the API or view the accompanying EasyPost CLI [docs here](/docs/DOCS.md).
 
 ## Install
 
 Install EasyPost CLI:
 
 ```bash
-# 1) Downloads, installs, and configures API key for you (requires git)
-curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/install.sh | bash
+# 1) Downloads, installs, and configures the EasyPost CLI (requires git)
+bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/install.sh)
 
-# 2) Add to your ~/.zshrc or ~/.bash_profile
+# 2) Tell your terminal where to find the EasyPost CLI by adding this to your ~/.zshrc or ~/.bash_profile
 echo "# Source EasyPost CLI
 if [ -f "$HOME"/easypost-cli/easypost-cli.sh ]; then
     source "$HOME"/easypost-cli/easypost-cli.sh
 fi" >> ~/.zshrc
 
-# 3) Source the changes which loads the library
+# 3) Source the changes to load the EasyPost CLI
 source ~/.zshrc
 ```
 
 ## Updating
 
-Updating the EasyPost CLI is as simple as running the first command in the install section above.
+Updating the EasyPost CLI is as simple as `running steps 1 & 3` from the install section above.
 
 ## Usage
 
@@ -36,6 +36,4 @@ Updating the EasyPost CLI is as simple as running the first command in the insta
 ep-create-shipment
 ```
 
-### Documentation
-
-View all the accompanying [docs here](/docs/README.md).
+View the full accompanying EasyPost CLI [docs here](/docs/DOCS.md).
