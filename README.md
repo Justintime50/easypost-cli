@@ -14,26 +14,17 @@ Install EasyPost CLI:
 ```bash
 # 1) Downloads, installs, and configures the EasyPost CLI (requires git)
 bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/install.sh)
-
-# 2) Tell your terminal where to find the EasyPost CLI by adding this to your ~/.zshrc or ~/.bash_profile
-echo "# Source EasyPost CLI
-if [ -f "$HOME"/easypost-cli/easypost-cli.sh ]; then
-    source "$HOME"/easypost-cli/easypost-cli.sh
-fi" >> ~/.zshrc
-
-# 3) Source the changes to load the EasyPost CLI
-source ~/.zshrc
 ```
 
 ## Updating
 
-Updating the EasyPost CLI is as simple as `running steps 1 & 3` from the install section above.
+Updating the EasyPost CLI is as simple as running the installation command above.
 
 ## Usage
 
 ```bash
 # Create a shipment with a single command
-ep-create-shipment
+ep create-shipment
 ```
 
 View the full accompanying EasyPost CLI [docs here](/docs/DOCS.md).

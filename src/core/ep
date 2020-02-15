@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function ep {
+    # Show message about specifying a command to use.
+    echo "The EasyPost CLI was not passed a command. Please see the docs for more information."
+}
+
+function test {
+    # Show message about specifying a command to use.
+    echo "test"
+}
+
+function version {
+    # Show message about specifying a command to use.
+    echo "EasyPost CLI - v0.1"
+}
+
+
+if declare -f "$1" > /dev/null
+then
+  # call arguments verbatim
+  "$@"
+else
+  # Show a helpful error
+  echo "'$1' is not a known function name" >&2
+  exit 1
+fi
