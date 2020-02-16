@@ -5,7 +5,7 @@ function retrieve-tracker {
     read -r TRACKER
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/trackers/"$TRACKER" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/trackers/"$TRACKER" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

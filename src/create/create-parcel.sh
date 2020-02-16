@@ -11,8 +11,8 @@ function create-parcel {
     read -r WEIGHT
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/parcels \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/parcels \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "parcel[length]=$LENGTH" \
     -d "parcel[width]=$WIDTH" \
     -d "parcel[height]=$HEIGHT" \

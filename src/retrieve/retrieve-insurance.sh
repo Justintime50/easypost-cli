@@ -5,7 +5,7 @@ function retrieve-insurance {
     read -r INSURANCE
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/insurances/"$INSURANCE" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/insurances/"$INSURANCE" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp 
 }

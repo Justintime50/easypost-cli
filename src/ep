@@ -1,19 +1,38 @@
 #!/bin/bash
 
 # Configure the EasyPost CLI
-EASYPOST_API_KEY=
+EASYPOST_CLI_API_KEY=
+EASYPOST_CLI_LOCATION="/usr/local/bin"
+EASYPOST_API_URL="https://api.easypost.com/v2"
+
+# Check that variables are set
+if [[ -z "$EASYPOST_CLI_API_KEY" ]] || [[ -z "$EASYPOST_CLI_API_KEY" ]] || [[ -z "$EASYPOST_CLI_API_KEY" ]] ; then
+    echo "The EasyPost CLI is misconfigured, please see the ep executable and fix any variables that aren't set correctly."
+    exit 1
+fi
 function retrieve-api-keys {
     # ep retrieve-api-keys: Retrieve the API keys of the associated account
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/api_keys \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/api_keys \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp 
+}
+function retrieve-user {
+    # ep retrieve-user: Retrieve the users of the associated account
+    # Prompt user for input
+    echo "Enter user ID:"
+    read -r USER
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/users/"$USER" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp 
 }
 function retrieve-users {
     # ep retrieve-users: Retrieve the users of the associated account
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/users \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/users \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp 
 }
 function buy-shipment {
@@ -27,8 +46,8 @@ function buy-shipment {
     read -r INSURANCE
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/shipments/"$SHIPMENT"/buy \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/buy \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "rate[id]=$RATE" \
     -d "insurance=$INSURANCE" \
     | json_pp 
@@ -40,8 +59,8 @@ function refund-shipment {
     read -r SHIPMENT
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/shipments/"$SHIPMENT"/refund \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/refund \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp 
 }
 function create-address {
@@ -69,8 +88,8 @@ function create-address {
     read -r EMAIL
 
     # Build Curl Request
-    curl -s -X POST https://api.easypost.com/v2/addresses \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/addresses \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "address[street1]=$STREET1" \
     -d "address[street2]=$STREET2" \
     -d "address[city]=$CITY" \
@@ -100,8 +119,8 @@ function create-insurance {
     read -r AMOUNT
 
     # Build Curl Request
-    curl -s -X POST https://api.easypost.com/v2/insurances \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/insurances \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "insurance[to_address][id]=$TO_ADDRESS" \
     -d "insurance[from_address][id]=$FROM_ADDRESS" \
     -d "insurance[tracking_code]=$TRACKING" \
@@ -123,13 +142,32 @@ function create-parcel {
     read -r WEIGHT
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/parcels \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/parcels \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "parcel[length]=$LENGTH" \
     -d "parcel[width]=$WIDTH" \
     -d "parcel[height]=$HEIGHT" \
     -d "parcel[weight]=$WEIGHT" \
     | json_pp
+}
+function create-refund {
+    # ep create-refund: Create a return shipment that swaps the to and from addresses on the label
+    # Prompt user for input
+    echo "Enter a to_address ID:"
+    read -r TO_ADDRESS
+    echo "Enter a from_address ID:"
+    read -r FROM_ADDRESS
+    echo "Enter a parcel ID:"
+    read -r PARCEL
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "shipment[to_address][id]=$TO_ADDRESS" \
+    -d "shipment[from_address][id]=$FROM_ADDRESS" \
+    -d "shipment[parcel][id]=$PARCEL" \
+    -d "shipment[is_return]=true" \
+    | json_pp 
 }
 function create-shipment {
     # ep create-shipment: Create a shipment record that can then be used to purchase a label
@@ -186,8 +224,8 @@ function create-shipment {
     read -r WEIGHT
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/shipments \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "address[to_address][street1]=$TO_STREET1" \
     -d "address[to_address][street2]=$TO_STREET2" \
     -d "address[to_address][city]=$TO_CITY" \
@@ -223,15 +261,26 @@ function create-tracker {
     read -r CARRIER
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/trackers \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/trackers \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "tracker[tracking_code]=$TRACKER" \
     -d "tracker[carrier]=$CARRIER" \
     | json_pp
 }
 function help {
     # ep help: Show the docs
-    cat "$EASYPOST_CLI_LOCATION"/docs/DOCS.md
+    # TODO: Fix the docs so they are accessible and are actually a man page
+    # cat "$EASYPOST_CLI_LOCATION"/docs/man.md
+    open https://github.com/Justintime50/easypost-cli/blob/master/docs/man.md
+}
+function update-api-key {
+    # ep update-api-key: Update the stored API key in the `ep` executable
+    EASYPOST_CLI_LOCATION="/usr/local/bin"
+    echo "Enter your EasyPost API key:"
+    read -r KEY
+    # TODO: Fix the EasyPost API replacement here
+    sed -i '' -e "s/EASYPOST_CLI_API_KEY=$EASYPOST_CLI_API_KEY/EASYPOST_CLI_API_KEY=$KEY/g" "$EASYPOST_CLI_LOCATION"/ep
+    echo "Your EasyPost API key has been updated!"
 }
 function version {
     # ep version: Show the EasyPost CLI version info
@@ -244,8 +293,8 @@ function retrieve-address {
     read -r ADDRESS
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/addresses/"$ADDRESS" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/addresses/"$ADDRESS" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp 
 }
 function retrieve-insurance {
@@ -255,8 +304,8 @@ function retrieve-insurance {
     read -r INSURANCE
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/insurances/"$INSURANCE" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/insurances/"$INSURANCE" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp 
 }
 function retrieve-parcel {
@@ -266,8 +315,8 @@ function retrieve-parcel {
     read -r PARCEL
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/parcels/"$PARCEL" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/parcels/"$PARCEL" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
 function retrieve-shipment {
@@ -277,8 +326,8 @@ function retrieve-shipment {
     read -r SHIPMENT
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/shipments/"$SHIPMENT" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
 function retrieve-tracker {
@@ -288,10 +337,11 @@ function retrieve-tracker {
     read -r TRACKER
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/trackers/"$TRACKER" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/trackers/"$TRACKER" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
+# Command Router
 # Check if the command passed is valid or not. Run if it is, warn if it's not
 if declare -f "$1" > /dev/null
 then

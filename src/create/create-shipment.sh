@@ -53,8 +53,8 @@ function create-shipment {
     read -r WEIGHT
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/shipments \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "address[to_address][street1]=$TO_STREET1" \
     -d "address[to_address][street2]=$TO_STREET2" \
     -d "address[to_address][city]=$TO_CITY" \

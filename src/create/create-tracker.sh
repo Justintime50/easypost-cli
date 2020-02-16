@@ -7,8 +7,8 @@ function create-tracker {
     read -r CARRIER
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/trackers \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/trackers \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "tracker[tracking_code]=$TRACKER" \
     -d "tracker[carrier]=$CARRIER" \
     | json_pp

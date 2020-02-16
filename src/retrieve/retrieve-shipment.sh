@@ -5,7 +5,7 @@ function retrieve-shipment {
     read -r SHIPMENT
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/shipments/"$SHIPMENT" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
