@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-retrieve-address {
+function retrieve-address {
+    # ep retrieve-address: Retrieve an address record
     # Prompt user for input
     echo "Enter address ID:"
     read -r ADDRESS

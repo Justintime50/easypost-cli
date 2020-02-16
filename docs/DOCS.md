@@ -4,7 +4,7 @@ The EasyPost CLI allows a user to interact with the EasyPost API without needing
 
 ## Usage
 
-All EasyPost CLI commands use the syntax `ep-mycommand`. If you'd like to view these docs from the command line, run `ep-help`. View the version info by running `ep-version`.
+All EasyPost CLI commands use the syntax `ep mycommand`. If you'd like to view these docs from the command line, run `ep help`. View the version info by running `ep version`.
 
 ### Account Management
 
@@ -13,7 +13,7 @@ All EasyPost CLI commands use the syntax `ep-mycommand`. If you'd like to view t
 Retrieve test and production API keys for an account.
 
 ```bash
-ep-retrieve-api-keys
+ep retrieve-api-keys
 ```
 
 **Retrieve Users**
@@ -21,7 +21,7 @@ ep-retrieve-api-keys
 Retrieve all users for an account.
 
 ```bash
-ep-retrieve-users
+ep retrieve-users
 ```
 
 ### Billing
@@ -31,7 +31,7 @@ ep-retrieve-users
 Provide the shipment ID and rate ID to purchase a label.
 
 ```bash
-ep-buy-shipment
+ep buy-shipment
 ```
 
 **Refund a Shipment**
@@ -39,7 +39,7 @@ ep-buy-shipment
 Provide the shipment ID to refund the payment.
 
 ```bash
-ep-refund-shipment
+ep refund-shipment
 ```
 
 ### Create
@@ -49,7 +49,7 @@ ep-refund-shipment
 Create an address to use for later.
 
 ```bash
-ep-create-address
+ep create-address
 ```
 
 **Create Insurance**
@@ -57,7 +57,7 @@ ep-create-address
 Create insurance for a non-EasyPost shipment.
 
 ```bash
-ep-create-insurance
+ep create-insurance
 ```
 
 **Create a Parcel**
@@ -65,7 +65,7 @@ ep-create-insurance
 Create a parcel to use for later.
 
 ```bash
-ep-create-parcel
+ep create-parcel
 ```
 
 **Create a Shipment**
@@ -73,7 +73,7 @@ ep-create-parcel
 Create a shipment and have rates returned for all configured carriers.
 
 ```bash
-ep-create-shipment
+ep create-shipment
 ```
 
 **Create a Tracker**
@@ -81,7 +81,7 @@ ep-create-shipment
 Create a tracker for a shipment you've created.
 
 ```bash
-ep-create-address
+ep create-address
 ```
 
 ### Retrieve
@@ -91,7 +91,7 @@ ep-create-address
 Retrieve a single address.
 
 ```bash
-ep-retrieve-address
+ep retrieve-address
 ```
 
 **Retrieve Insurance**
@@ -99,7 +99,7 @@ ep-retrieve-address
 Retrieve a single insurance record.
 
 ```bash
-ep-retrieve-insurance
+ep retrieve-insurance
 ```
 
 **Retrieve a Parcel**
@@ -107,7 +107,7 @@ ep-retrieve-insurance
 Retrieve a single parcel.
 
 ```bash
-ep-retrieve-parcel
+ep retrieve-parcel
 ```
 
 **Retrieve a Shipment**
@@ -115,7 +115,7 @@ ep-retrieve-parcel
 Retrieve a single shipment.
 
 ```bash
-ep-retrieve-shipment
+ep retrieve-shipment
 ```
 
 **Retrieve a Tracker**
@@ -123,5 +123,5 @@ ep-retrieve-shipment
 Retrieve a single tracker.
 
 ```bash
-ep-retrieve-tracker
+ep retrieve-tracker
 ```

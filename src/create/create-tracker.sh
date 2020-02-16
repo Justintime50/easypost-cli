@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-create-tracker {
+function create-tracker {
+    # ep create-tracker: Create a tracker for a shipment
     # Prompt user for input
     echo "Enter tracking code:"
     read -r TRACKER

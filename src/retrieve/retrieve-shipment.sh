@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-retrieve-shipment {
+function retrieve-shipment {
+    # ep retrieve-shipment: Retrieve a shipment record
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT
