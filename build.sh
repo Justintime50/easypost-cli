@@ -1,7 +1,28 @@
 #!/bin/bash
 
 # Build the single EasyPost executable
-# https://askubuntu.com/questions/950432/how-can-i-copy-the-content-of-a-text-file-and-paste-it-to-another-starting-at-a
-head -n 5 ~/a > ~/c
-cat ~/b >> ~/c
-tail --lines=+6 ~/a >> ~/c
+
+echo "Building the EasyPost CLI executable..."
+
+# Remove the EasyPost CLI executable if it exists
+if [[ -f src/ep ]] ; then
+    rm -f src/ep
+fi
+
+# Build the config
+cat src/config.sh >> src/ep 
+
+# Build each endpoint
+for DIR in src/* ; do
+    if [[ -d "$DIR" ]] ; then
+        cat "$DIR"/*.sh >> src/ep
+    fi
+done
+
+# Build the command router
+cat src/router.sh >> src/ep
+
+# Make the EasyPost CLI executable
+chmod +x src/ep
+
+echo "EasyPost CLI executable built!"

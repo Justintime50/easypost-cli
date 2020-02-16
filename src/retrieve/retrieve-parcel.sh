@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-retrieve-parcel {
+function retrieve-parcel {
+    # ep retrieve-parcel: Retrieve a parcel record
     # Prompt user for input
     echo "Enter parcel ID:"
     read -r PARCEL

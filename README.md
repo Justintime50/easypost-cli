@@ -12,13 +12,19 @@ Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable a
 Install EasyPost CLI:
 
 ```bash
-# 1) Downloads, installs, and configures the EasyPost CLI (requires git)
+# 1) Downloads, installs, and configures the EasyPost CLI
 bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/install.sh)
 ```
 
-## Updating
+### Updating
 
 Updating the EasyPost CLI is as simple as running the installation command above.
+
+### Uninstall
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/uninstall.sh)
+```
 
 ## Usage
 

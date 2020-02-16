@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-retrieve-insurance {
+function retrieve-insurance {
+    # ep retrieve-insurance: Retrieve an insurnace record
     # Prompt user for input
     echo "Enter insurance ID:"
     read -r INSURANCE

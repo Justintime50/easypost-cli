@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-create-shipment {
+function create-shipment {
+    # ep create-shipment: Create a shipment record that can then be used to purchase a label
     # Prompt user for input
     echo "Enter to_street1:"
     read -r TO_STREET1
