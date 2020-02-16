@@ -20,7 +20,7 @@ for DIR in src/* ; do
 done
 
 # Build the command router
-cat src/router.sh >> src/ep
+cat src/command-router.sh >> src/ep
 
 # Make the EasyPost CLI executable
 chmod +x src/ep

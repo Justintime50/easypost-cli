@@ -15,8 +15,8 @@ function create-insurance {
     read -r AMOUNT
 
     # Build Curl Request
-    curl -s -X POST https://api.easypost.com/v2/insurances \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/insurances \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "insurance[to_address][id]=$TO_ADDRESS" \
     -d "insurance[from_address][id]=$FROM_ADDRESS" \
     -d "insurance[tracking_code]=$TRACKING" \

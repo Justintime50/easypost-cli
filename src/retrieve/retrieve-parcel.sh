@@ -5,7 +5,7 @@ function retrieve-parcel {
     read -r PARCEL
 
     # Build curl request
-    curl -s -X GET https://api.easypost.com/v2/parcels/"$PARCEL" \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X GET "$EASYPOST_API_URL"/parcels/"$PARCEL" \
+    -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

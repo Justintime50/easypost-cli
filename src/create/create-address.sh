@@ -23,8 +23,8 @@ function create-address {
     read -r EMAIL
 
     # Build Curl Request
-    curl -s -X POST https://api.easypost.com/v2/addresses \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/addresses \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "address[street1]=$STREET1" \
     -d "address[street2]=$STREET2" \
     -d "address[city]=$CITY" \

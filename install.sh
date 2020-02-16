@@ -14,6 +14,6 @@ chmod +x "$EASYPOST_CLI_LOCATION"/ep
 
 # API Key setup
 echo "Enter your EasyPost API key:"
-read -r KEY
-sed -i '' -e "s/EASYPOST_API_KEY=/EASYPOST_API_KEY=$KEY/g" "$EASYPOST_CLI_LOCATION"/ep
+read -r EASYPOST_CLI_API_KEY
+sed -i '' -e "s/EASYPOST_CLI_API_KEY=/EASYPOST_CLI_API_KEY=$EASYPOST_CLI_API_KEY/g" "$EASYPOST_CLI_LOCATION"/ep
 echo "EasyPost CLI installed!"

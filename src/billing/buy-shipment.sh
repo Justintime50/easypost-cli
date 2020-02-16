@@ -9,8 +9,8 @@ function buy-shipment {
     read -r INSURANCE
 
     # Build curl request
-    curl -s -X POST https://api.easypost.com/v2/shipments/"$SHIPMENT"/buy \
-    -u "$EASYPOST_API_KEY": \
+    curl -s -X POST "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/buy \
+    -u "$EASYPOST_CLI_API_KEY": \
     -d "rate[id]=$RATE" \
     -d "insurance=$INSURANCE" \
     | json_pp 

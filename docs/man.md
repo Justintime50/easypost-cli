@@ -4,7 +4,13 @@ The EasyPost CLI allows a user to interact with the EasyPost API without needing
 
 ## Usage
 
-All EasyPost CLI commands use the syntax `ep mycommand`. If you'd like to view these docs from the command line, run `ep help`. View the version info by running `ep version`.
+All EasyPost CLI commands use the syntax `ep mycommand`. 
+
+### Misc
+
+- If you'd like to view these docs, run `ep help`. 
+- View the version info by running `ep version`.
+- Update your API key by running `ep update-api-key`.
 
 ### Account Management
 
@@ -14,6 +20,14 @@ Retrieve test and production API keys for an account.
 
 ```bash
 ep retrieve-api-keys
+```
+
+**Retrieve Users**
+
+Retrieve a specified user.
+
+```bash
+ep retrieve-user
 ```
 
 **Retrieve Users**
@@ -66,6 +80,14 @@ Create a parcel to use for later.
 
 ```bash
 ep create-parcel
+```
+
+**Create a Return**
+
+Create a return shipment that swaps the to and from addresses on the label.
+
+```bash
+ep create-return
 ```
 
 **Create a Shipment**
