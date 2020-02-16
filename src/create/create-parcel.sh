@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-create-parcel {
+function create-parcel {
+    # ep create-parcel: Create a parcel record
     # Prompt user for input
     echo "Enter parcel length:"
     read -r LENGTH

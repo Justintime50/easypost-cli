@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-create-address {
+function create-address {
+    # ep create-address: Create an address record
     # Prompt user for input
     echo "Enter street1:"
     read -r STREET1

@@ -1,0 +1,304 @@
+#!/bin/bash
+
+# Configure the EasyPost CLI
+EASYPOST_API_KEY=
+function retrieve-api-keys {
+    # ep retrieve-api-keys: Retrieve the API keys of the associated account
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/api_keys \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp 
+}
+function retrieve-users {
+    # ep retrieve-users: Retrieve the users of the associated account
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/users \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp 
+}
+function buy-shipment {
+    # ep buy-shipment: Buy a label for the specified shipment
+    # Prompt user for input
+    echo "Enter shipment ID:"
+    read -r SHIPMENT
+    echo "Enter rate ID:"
+    read -r RATE
+    echo "Enter insurance amount (optional):"
+    read -r INSURANCE
+
+    # Build curl request
+    curl -s -X POST https://api.easypost.com/v2/shipments/"$SHIPMENT"/buy \
+    -u "$EASYPOST_API_KEY": \
+    -d "rate[id]=$RATE" \
+    -d "insurance=$INSURANCE" \
+    | json_pp 
+}
+function refund-shipment {
+    # ep refund-shipment: Refund a specified shipment
+    # Prompt user for input
+    echo "Enter shipment ID:"
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X POST https://api.easypost.com/v2/shipments/"$SHIPMENT"/refund \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp 
+}
+function create-address {
+    # ep create-address: Create an address record
+    # Prompt user for input
+    echo "Enter street1:"
+    read -r STREET1
+    echo "Enter street2 (optional):"
+    read -r STREET2
+    echo "Enter city:"
+    read -r CITY
+    echo "Enter state:"
+    read -r STATE
+    echo "Enter zip:"
+    read -r ZIP
+    echo "Enter country (optional):"
+    read -r COUNTRY
+    echo "Enter name (optional):"
+    read -r NAME
+    echo "Enter company (optional):"
+    read -r COMPANY
+    echo "Enter phone (optional):"
+    read -r PHONE
+    echo "Enter email (optional):"
+    read -r EMAIL
+
+    # Build Curl Request
+    curl -s -X POST https://api.easypost.com/v2/addresses \
+    -u "$EASYPOST_API_KEY": \
+    -d "address[street1]=$STREET1" \
+    -d "address[street2]=$STREET2" \
+    -d "address[city]=$CITY" \
+    -d "address[state]=$STATE" \
+    -d "address[zip]=$ZIP" \
+    -d "address[country]=$COUNTRY" \
+    -d "address[name]=$NAME" \
+    -d "address[company]=$COMPANY" \
+    -d "address[phone]=$PHONE" \
+    -d "address[email]=$EMAIL" \
+    | json_pp
+}
+function create-insurance {
+    # ep create-insurance: Create an insurance record for shipments not from EasyPost
+    # Prompt user for input
+    echo "Enter to address ID:"
+    read -r TO_ADDRESS
+    echo "Enter from address ID:"
+    read -r FROM_ADDRESS
+    echo "Enter tracking code from the carrier:"
+    read -r TRACKING
+    echo "Enter carrier (optional, recommended):"
+    read -r CARRIER
+    echo "Enter external reference ID (optional):"
+    read -r REFERENCE
+    echo "Enter amount to insure:"
+    read -r AMOUNT
+
+    # Build Curl Request
+    curl -s -X POST https://api.easypost.com/v2/insurances \
+    -u "$EASYPOST_API_KEY": \
+    -d "insurance[to_address][id]=$TO_ADDRESS" \
+    -d "insurance[from_address][id]=$FROM_ADDRESS" \
+    -d "insurance[tracking_code]=$TRACKING" \
+    -d "insurance[carrier]=$CARRIER" \
+    -d "insurance[reference]=$REFERENCE" \
+    -d "insurance[amount]=$AMOUNT" \
+    | json_pp
+}
+function create-parcel {
+    # ep create-parcel: Create a parcel record
+    # Prompt user for input
+    echo "Enter parcel length:"
+    read -r LENGTH
+    echo "Enter parcel width:"
+    read -r WIDTH
+    echo "Enter parcel height:"
+    read -r HEIGHT
+    echo "Enter parcel weight:"
+    read -r WEIGHT
+
+    # Build curl request
+    curl -s -X POST https://api.easypost.com/v2/parcels \
+    -u "$EASYPOST_API_KEY": \
+    -d "parcel[length]=$LENGTH" \
+    -d "parcel[width]=$WIDTH" \
+    -d "parcel[height]=$HEIGHT" \
+    -d "parcel[weight]=$WEIGHT" \
+    | json_pp
+}
+function create-shipment {
+    # ep create-shipment: Create a shipment record that can then be used to purchase a label
+    # Prompt user for input
+    echo "Enter to_street1:"
+    read -r TO_STREET1
+    echo "Enter to_street2 (optional):"
+    read -r TO_STREET2
+    echo "Enter to_city:"
+    read -r TO_CITY
+    echo "Enter to_state:"
+    read -r TO_STATE
+    echo "Enter to_zip:"
+    read -r TO_ZIP
+    echo "Enter to_country (optional):"
+    read -r TO_COUNTRY
+    echo "Enter to_name (optional):"
+    read -r TO_NAME
+    echo "Enter to_company (optional):"
+    read -r TO_COMPANY
+    echo "Enter to_phone (optional):"
+    read -r TO_PHONE
+    echo "Enter to_email (optional):"
+    read -r TO_EMAIL
+
+    echo "Enter from_street1:"
+    read -r FROM_STREET1
+    echo "Enter from_street2 (optional):"
+    read -r FROM_STREET2
+    echo "Enter from_city:"
+    read -r FROM_CITY
+    echo "Enter from_state:"
+    read -r FROM_STATE
+    echo "Enter from_zip:"
+    read -r FROM_ZIP
+    echo "Enter from_country (optional):"
+    read -r FROM_COUNTRY
+    echo "Enter from_name (optional):"
+    read -r FROM_NAME
+    echo "Enter from_company (optional):"
+    read -r FROM_COMPANY
+    echo "Enter from_phone (optional):"
+    read -r FROM_PHONE
+    echo "Enter from_email (optional):"
+    read -r FROM_EMAIL
+
+    echo "Enter parcel length:"
+    read -r LENGTH
+    echo "Enter parcel width:"
+    read -r WIDTH
+    echo "Enter parcel height:"
+    read -r HEIGHT
+    echo "Enter parcel weight:"
+    read -r WEIGHT
+
+    # Build curl request
+    curl -s -X POST https://api.easypost.com/v2/shipments \
+    -u "$EASYPOST_API_KEY": \
+    -d "address[to_address][street1]=$TO_STREET1" \
+    -d "address[to_address][street2]=$TO_STREET2" \
+    -d "address[to_address][city]=$TO_CITY" \
+    -d "address[to_address][state]=$TO_STATE" \
+    -d "address[to_address][zip]=$TO_ZIP" \
+    -d "address[to_address][country]=$TO_COUNTRY" \
+    -d "address[to_address][name]=$TO_NAME" \
+    -d "address[to_address][company]=$TO_COMPANY" \
+    -d "address[to_address][phone]=$TO_PHONE" \
+    -d "address[to_address][email]=$TO_EMAIL" \
+    -d "address[from_address][street1]=$FROM_STREET1" \
+    -d "address[from_address][street2]=$FROM_STREET2" \
+    -d "address[from_address][city]=$FROM_CITY" \
+    -d "address[from_address][state]=$FROM_STATE" \
+    -d "address[from_address][zip]=$FROM_ZIP" \
+    -d "address[from_address][country]=$FROM_COUNTRY" \
+    -d "address[from_address][name]=$FROM_NAME" \
+    -d "address[from_address][company]=$FROM_COMPANY" \
+    -d "address[from_address][phone]=$FROM_PHONE" \
+    -d "address[from_address][email]=$FROM_EMAIL" \
+    -d "parcel[length]=$LENGTH" \
+    -d "parcel[width]=$WIDTH" \
+    -d "parcel[height]=$HEIGHT" \
+    -d "parcel[weight]=$WEIGHT" \
+    | json_pp 
+}
+function create-tracker {
+    # ep create-tracker: Create a tracker for a shipment
+    # Prompt user for input
+    echo "Enter tracking code:"
+    read -r TRACKER
+    echo "Enter carrier (optional):"
+    read -r CARRIER
+
+    # Build curl request
+    curl -s -X POST https://api.easypost.com/v2/trackers \
+    -u "$EASYPOST_API_KEY": \
+    -d "tracker[tracking_code]=$TRACKER" \
+    -d "tracker[carrier]=$CARRIER" \
+    | json_pp
+}
+function help {
+    # ep help: Show the docs
+    cat "$EASYPOST_CLI_LOCATION"/docs/DOCS.md
+}
+function version {
+    # ep version: Show the EasyPost CLI version info
+    echo "EasyPost CLI - v0.1"
+}
+function retrieve-address {
+    # ep retrieve-address: Retrieve an address record
+    # Prompt user for input
+    echo "Enter address ID:"
+    read -r ADDRESS
+
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/addresses/"$ADDRESS" \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp 
+}
+function retrieve-insurance {
+    # ep retrieve-insurance: Retrieve an insurnace record
+    # Prompt user for input
+    echo "Enter insurance ID:"
+    read -r INSURANCE
+
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/insurances/"$INSURANCE" \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp 
+}
+function retrieve-parcel {
+    # ep retrieve-parcel: Retrieve a parcel record
+    # Prompt user for input
+    echo "Enter parcel ID:"
+    read -r PARCEL
+
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/parcels/"$PARCEL" \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp
+}
+function retrieve-shipment {
+    # ep retrieve-shipment: Retrieve a shipment record
+    # Prompt user for input
+    echo "Enter shipment ID:"
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/shipments/"$SHIPMENT" \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp
+}
+function retrieve-tracker {
+    # ep retrieve-tracker: Retrieve a tracker record
+    # Prompt user for input
+    echo "Enter tracker ID:"
+    read -r TRACKER
+
+    # Build curl request
+    curl -s -X GET https://api.easypost.com/v2/trackers/"$TRACKER" \
+    -u "$EASYPOST_API_KEY": \
+    | json_pp
+}
+# Check if the command passed is valid or not. Run if it is, warn if it's not
+if declare -f "$1" > /dev/null
+then
+  # Pass in the argument (command)
+  "$@"
+else
+  # Tell the user their command is not valid
+  echo "'$1' is not an EasyPost CLI command, please try again." >&2
+  exit 1
+fi

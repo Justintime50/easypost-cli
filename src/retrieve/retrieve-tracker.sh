@@ -1,6 +1,5 @@
-#!/bin/bash
-
-function ep-retrieve-tracker {
+function retrieve-tracker {
+    # ep retrieve-tracker: Retrieve a tracker record
     # Prompt user for input
     echo "Enter tracker ID:"
     read -r TRACKER
