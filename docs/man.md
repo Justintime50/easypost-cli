@@ -56,6 +56,14 @@ Provide the shipment ID to refund the payment.
 ep refund-shipment
 ```
 
+**Regenerate Rates**
+
+Regenerate rates for a shipment.
+
+```bash
+ep regenerate-rates
+```
+
 ### Create
 
 **Create an Address**

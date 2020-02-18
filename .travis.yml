@@ -1,12 +1,8 @@
 language: bash
 
-# TODO: Fix Travis so testing can continue with the missing shebangs on each file
+before_scripts:
+    - ./build.sh
 
 scripts:
     - shellcheck *.sh
-    - shellcheck src/*.sh
-    - shellcheck src/account/*.sh
-    - shellcheck src/billing/*.sh
-    - shellcheck src/create/*.sh
-    - shellcheck src/misc/*.sh
-    - shellcheck src/retrieve/*.sh
+    - shellcheck src/ep

@@ -9,8 +9,8 @@ if [[ -f src/ep ]] ; then
     rm -f src/ep
 fi
 
-# Build the config
-cat src/config.sh >> src/ep 
+# Build the core logic & config
+cat src/core-logic.sh >> src/ep
 
 # Build each endpoint
 for DIR in src/* ; do
