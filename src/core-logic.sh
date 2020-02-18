@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Configure the EasyPost CLI
-EASYPOST_CLI_API_KEY=
-EASYPOST_CLI_LOCATION="/usr/local/bin"
-EASYPOST_API_URL="https://api.easypost.com/v2"
+# Import config
+# shellcheck disable=SC1090
+source "$HOME"/.easypost-cli/.config
 
 # Check that variables are set
 if [[ -z "$EASYPOST_CLI_API_KEY" ]] || [[ -z "$EASYPOST_CLI_API_KEY" ]] || [[ -z "$EASYPOST_CLI_API_KEY" ]] ; then
