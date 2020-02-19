@@ -114,6 +114,41 @@ Create a tracker for a shipment you've created.
 ep create-address
 ```
 
+### Reports
+
+**Create a Report**
+
+Create a report based on type. Provide a start date and end date for the report when prompted.
+
+```bash
+ep create-payment-log-report
+ep create-refund-report
+ep create-shipment-report
+ep create-tracker-report
+```
+
+**Retrieve a List of Reports**
+
+Retrieve a list of reports based on type.
+
+```bash
+ep retrieve-payment-log-reports
+ep retrieve-refund-reports
+ep retrieve-shipment-reports
+ep retrieve-tracker-reports
+```
+
+**Retrieve a Single Report**
+
+Retrieve a single report based on type. Provide an ID for the report you want to retrieve when prompted.
+
+```bash
+ep retrieve-payment-log-report
+ep retrieve-refund-report
+ep retrieve-shipment-report
+ep retrieve-tracker-report
+```
+
 ### Retrieve
 
 **Retrieve an Address**
