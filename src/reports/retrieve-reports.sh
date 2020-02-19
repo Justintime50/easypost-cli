@@ -7,7 +7,7 @@ function retrieve-payment-log-reports {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/payment_log \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }
 
 function retrieve-refund-reports {
@@ -18,7 +18,7 @@ function retrieve-refund-reports {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/refund \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }
 
 function retrieve-shipment-reports {
@@ -29,7 +29,7 @@ function retrieve-shipment-reports {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/shipment \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }
 
 function retrieve-tracker-reports {
@@ -40,5 +40,5 @@ function retrieve-tracker-reports {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/tracker \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }

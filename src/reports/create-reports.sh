@@ -56,5 +56,5 @@ function create-tracker-report {
     curl -s -X GET "$EASYPOST_API_URL"/reports/tracker/"$REPORT" \
     -u "$EASYPOST_CLI_API_KEY": \
     -d "{'start_date':$STARTDATE,'end_date':$ENDDATE}" \
-    | json_pp 
+    | json_pp
 }

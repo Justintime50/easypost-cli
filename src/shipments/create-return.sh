@@ -1,3 +1,4 @@
+
 function create-refund {
     # ep create-refund: Create a return shipment that swaps the to and from addresses on the label
     # Prompt user for input
@@ -15,5 +16,5 @@ function create-refund {
     -d "shipment[from_address][id]=$FROM_ADDRESS" \
     -d "shipment[parcel][id]=$PARCEL" \
     -d "shipment[is_return]=true" \
-    | json_pp 
+    | json_pp
 }

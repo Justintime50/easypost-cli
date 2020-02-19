@@ -1,3 +1,4 @@
+
 function create-address {
     # ep create-address: Create an address record
     # Prompt user for input
@@ -21,6 +22,8 @@ function create-address {
     read -r PHONE
     echo "Enter email (optional):"
     read -r EMAIL
+
+    # TODO: Prompt to verify address or not
 
     # Build Curl Request
     curl -s -X POST "$EASYPOST_API_URL"/addresses \

@@ -1,3 +1,4 @@
+
 function retrieve-insurance {
     # ep retrieve-insurance: Retrieve an insurnace record
     # Prompt user for input
@@ -7,5 +8,5 @@ function retrieve-insurance {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/insurances/"$INSURANCE" \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }

@@ -1,3 +1,4 @@
+
 function create-insurance {
     # ep create-insurance: Create an insurance record for shipments not from EasyPost
     # Prompt user for input

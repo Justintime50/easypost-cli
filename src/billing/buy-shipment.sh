@@ -1,3 +1,4 @@
+
 function buy-shipment {
     # ep buy-shipment: Buy a label for the specified shipment
     # Prompt user for input
@@ -13,5 +14,5 @@ function buy-shipment {
     -u "$EASYPOST_CLI_API_KEY": \
     -d "rate[id]=$RATE" \
     -d "insurance=$INSURANCE" \
-    | json_pp 
+    | json_pp
 }

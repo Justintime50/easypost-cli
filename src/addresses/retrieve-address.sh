@@ -1,3 +1,4 @@
+
 function retrieve-address {
     # ep retrieve-address: Retrieve an address record
     # Prompt user for input
@@ -7,5 +8,5 @@ function retrieve-address {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/addresses/"$ADDRESS" \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }

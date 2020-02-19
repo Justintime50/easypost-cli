@@ -1,3 +1,4 @@
+
 function retrieve-user {
     # ep retrieve-user: Retrieve the users of the associated account
     # Prompt user for input
@@ -7,5 +8,5 @@ function retrieve-user {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/users/"$USER" \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }

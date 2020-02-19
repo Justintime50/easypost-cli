@@ -1,3 +1,4 @@
+
 function help {
     # ep help: Show the docs
     cat "$EASYPOST_CLI_HOME_LOCATION"/man.md
