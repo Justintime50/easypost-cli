@@ -1,3 +1,4 @@
+
 function create-shipment {
     # ep create-shipment: Create a shipment record that can then be used to purchase a label
     # Prompt user for input
@@ -79,5 +80,5 @@ function create-shipment {
     -d "parcel[width]=$WIDTH" \
     -d "parcel[height]=$HEIGHT" \
     -d "parcel[weight]=$WEIGHT" \
-    | json_pp 
+    | json_pp
 }

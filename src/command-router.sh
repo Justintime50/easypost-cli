@@ -1,5 +1,6 @@
+
 # Command Router
-# Check if the command passed is valid or not. Run if it is, warn if it's not
+# Check if the command passed is valid or not. Run if it is, warn if it is not
 if declare -f "$1" > /dev/null
 then
   # Pass in the argument (command)

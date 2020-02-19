@@ -1,3 +1,4 @@
+
 function refund-shipment {
     # ep refund-shipment: Refund a specified shipment
     # Prompt user for input
@@ -7,5 +8,5 @@ function refund-shipment {
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/refund \
     -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp 
+    | json_pp
 }
