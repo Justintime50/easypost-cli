@@ -13,7 +13,7 @@ fi
 mkdir -p "$HOME"/.easypost-cli
 curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/src/ep > "$EASYPOST_CLI_LOCATION"/ep
 curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/src/.config > "$EASYPOST_CLI_HOME_LOCATION"/.config
-curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/docs/man.md > "$EASYPOST_CLI_HOME_LOCATION"/docs/man.md
+curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/docs/man.md > "$EASYPOST_CLI_HOME_LOCATION"/man.md
 chmod +x "$EASYPOST_CLI_LOCATION"/ep
 
 # API Key setup
