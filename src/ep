@@ -263,6 +263,7 @@ function regenerate-rates {
 function help {
     # ep help: Show the docs
     cat "$EASYPOST_CLI_HOME_LOCATION"/man.md
+    echo "For additional help, see the EasyPost documentation: https://www.easypost.com/docs/api"
     # open https://github.com/Justintime50/easypost-cli/blob/master/docs/man.md
 }
 
@@ -276,7 +277,7 @@ function update-api-key {
 
 function version {
     # ep version: Show the EasyPost CLI version info
-    echo "EasyPost CLI - v0.1"
+    echo "EasyPost CLI - v1.0.0"
 }
 
 function create-insurance {
@@ -371,6 +372,72 @@ function retrieve-parcels {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/parcels \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function buy-pickup {
+    # ep buy-pickup: Buy a pickup
+    echo "Enter a pickup ID:"
+    read -r PICKUP
+    echo "Enter a carrier code (eg: \"UPS\"):"
+    read -r CARRIER
+    echo "Enter a service level (eg: \"Same-Day Pickup\"):"
+    read -r SERVICE
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/buy \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "carrier=$CARRIER" \
+    -d "service=$SERVICE" \
+    | json_pp
+}
+
+function cancel-pickup {
+    # ep cancel-pickup: Cancel a pickup
+    echo "Enter a pickup ID:"
+    read -r PICKUP
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/cancel \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function create-pickup {
+    # ep create-pickup: Create a pickup
+    echo "Enter a shipment ID for the pickup:"
+    read -r SHIPMENT
+    echo "Enter an address ID for the pickup:"
+    read -r ADDRESS
+    echo "Enter a minimum time for the pickup (eg: 2019-10-20 17:10:00):"
+    read -r MINTIME
+    echo "Enter a maximum time for the pickup (eg: 2019-10-21 10:30:00):"
+    read -r MAXTIME
+    echo "Enter any special instructions (eg: \"Knock loudly\" - optional):"
+    read -r INSTRUCTIONS
+
+    # TODO: Allow batches to be picked up, case/switch batch or shipment
+    
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/pickups \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "pickup[min_datetime]=$MINTIME" \
+    -d "pickup[max_datetime]=$MAXTIME" \
+    -d "pickup[shipment][id]=$SHIPMENT" \
+    -d "pickup[address][id]=$ADDRESS" \
+    # -d "pickup[is_account_address]=false" \
+    -d "pickup[instructions]=$INSTRUCTIONS" \
+    | json_pp
+}
+
+function retrieve-pickup {
+    # ep retrieve-pickup: Retrieve a single pickup
+    echo "Enter a pickup ID:"
+    read -r PICKUP
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP" \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

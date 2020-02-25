@@ -1,9 +1,9 @@
 # EasyPost CLI Changelog
 
-## v0.1
+## v1.0.0
 - Added automated installer/uninstaller
-- Added creation of addresses, insurance, parcels, shipments, and trackers
-- Added retrieval of addresses, insurance, parcels, shipments, trackers, api_keys, and users
+- Added creation of addresses, insurance, parcels, shipments, trackers, pickups, batches, webhooks, and more
+- Added retrieval of addresses, insurance, parcels, shipments, trackers, pickups, batches, webhooks, api_keys, users, and more
 - Added buy and refund shipment along with regenerating rates
 - Added Travis CI Shellcheck testing
 - Added documentation

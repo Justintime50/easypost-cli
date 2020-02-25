@@ -10,7 +10,7 @@ Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable a
 ## What Can it Do?
 
 At a high level, the EasyPost CLI can:
-- Create and retrieve addresses, parcels, insurance, shipments, and trackers, webhooks, batches, and more
+- Create and retrieve addresses, parcels, insurance, shipments, pickups, trackers, webhooks, batches, and more
 - Buy labels, refund shipments, and rate carriers
 - Create and retrieve custom reports
 - Lookup EasyPost account details, create child users, and more
