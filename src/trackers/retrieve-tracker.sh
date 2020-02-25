@@ -1,6 +1,6 @@
 
-function retrieve-tracker {
-    # ep retrieve-tracker: Retrieve a tracker record
+retrieve_tracker() {
+    # ep retrieve_tracker: Retrieve a tracker record
     # Prompt user for input
     echo "Enter tracker ID:"
     read -r TRACKER

@@ -1,6 +1,6 @@
 
-function retrieve-insurances {
-    # ep retrieve-insurances: Retrieve a list of insurances
+retrieve_insurances() {
+    # ep retrieve_insurances: Retrieve a list of insurances
 
     # TODO: Add date and page_size options
 

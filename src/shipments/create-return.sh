@@ -1,6 +1,6 @@
 
-function create-refund {
-    # ep create-refund: Create a return shipment that swaps the to and from addresses on the label
+create_refund() {
+    # ep create_refund: Create a return shipment that swaps the to and from addresses on the label
     # Prompt user for input
     echo "Enter a to_address ID:"
     read -r TO_ADDRESS

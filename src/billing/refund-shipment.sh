@@ -1,6 +1,6 @@
 
-function refund-shipment {
-    # ep refund-shipment: Refund a specified shipment
+refund_shipment() {
+    # ep refund_shipment: Refund a specified shipment
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT

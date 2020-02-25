@@ -1,6 +1,6 @@
 
-function cancel-pickup {
-    # ep cancel-pickup: Cancel a pickup
+cancel_pickup() {
+    # ep cancel_pickup: Cancel a pickup
     echo "Enter a pickup ID:"
     read -r PICKUP
     

@@ -5,7 +5,7 @@ Easily interact with the EasyPost API via the CLI.
 [![Build Status](https://travis-ci.org/Justintime50/easypost-cli.svg?branch=master)](https://travis-ci.org/Justintime50/easypost-cli)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or view the accompanying [EasyPost CLI docs](/docs/DOCS.md).
+Written in pure `Shell` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or view the accompanying [EasyPost CLI docs](/docs/DOCS.md).
 
 ## What Can it Do?
 
@@ -16,6 +16,8 @@ At a high level, the EasyPost CLI can:
 - Lookup EasyPost account details, create child users, and more
 
 ## Install
+
+The EasyPost CLI was intended to be used in `bash` but can instead be installed and run in `sh`, `dash`, or `ksh` if elected. Simply change the shell name in the install command below and change the shebang in the `ep` executable found at the default installation location.
 
 Install the EasyPost CLI into the default location `/usr/local/bin` which should already be in your path:
 
@@ -48,7 +50,7 @@ View the full accompanying [EasyPost CLI Docs](/docs/man.md) for a comprehensive
 
 ## Development
 
-For a full breakdown of how the EasyPost CLI works under the hood, see the accompanying [EasyPost CLI Developer Docs](/docs/developer.md).
+For a full breakdown of how the EasyPost CLI works under the hood, see the accompanying [EasyPost CLI Developer Docs](/docs/development.md).
 
 ### Building the EasyPost CLI
 

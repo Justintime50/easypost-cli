@@ -1,6 +1,6 @@
 
-function create-insurance {
-    # ep create-insurance: Create an insurance record for shipments not from EasyPost
+create_insurance() {
+    # ep create_insurance: Create an insurance record for shipments not from EasyPost
     # Prompt user for input
     echo "Enter to address ID:"
     read -r TO_ADDRESS

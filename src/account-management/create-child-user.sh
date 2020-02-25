@@ -1,6 +1,6 @@
 
-function create-child-user {
-    # ep create-child-user: Create a child user (requires production API key)
+create_child_user() {
+    # ep create_child_user: Create a child user (requires production API key)
     # Prompt user for input
     echo "Enter child user name:"
     read -r USER

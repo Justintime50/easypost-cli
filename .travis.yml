@@ -4,5 +4,15 @@ before_scripts:
     - ./build.sh
 
 scripts:
+    # Test Default Bash
     - shellcheck *.sh
     - shellcheck src/ep
+    # Test SH
+    - shellcheck *.sh --shell=sh
+    - shellcheck src/ep --shell=sh
+    # Test Dash
+    - shellcheck *.sh --shell=dash
+    - shellcheck src/ep --shell=dash
+    # Test KSH
+    - shellcheck *.sh --shell=ksh
+    - shellcheck src/ep --shell=ksh

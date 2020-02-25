@@ -1,6 +1,6 @@
 
-function add-shipment-to-batch {
-    # ep add-shipment-to-batch: Add a shipment to a batch
+add_shipment_to_batch() {
+    # ep add_shipment_to_batch: Add a shipment to a batch
     # Prompt user for input
     echo "Enter a batch ID to add shipments to:"
     read -r BATCH

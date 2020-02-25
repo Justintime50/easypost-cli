@@ -1,6 +1,6 @@
 
-function buy-pickup {
-    # ep buy-pickup: Buy a pickup
+buy_pickup() {
+    # ep buy_pickup: Buy a pickup
     echo "Enter a pickup ID:"
     read -r PICKUP
     echo "Enter a carrier code (eg: \"UPS\"):"

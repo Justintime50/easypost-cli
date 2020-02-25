@@ -1,6 +1,6 @@
 
-function retrieve-scanforms {
-    # ep retrieve-scanforms: Retrieve a list of scanforms
+retrieve_scanforms() {
+    # ep retrieve_scanforms: Retrieve a list of scanforms
 
     # TODO: Add date and page_size options
     

@@ -1,6 +1,6 @@
 
-function manifest-batch {
-    # ep manifest-batch: Manifest or scanform a batch
+manifest_batch() {
+    # ep manifest_batch: Manifest or scanform a batch
     echo "Enter a batch ID you'd like to manifest:"
     read -r BATCH
     

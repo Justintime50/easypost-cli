@@ -8,18 +8,18 @@
 
 # Import config
 # shellcheck disable=SC1090
-source "$HOME"/.easypost-cli/.config
+. "$HOME"/.easypost-cli/.config
 
 # Check that variables are set
-if [[ -z "$EASYPOST_CLI_API_KEY" ]] || [[ -z "$EASYPOST_CLI_API_KEY" ]] || [[ -z "$EASYPOST_CLI_API_KEY" ]] ; then
+if [ -z "$EASYPOST_CLI_API_KEY" ] || [ -z "$EASYPOST_CLI_API_KEY" ] || [ -z "$EASYPOST_CLI_API_KEY" ] ; then
     echo "The EasyPost CLI is misconfigured, please see the ep executable and fix any variables that aren't set correctly."
     exit 1
 fi
 
 # Endpoint Functions
 
-function create-child-user {
-    # ep create-child-user: Create a child user (requires production API key)
+create_child_user() {
+    # ep create_child_user: Create a child user (requires production API key)
     # Prompt user for input
     echo "Enter child user name:"
     read -r USER
@@ -31,16 +31,16 @@ function create-child-user {
     | json_pp
 }
 
-function retrieve-api-keys {
-    # ep retrieve-api-keys: Retrieve the API keys of the associated account
+retrieve_api_keys() {
+    # ep retrieve_api_keys: Retrieve the API keys of the associated account
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/api_keys \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
 
-function retrieve-carrier-account {
-    # ep retrieve-carrier-account: Retrieve a single configured carrier account
+retrieve_carrier_account() {
+    # ep retrieve_carrier_account: Retrieve a single configured carrier account
     # Prompt user for input
     echo "Enter carrier account ID:"
     read -r CARRIER
@@ -51,8 +51,8 @@ function retrieve-carrier-account {
     | json_pp
 }
 
-function retrieve-carrier-accounts {
-    # ep retrieve-carrier-accounts: Retrieve the list of configured carrier accounts
+retrieve_carrier_accounts() {
+    # ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
     
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/carrier_accounts \
@@ -60,16 +60,16 @@ function retrieve-carrier-accounts {
     | json_pp
 }
 
-function retrieve-carrier-types {
-    # ep retrieve-carrier-types: Retrieve the list of all carrier types available to the account of the given API key.
+retrieve_carrier_types() {
+    # ep retrieve_carrier_types: Retrieve the list of all carrier types available to the account of the given API key.
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/carrier_types \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
 
-function retrieve-user {
-    # ep retrieve-user: Retrieve the users of the associated account
+retrieve_user() {
+    # ep retrieve_user: Retrieve the users of the associated account
     # Prompt user for input
     echo "Enter user ID:"
     read -r USER
@@ -80,16 +80,16 @@ function retrieve-user {
     | json_pp
 }
 
-function retrieve-users {
-    # ep retrieve-users: Retrieve the users of the associated account
+retrieve_users() {
+    # ep retrieve_users: Retrieve the users of the associated account
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/users \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
 
-function create-address {
-    # ep create-address: Create an address record
+create_address() {
+    # ep create_address: Create an address record
     # Prompt user for input
     echo "Enter street1:"
     read -r STREET1
@@ -130,8 +130,8 @@ function create-address {
     | json_pp
 }
 
-function retrieve-address {
-    # ep retrieve-address: Retrieve an address record
+retrieve_address() {
+    # ep retrieve_address: Retrieve an address record
     # Prompt user for input
     echo "Enter address ID:"
     read -r ADDRESS
@@ -142,8 +142,8 @@ function retrieve-address {
     | json_pp
 }
 
-function retrieve-addresses {
-    # ep retrieve-addresses: Retrieve a list of addresses
+retrieve_addresses() {
+    # ep retrieve_addresses: Retrieve a list of addresses
 
     # TODO: Add date and page_size options
 
@@ -153,8 +153,8 @@ function retrieve-addresses {
     | json_pp
 }
 
-function add-shipment-to-batch {
-    # ep add-shipment-to-batch: Add a shipment to a batch
+add_shipment_to_batch() {
+    # ep add_shipment_to_batch: Add a shipment to a batch
     # Prompt user for input
     echo "Enter a batch ID to add shipments to:"
     read -r BATCH
@@ -170,8 +170,8 @@ function add-shipment-to-batch {
     | json_pp
 }
 
-function create-batch {
-    # ep create-batch: Create an empty batch object
+create_batch() {
+    # ep create_batch: Create an empty batch object
     
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/batches \
@@ -179,16 +179,16 @@ function create-batch {
     | json_pp
 }
 
-function generate-batch-label {
-    # ep generate-batch-label: Generate a label for a batch of shipments
+generate_batch_label() {
+    # ep generate_batch_label: Generate a label for a batch of shipments
     # Prompt user for input
     FORMAT="null"
     echo "Enter a batch ID to generate a label for:"
     read -r BATCH
-    while ! [[ $FORMAT = "pdf" ]] || [[ $FORMAT = "PDF" ]] || [[ $FORMAT = "zpl" ]] || [[ $FORMAT = "ZPL" ]] || [[ $FORMAT = "epl2" ]] || [[ $FORMAT = "EPL2" ]] ; do
+    while ! [ $FORMAT = "pdf" ] || [ $FORMAT = "PDF" ] || [ $FORMAT = "zpl" ] || [ $FORMAT = "ZPL" ] || [ $FORMAT = "epl2" ] || [ $FORMAT = "EPL2" ] ; do
         echo "Enter a label format (options: pdf, zpl, epl2):"
         read -r FORMAT
-        if [[ -z "$FORMAT" ]] ; then
+        if [ -z "$FORMAT" ] ; then
             echo "Format cannot be blank"
         fi
     done
@@ -201,8 +201,8 @@ function generate-batch-label {
     | json_pp
 }
 
-function remove-shipment-from-batch {
-    # ep remove-shipment-from-batch: Remove a shipment from a batch
+remove_shipment_from_batch() {
+    # ep remove_shipment_from_batch: Remove a shipment from a batch
     # Prompt user for input
     echo "Enter a batch ID to remove shipments from:"
     read -r BATCH
@@ -218,8 +218,8 @@ function remove-shipment-from-batch {
     | json_pp
 }
 
-function buy-shipment {
-    # ep buy-shipment: Buy a label for the specified shipment
+buy_shipment() {
+    # ep buy_shipment: Buy a label for the specified shipment
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT
@@ -236,8 +236,8 @@ function buy-shipment {
     | json_pp
 }
 
-function refund-shipment {
-    # ep refund-shipment: Refund a specified shipment
+refund_shipment() {
+    # ep refund_shipment: Refund a specified shipment
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT
@@ -248,8 +248,8 @@ function refund-shipment {
     | json_pp
 }
 
-function regenerate-rates {
-    # ep regenerate-rates: Regenerate rates for a shipment
+regenerate_rates() {
+    # ep regenerate_rates: Regenerate rates for a shipment
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT
@@ -260,28 +260,28 @@ function regenerate-rates {
     | json_pp
 }
 
-function help {
+help() {
     # ep help: Show the docs
     cat "$EASYPOST_CLI_HOME_LOCATION"/man.md
     echo "For additional help, see the EasyPost documentation: https://www.easypost.com/docs/api"
     # open https://github.com/Justintime50/easypost-cli/blob/master/docs/man.md
 }
 
-function update-api-key {
-    # ep update-api-key: Update the stored API key in the EasyPost CLI config file
+update_api_key() {
+    # ep update_api_key: Update the stored API key in the EasyPost CLI config file
     echo "Enter your EasyPost API key:"
     read -r EASYPOST_CLI_API_KEY
     sed -i '' "s/EASYPOST_CLI_API_KEY=.*/EASYPOST_CLI_API_KEY=$EASYPOST_CLI_API_KEY/" "$EASYPOST_CLI_HOME_LOCATION"/.config
     echo "Your EasyPost API key has been updated!"
 }
 
-function version {
+version() {
     # ep version: Show the EasyPost CLI version info
     echo "EasyPost CLI - v1.0.0"
 }
 
-function create-insurance {
-    # ep create-insurance: Create an insurance record for shipments not from EasyPost
+create_insurance() {
+    # ep create_insurance: Create an insurance record for shipments not from EasyPost
     # Prompt user for input
     echo "Enter to address ID:"
     read -r TO_ADDRESS
@@ -308,8 +308,8 @@ function create-insurance {
     | json_pp
 }
 
-function retrieve-insurance {
-    # ep retrieve-insurance: Retrieve an insurnace record
+retrieve_insurance() {
+    # ep retrieve_insurance: Retrieve an insurnace record
     # Prompt user for input
     echo "Enter insurance ID:"
     read -r INSURANCE
@@ -320,8 +320,8 @@ function retrieve-insurance {
     | json_pp
 }
 
-function retrieve-insurances {
-    # ep retrieve-insurances: Retrieve a list of insurances
+retrieve_insurances() {
+    # ep retrieve_insurances: Retrieve a list of insurances
 
     # TODO: Add date and page_size options
 
@@ -331,8 +331,8 @@ function retrieve-insurances {
     | json_pp
 }
 
-function create-parcel {
-    # ep create-parcel: Create a parcel record
+create_parcel() {
+    # ep create_parcel: Create a parcel record
     # Prompt user for input
     echo "Enter parcel length:"
     read -r LENGTH
@@ -353,8 +353,8 @@ function create-parcel {
     | json_pp
 }
 
-function retrieve-parcel {
-    # ep retrieve-parcel: Retrieve a parcel record
+retrieve_parcel() {
+    # ep retrieve_parcel: Retrieve a parcel record
     # Prompt user for input
     echo "Enter parcel ID:"
     read -r PARCEL
@@ -365,8 +365,8 @@ function retrieve-parcel {
     | json_pp
 }
 
-function retrieve-parcels {
-    # ep retrieve-parcels: Retrieve a list of parcels
+retrieve_parcels() {
+    # ep retrieve_parcels: Retrieve a list of parcels
 
     # TODO: Add date and page_size options
 
@@ -376,8 +376,8 @@ function retrieve-parcels {
     | json_pp
 }
 
-function buy-pickup {
-    # ep buy-pickup: Buy a pickup
+buy_pickup() {
+    # ep buy_pickup: Buy a pickup
     echo "Enter a pickup ID:"
     read -r PICKUP
     echo "Enter a carrier code (eg: \"UPS\"):"
@@ -393,8 +393,8 @@ function buy-pickup {
     | json_pp
 }
 
-function cancel-pickup {
-    # ep cancel-pickup: Cancel a pickup
+cancel_pickup() {
+    # ep cancel_pickup: Cancel a pickup
     echo "Enter a pickup ID:"
     read -r PICKUP
     
@@ -404,8 +404,8 @@ function cancel-pickup {
     | json_pp
 }
 
-function create-pickup {
-    # ep create-pickup: Create a pickup
+create_pickup() {
+    # ep create_pickup: Create a pickup
     echo "Enter a shipment ID for the pickup:"
     read -r SHIPMENT
     echo "Enter an address ID for the pickup:"
@@ -426,13 +426,12 @@ function create-pickup {
     -d "pickup[max_datetime]=$MAXTIME" \
     -d "pickup[shipment][id]=$SHIPMENT" \
     -d "pickup[address][id]=$ADDRESS" \
-    # -d "pickup[is_account_address]=false" \
     -d "pickup[instructions]=$INSTRUCTIONS" \
     | json_pp
 }
 
-function retrieve-pickup {
-    # ep retrieve-pickup: Retrieve a single pickup
+retrieve_pickup() {
+    # ep retrieve_pickup: Retrieve a single pickup
     echo "Enter a pickup ID:"
     read -r PICKUP
     
@@ -442,8 +441,8 @@ function retrieve-pickup {
     | json_pp
 }
 
-function create-payment-log-report {
-    # ep create-payment-log-report: Create a payment log report
+create_payment_log_report() {
+    # ep create_payment_log_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -457,8 +456,8 @@ function create-payment-log-report {
     | json_pp
 }
 
-function create-refund-report {
-    # ep create-refund-report: Create a payment log report
+create_refund_report() {
+    # ep create_refund_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -472,8 +471,8 @@ function create-refund-report {
     | json_pp
 }
 
-function create-shipment-report {
-    # ep create-shipment-report: Create a payment log report
+create_shipment_report() {
+    # ep create_shipment_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -487,8 +486,8 @@ function create-shipment-report {
     | json_pp
 }
 
-function create-tracker-report {
-    # ep create-tracker-report: Create a payment log report
+create_tracker_report() {
+    # ep create_tracker_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -502,8 +501,8 @@ function create-tracker-report {
     | json_pp
 }
 
-function retrieve-payment-log-report {
-    # ep retrieve-payment-log-report: Retrieve a single payment log report
+retrieve_payment_log_report() {
+    # ep retrieve_payment_log_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -514,8 +513,8 @@ function retrieve-payment-log-report {
     | json_pp
 }
 
-function retrieve-refund-report {
-    # ep retrieve-refund-report: Retrieve a single payment log report
+retrieve_refund_report() {
+    # ep retrieve_refund_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -526,8 +525,8 @@ function retrieve-refund-report {
     | json_pp
 }
 
-function retrieve-shipment-report {
-    # ep retrieve-shipment-report: Retrieve a single payment log report
+retrieve_shipment_report() {
+    # ep retrieve_shipment_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -538,8 +537,8 @@ function retrieve-shipment-report {
     | json_pp
 }
 
-function retrieve-tracker-report {
-    # ep retrieve-tracker-report: Retrieve a single payment log report
+retrieve_tracker_report() {
+    # ep retrieve_tracker_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -550,8 +549,8 @@ function retrieve-tracker-report {
     | json_pp
 }
 
-function retrieve-payment-log-reports {
-    # ep retrieve-payment-log-reports: Retrieve a list of payment log reports
+retrieve_payment_log_reports() {
+    # ep retrieve_payment_log_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -561,8 +560,8 @@ function retrieve-payment-log-reports {
     | json_pp
 }
 
-function retrieve-refund-reports {
-    # ep retrieve-refund-reports: Retrieve a list of payment log reports
+retrieve_refund_reports() {
+    # ep retrieve_refund_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -572,8 +571,8 @@ function retrieve-refund-reports {
     | json_pp
 }
 
-function retrieve-shipment-reports {
-    # ep retrieve-shipment-reports: Retrieve a list of payment log reports
+retrieve_shipment_reports() {
+    # ep retrieve_shipment_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -583,8 +582,8 @@ function retrieve-shipment-reports {
     | json_pp
 }
 
-function retrieve-tracker-reports {
-    # ep retrieve-tracker-reports: Retrieve a list of payment log reports
+retrieve_tracker_reports() {
+    # ep retrieve_tracker_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -594,8 +593,8 @@ function retrieve-tracker-reports {
     | json_pp
 }
 
-function manifest-batch {
-    # ep manifest-batch: Manifest or scanform a batch
+manifest_batch() {
+    # ep manifest_batch: Manifest or scanform a batch
     echo "Enter a batch ID you'd like to manifest:"
     read -r BATCH
     
@@ -605,8 +604,8 @@ function manifest-batch {
     | json_pp
 }
 
-function retrieve-scanform {
-    # ep retrieve-scanform: Retrieve a single scanform
+retrieve_scanform() {
+    # ep retrieve_scanform: Retrieve a single scanform
     echo "Enter a scanform ID:"
     read -r SCANFORM
     
@@ -616,8 +615,8 @@ function retrieve-scanform {
     | json_pp
 }
 
-function retrieve-scanforms {
-    # ep retrieve-scanforms: Retrieve a list of scanforms
+retrieve_scanforms() {
+    # ep retrieve_scanforms: Retrieve a list of scanforms
 
     # TODO: Add date and page_size options
     
@@ -627,8 +626,8 @@ function retrieve-scanforms {
     | json_pp
 }
 
-function create-refund {
-    # ep create-refund: Create a return shipment that swaps the to and from addresses on the label
+create_refund() {
+    # ep create_refund: Create a return shipment that swaps the to and from addresses on the label
     # Prompt user for input
     echo "Enter a to_address ID:"
     read -r TO_ADDRESS
@@ -647,8 +646,8 @@ function create-refund {
     | json_pp
 }
 
-function create-shipment {
-    # ep create-shipment: Create a shipment record that can then be used to purchase a label
+create_shipment() {
+    # ep create_shipment: Create a shipment record that can then be used to purchase a label
     # Prompt user for input
     echo "Enter to_street1:"
     read -r TO_STREET1
@@ -731,8 +730,8 @@ function create-shipment {
     | json_pp
 }
 
-function retrieve-shipment {
-    # ep retrieve-shipment: Retrieve a shipment record
+retrieve_shipment() {
+    # ep retrieve_shipment: Retrieve a shipment record
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT
@@ -743,8 +742,8 @@ function retrieve-shipment {
     | json_pp
 }
 
-function retrieve-shipments {
-    # ep retrieve-shipments: Retrieve a list of shipments
+retrieve_shipments() {
+    # ep retrieve_shipments: Retrieve a list of shipments
 
     # TODO: Add date and page_size options
 
@@ -754,8 +753,8 @@ function retrieve-shipments {
     | json_pp
 }
 
-function create-tracker {
-    # ep create-tracker: Create a tracker for a shipment
+create_tracker() {
+    # ep create_tracker: Create a tracker for a shipment
     # Prompt user for input
     echo "Enter tracking code:"
     read -r TRACKER
@@ -770,8 +769,8 @@ function create-tracker {
     | json_pp
 }
 
-function retrieve-tracker {
-    # ep retrieve-tracker: Retrieve a tracker record
+retrieve_tracker() {
+    # ep retrieve_tracker: Retrieve a tracker record
     # Prompt user for input
     echo "Enter tracker ID:"
     read -r TRACKER
@@ -782,8 +781,8 @@ function retrieve-tracker {
     | json_pp
 }
 
-function retrieve-trackers {
-    # ep retrieve-trackers: Retrieve a list of trackers
+retrieve_trackers() {
+    # ep retrieve_trackers: Retrieve a list of trackers
 
     # TODO: Add date and page_size options
 
@@ -793,8 +792,8 @@ function retrieve-trackers {
     | json_pp
 }
 
-function create-webhook {
-    # ep create-webhooks: Create a webhook
+create_webhook() {
+    # ep create_webhooks: Create a webhook
     # Prompt user for input
     echo "Enter the webhook URL:"
     read -r WEBHOOK
@@ -806,8 +805,8 @@ function create-webhook {
     | json_pp
 }
 
-function delete-webhook {
-    # ep delete-webhook: Enables a Webhook that has been disabled.
+delete_webhook() {
+    # ep delete_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
     echo "Enter a webhook ID:"
     read -r WEBHOOK
@@ -818,8 +817,8 @@ function delete-webhook {
     | json_pp
 }
 
-function retrieve-webhook {
-    # ep retrieve-webhook: Retrieve a list of webhooks
+retrieve_webhook() {
+    # ep retrieve_webhook: Retrieve a list of webhooks
     # Prompt user for input
     echo "Enter a webhook ID:"
     read -r WEBHOOK
@@ -830,8 +829,8 @@ function retrieve-webhook {
     | json_pp
 }
 
-function retrieve-webhooks {
-    # ep retrieve-webhooks: Retrieve a list of webhooks
+retrieve_webhooks() {
+    # ep retrieve_webhooks: Retrieve a list of webhooks
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/webhooks \
@@ -839,8 +838,8 @@ function retrieve-webhooks {
     | json_pp
 }
 
-function update-webhook {
-    # ep update-webhook: Enables a Webhook that has been disabled.
+update_webhook() {
+    # ep update_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
     echo "Enter a webhook ID:"
     read -r WEBHOOK
@@ -853,7 +852,7 @@ function update-webhook {
 
 # Command Router
 # Check if the command passed is valid or not. Run if it is, warn if it is not
-if declare -f "$1" > /dev/null
+if "$1" > /dev/null
 then
   # Pass in the argument (command)
   "$@"

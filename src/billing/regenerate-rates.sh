@@ -1,6 +1,6 @@
 
-function regenerate-rates {
-    # ep regenerate-rates: Regenerate rates for a shipment
+regenerate_rates() {
+    # ep regenerate_rates: Regenerate rates for a shipment
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT

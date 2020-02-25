@@ -1,6 +1,6 @@
 
-function retrieve-pickup {
-    # ep retrieve-pickup: Retrieve a single pickup
+retrieve_pickup() {
+    # ep retrieve_pickup: Retrieve a single pickup
     echo "Enter a pickup ID:"
     read -r PICKUP
     
