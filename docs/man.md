@@ -256,6 +256,22 @@ Generate a manifest for a batch. [EasyPost docs for this endpoint](https://www.e
 ep manifest-batch
 ```
 
+**Retrieve a Scanform**
+
+Retrieve a single scanform. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-scanform).
+
+```bash
+ep retrieve-scanform
+```
+
+**Retrieve a List of Scanforms**
+
+Retrieve a list of scanforms. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-list-of-scanforms).
+
+```bash
+ep retrieve-scanforms
+```
+
 ### Shipments
 
 **Create a Return**
@@ -358,8 +374,10 @@ Enables a Webhook that has been disabled. [EasyPost docs for this endpoint](http
 ep update-webhook
 ```
 
-## Features that Will Not Be Supported
+## Features that Will Not Be Supported via the EasyPost CLI
 
 There are a few EasyPost API endpoints that will not be supported here. They are listed below:
 
-- Creating a Carrier Account (too many options to provide comprehensive coverage)
+- Creating a Carrier Account (too many options to provide comprehensive coverage).
+- The Orders endpoint (touchy carrier support, poor error handling, and the same functionality can be accomplished when batching shipments together).
+- Creating a scanform from shipments - not a batch ID (not a great way to handle many shipment ID's via a CLI).
