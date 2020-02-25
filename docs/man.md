@@ -16,7 +16,7 @@ All EasyPost CLI commands use the syntax `ep mycommand`. Each available command 
 
 **Create a Child User**
 
-Create a child user under the configured parent account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#child-users).
+Create a child user under the configured parent account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#child-users).
 
 ```bash
 ep create-child-user
@@ -24,7 +24,7 @@ ep create-child-user
 
 **Retrieve a list of API Keys**
 
-Retrieve test and production API keys for an account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-an-api-key).
+Retrieve test and production API keys for an account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-an-api-key).
 
 ```bash
 ep retrieve-api-keys
@@ -32,7 +32,7 @@ ep retrieve-api-keys
 
 **Retrieve a Carrier Account**
 
-Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-carrieraccount).
+Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-carrieraccount).
 
 ```bash
 ep retrieve-carrier-account
@@ -40,7 +40,7 @@ ep retrieve-carrier-account
 
 **Retrieve a list of Carrier Accounts**
 
-Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#list-all-carrier-accounts).
+Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#list-all-carrier-accounts).
 
 ```bash
 ep retrieve-carrier-accounts
@@ -48,7 +48,7 @@ ep retrieve-carrier-accounts
 
 **Retrieve a list of Carrier Types**
 
-Retrieve the list of all carrier types available to the account of the given API key. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-available-carrier-types).
+Retrieve the list of all carrier types available to the account of the given API key. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-available-carrier-types).
 
 ```bash
 ep retrieve-carrier-types
@@ -56,7 +56,7 @@ ep retrieve-carrier-types
 
 **Retrieve Users**
 
-Retrieve a single user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-user).
+Retrieve a single user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-user).
 
 ```bash
 ep retrieve-user
@@ -74,7 +74,7 @@ ep retrieve-users
 
 **Create an Address**
 
-Create an address. You will be prompted for the address details. The accompanying generated ID can be used to reference this address later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-and-verify-addresses).
+Create an address. You will be prompted for the address details. The accompanying generated ID can be used to reference this address later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-and-verify-addresses).
 
 ```bash
 ep create-address
@@ -82,7 +82,7 @@ ep create-address
 
 **Retrieve an Address**
 
-Retrieve an address record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-an-address).
+Retrieve an address record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-an-address).
 
 ```bash
 ep retrieve-address
@@ -100,7 +100,7 @@ ep retrieve-addresses
 
 **Add Shipments to a Batch**
 
-Add a shipment to a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#add-shipments-to-a-batch).
+Add a shipment to a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#add-shipments-to-a-batch).
 
 ```bash
 ep add-shipment-to-batch
@@ -108,7 +108,7 @@ ep add-shipment-to-batch
 
 **Create a Batch**
 
-Create an empty batch object that shipments can be added to later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-batch).
+Create an empty batch object that shipments can be added to later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-batch).
 
 ```bash
 ep add-shipment-to-batch
@@ -116,7 +116,7 @@ ep add-shipment-to-batch
 
 **Generate a Batch Label**
 
-Generate a label for a batch of shipments. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#batch-labels).
+Generate a label for a batch of shipments. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#batch-labels).
 
 ```bash
 ep create-batch
@@ -124,7 +124,7 @@ ep create-batch
 
 **Remove Shipments from a Batch**
 
-Remove a shipment from a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#remove-shipments-from-a-batch).
+Remove a shipment from a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#remove-shipments-from-a-batch).
 
 ```bash
 ep remove-shipment-from-batch
@@ -134,7 +134,7 @@ ep remove-shipment-from-batch
 
 **Buy a Shipment**
 
-Provide the shipment ID and rate ID to purchase a label. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#buy-a-shipment).
+Provide the shipment ID and rate ID to purchase a label. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#buy-a-shipment).
 
 ```bash
 ep buy-shipment
@@ -142,7 +142,7 @@ ep buy-shipment
 
 **Refund a Shipment**
 
-Provide the shipment ID to refund the payment. This can take upwards of 15 days to process. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#refund-a-shipment).
+Provide the shipment ID to refund the payment. This can take upwards of 15 days to process. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#refund-a-shipment).
 
 ```bash
 ep refund-shipment
@@ -150,7 +150,7 @@ ep refund-shipment
 
 **Regenerate Rates**
 
-Regenerate rates for a shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#regenerate-rates-for-a-shipment).
+Regenerate rates for a shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#regenerate-rates-for-a-shipment).
 
 ```bash
 ep regenerate-rates
@@ -160,7 +160,7 @@ ep regenerate-rates
 
 **Create Insurance**
 
-Create insurance for a non-EasyPost shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-an-insurance).
+Create insurance for a non-EasyPost shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-an-insurance).
 
 ```bash
 ep create-insurance
@@ -168,7 +168,7 @@ ep create-insurance
 
 **Retrieve an Insurance Record**
 
-Retrieve a single insurance record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-an-insurance).
+Retrieve a single insurance record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-an-insurance).
 
 ```bash
 ep retrieve-insurance
@@ -176,7 +176,7 @@ ep retrieve-insurance
 
 **Retrieve a list of Insurances**
 
-Retrieve a single insurance record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-list-of-insurances).
+Retrieve a single insurance record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-list-of-insurances).
 
 ```bash
 ep retrieve-insurances
@@ -186,7 +186,7 @@ ep retrieve-insurances
 
 **Create a Parcel**
 
-Create a parcel to use for later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-parcel).
+Create a parcel to use for later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-parcel).
 
 ```bash
 ep create-parcel
@@ -194,7 +194,7 @@ ep create-parcel
 
 **Retrieve a Parcel**
 
-Retrieve a single parcel. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-parcel).
+Retrieve a single parcel. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-parcel).
 
 ```bash
 ep retrieve-parcel
@@ -208,11 +208,45 @@ Retrieve a single parcel.
 ep retrieve-parcels
 ```
 
+### Pickups
+
+**Buy a Pickup**
+
+Buy a pickup. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#buy-a-pickup).
+
+```bash
+ep buy-pickup
+```
+
+**Cancel a Pickup**
+
+Cancel a pickup. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#cancel-a-pickup).
+
+```bash
+ep cancel-pickup
+```
+
+**Create a Pickup**
+
+Create a pickup. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-pickup).
+
+```bash
+ep create-pickup
+```
+
+**Retrieve a Pickup**
+
+Retrieve a pickup. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-pickup).
+
+```bash
+ep retrieve-pickup
+```
+
 ### Reports
 
 **Create a Report**
 
-Create a report based on type. Provide a start date and end date for the report when prompted. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-report).
+Create a report based on type. Provide a start date and end date for the report when prompted. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-report).
 
 ```bash
 # Available options:
@@ -224,7 +258,7 @@ ep create-tracker-report
 
 **Retrieve a list of Reports**
 
-Retrieve a list of reports based on type. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-list-of-reports).
+Retrieve a list of reports based on type. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-list-of-reports).
 
 ```bash
 # Available options:
@@ -236,7 +270,7 @@ ep retrieve-tracker-reports
 
 **Retrieve a Report**
 
-Retrieve a report based on report type. Provide an ID for the report you want to retrieve when prompted. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-report).
+Retrieve a report based on report type. Provide an ID for the report you want to retrieve when prompted. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-report).
 
 ```bash
 # Available options:
@@ -250,7 +284,7 @@ ep retrieve-tracker-report
 
 **Manifest a Batch**
 
-Generate a manifest for a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#manifesting-scan-form).
+Generate a manifest for a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#manifesting-scan-form).
 
 ```bash
 ep manifest-batch
@@ -258,7 +292,7 @@ ep manifest-batch
 
 **Retrieve a Scanform**
 
-Retrieve a single scanform. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-scanform).
+Retrieve a single scanform. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-scanform).
 
 ```bash
 ep retrieve-scanform
@@ -266,7 +300,7 @@ ep retrieve-scanform
 
 **Retrieve a List of Scanforms**
 
-Retrieve a list of scanforms. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-list-of-scanforms).
+Retrieve a list of scanforms. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-list-of-scanforms).
 
 ```bash
 ep retrieve-scanforms
@@ -284,7 +318,7 @@ ep create-return
 
 **Create a Shipment**
 
-Create a shipment and have rates returned for all configured carriers. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-shipment).
+Create a shipment and have rates returned for all configured carriers. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-shipment).
 
 ```bash
 ep create-shipment
@@ -292,7 +326,7 @@ ep create-shipment
 
 **Retrieve a Shipment**
 
-Retrieve a shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-shipment).
+Retrieve a shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-shipment).
 
 ```bash
 ep retrieve-shipment
@@ -300,7 +334,7 @@ ep retrieve-shipment
 
 **Retrieve a list of Shipments**
 
-Retrieve a list of shipments. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-list-of-shipments).
+Retrieve a list of shipments. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-list-of-shipments).
 
 ```bash
 ep retrieve-shipments
@@ -310,7 +344,7 @@ ep retrieve-shipments
 
 **Create a Tracker**
 
-Create a tracker for a shipment you've created. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-tracker).
+Create a tracker for a shipment you've created. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-tracker).
 
 ```bash
 ep create-tracker
@@ -318,7 +352,7 @@ ep create-tracker
 
 **Retrieve a Tracker**
 
-Retrieve a single tracker. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-tracker).
+Retrieve a single tracker. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-tracker).
 
 ```bash
 ep retrieve-tracker
@@ -326,7 +360,7 @@ ep retrieve-tracker
 
 **Retrieve a list of Trackers**
 
-Retrieve a single tracker. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-list-of-trackers).
+Retrieve a single tracker. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-list-of-trackers).
 
 ```bash
 ep retrieve-trackers
@@ -336,7 +370,7 @@ ep retrieve-trackers
 
 **Create a Webhook**
 
-Create a webhook with a URL endpoint. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-webhook).
+Create a webhook with a URL endpoint. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#create-a-webhook).
 
 ```bash
 ep create-webhook
@@ -344,7 +378,7 @@ ep create-webhook
 
 **Delete a Webhook**
 
-Delete a webhook by ID. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#delete-a-webhook).
+Delete a webhook by ID. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#delete-a-webhook).
 
 ```bash
 ep delete-webhook
@@ -352,7 +386,7 @@ ep delete-webhook
 
 **Retrieve a Webhook**
 
-Retrieve a single webhook. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-webhook).
+Retrieve a single webhook. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-webhook).
 
 ```bash
 ep retrieve-webhook
@@ -360,7 +394,7 @@ ep retrieve-webhook
 
 **Retrieve a list of Webhooks**
 
-Retrieve a list of webhooks. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#list-a-webhooks).
+Retrieve a list of webhooks. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#list-a-webhooks).
 
 ```bash
 ep retrieve-webhooks
@@ -368,7 +402,7 @@ ep retrieve-webhooks
 
 **Update a Webhook**
 
-Enables a Webhook that has been disabled. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#update-a-webhook).
+Enables a Webhook that has been disabled. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#update-a-webhook).
 
 ```bash
 ep update-webhook
