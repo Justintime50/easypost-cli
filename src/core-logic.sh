@@ -1,5 +1,11 @@
 #!/bin/bash
 
+################################################
+# EASYPOST CLI
+# https://github.com/Justintime50/easypost-cli
+# Author: Justintime50
+################################################
+
 # Import config
 # shellcheck disable=SC1090
 source "$HOME"/.easypost-cli/.config
