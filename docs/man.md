@@ -46,6 +46,14 @@ Retrieve a list of all configured carrier accounts for the configured user. [Eas
 ep retrieve-carrier-accounts
 ```
 
+**Retrieve a list of Carrier Types**
+
+Retrieve the list of all carrier types available to the account of the given API key. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-available-carrier-types).
+
+```bash
+ep retrieve-carrier-types
+```
+
 **Retrieve Users**
 
 Retrieve a single user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-user).

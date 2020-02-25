@@ -17,7 +17,7 @@ At a high level, the EasyPost CLI can:
 
 ## Install
 
-Install EasyPost CLI into the default location `/usr/local/bin` which should already be in your path:
+Install the EasyPost CLI into the default location `/usr/local/bin` which should already be in your path:
 
 ```bash
 # 1) Downloads, installs, and configures the EasyPost CLI
@@ -48,9 +48,13 @@ View the full accompanying [EasyPost CLI Docs](/docs/man.md) for a comprehensive
 
 For a full breakdown of how the EasyPost CLI works under the hood, see the accompanying [EasyPost CLI Developer Docs](/docs/developer.md).
 
-## Building the EasyPost CLI
+### Building the EasyPost CLI
 
 ```bash
 # Build a single `ep` executable file for the EasyPost CLI
 ./build.sh
 ```
+
+## Roadmap
+
+Most of the basic functionality of the EasyPost API is included in the EasyPost CLI to this point. Roadmap items would include adding all applicable `shipment options` as appropriate for a CLI tool, `customs info and items`, and additional request customization options.
