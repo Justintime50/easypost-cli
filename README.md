@@ -41,7 +41,7 @@ bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/maste
 
 ```bash
 # Create a shipment with a single command
-ep create-shipment
+ep create_shipment
 ```
 
 ### Documentation
