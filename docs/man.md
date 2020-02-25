@@ -206,6 +206,14 @@ ep retrieve-tracker-report
 
 ### Shipments
 
+**Create a Return**
+
+Create a return shipment that swaps the to and from addresses on the label.
+
+```bash
+ep create-return
+```
+
 **Create a Shipment**
 
 Create a shipment and have rates returned for all configured carriers. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-shipment).
@@ -232,20 +240,12 @@ ep retrieve-shipments
 
 ### Trackers
 
-**Create a Return**
-
-Create a return shipment that swaps the to and from addresses on the label.
-
-```bash
-ep create-return
-```
-
 **Create a Tracker**
 
 Create a tracker for a shipment you've created. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-tracker).
 
 ```bash
-ep create-address
+ep create-tracker
 ```
 
 **Retrieve a Tracker**
@@ -264,9 +264,50 @@ Retrieve a single tracker. [EasyPost docs for this endpoint](https://www.easypos
 ep retrieve-trackers
 ```
 
+### Webhooks
+
+**Create a Webhook**
+
+Create a webhook with a URL endpoint. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-webhook).
+
+```bash
+ep create-webhook
+```
+
+**Delete a Webhook**
+
+Delete a webhook by ID. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#delete-a-webhook).
+
+```bash
+ep delete-webhook
+```
+
+**Retrieve a Webhook**
+
+Retrieve a single webhook. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#retrieve-a-webhook).
+
+```bash
+ep retrieve-webhook
+```
+
+**Retrieve a list of Webhooks**
+
+Retrieve a list of webhooks. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#list-a-webhooks).
+
+```bash
+ep retrieve-webhooks
+```
+
+**Update a Webhook**
+
+Enables a Webhook that has been disabled. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#update-a-webhook).
+
+```bash
+ep update-webhook
+```
+
 ## Features that Will Not Be Supported
 
 There are a few EasyPost API endpoints that will not be supported here. They are listed below:
 
 - Creating a Carrier Account (too many options to provide comprehensive coverage)
-- Retrieving carrier types
