@@ -614,6 +614,64 @@ function retrieve-trackers {
     | json_pp
 }
 
+function create-webhook {
+    # ep create-webhooks: Create a webhook
+    # Prompt user for input
+    echo "Enter the webhook URL:"
+    read -r WEBHOOK
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/webhooks \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "webhook[url]=$WEBHOOK" \
+    | json_pp
+}
+
+function delete-webhook {
+    # ep delete-webhook: Enables a Webhook that has been disabled.
+    # Prompt user for input
+    echo "Enter a webhook ID:"
+    read -r WEBHOOK
+
+    # Build curl request
+    curl -s -X DELETE "$EASYPOST_API_URL"/webhooks/"$WEBHOOK" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function retrieve-webhook {
+    # ep retrieve-webhook: Retrieve a list of webhooks
+    # Prompt user for input
+    echo "Enter a webhook ID:"
+    read -r WEBHOOK
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/webhooks/"$WEBHOOK" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function retrieve-webhooks {
+    # ep retrieve-webhooks: Retrieve a list of webhooks
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/webhooks \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function update-webhook {
+    # ep update-webhook: Enables a Webhook that has been disabled.
+    # Prompt user for input
+    echo "Enter a webhook ID:"
+    read -r WEBHOOK
+
+    # Build curl request
+    curl -s -X PUT "$EASYPOST_API_URL"/webhooks/"$WEBHOOK" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 # Command Router
 # Check if the command passed is valid or not. Run if it is, warn if it is not
 if declare -f "$1" > /dev/null
