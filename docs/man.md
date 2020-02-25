@@ -96,6 +96,40 @@ Retrieve a list of addresses.
 ep retrieve-addresses
 ```
 
+### Batches
+
+**Add Shipments to a Batch**
+
+Add a shipment to a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#add-shipments-to-a-batch).
+
+```bash
+ep add-shipment-to-batch
+```
+
+**Create a Batch**
+
+Create an empty batch object that shipments can be added to later. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#create-a-batch).
+
+```bash
+ep add-shipment-to-batch
+```
+
+**Generate a Batch Label**
+
+Generate a label for a batch of shipments. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#batch-labels).
+
+```bash
+ep create-batch
+```
+
+**Remove Shipments from a Batch**
+
+Remove a shipment from a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#remove-shipments-from-a-batch).
+
+```bash
+ep remove-shipment-from-batch
+```
+
 ### Billing
 
 **Buy a Shipment**
@@ -210,6 +244,16 @@ ep retrieve-payment-log-report
 ep retrieve-refund-report
 ep retrieve-shipment-report
 ep retrieve-tracker-report
+```
+
+### Scanforms
+
+**Manifest a Batch**
+
+Generate a manifest for a batch. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api/curl#manifesting-scan-form).
+
+```bash
+ep manifest-batch
 ```
 
 ### Shipments

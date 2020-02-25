@@ -1,5 +1,11 @@
 #!/bin/bash
 
+################################################
+# EASYPOST CLI
+# https://github.com/Justintime50/easypost-cli
+# Author: Justintime50
+################################################
+
 # Import config
 # shellcheck disable=SC1090
 source "$HOME"/.easypost-cli/.config
@@ -144,6 +150,71 @@ function retrieve-addresses {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/addresses \
     -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function add-shipment-to-batch {
+    # ep add-shipment-to-batch: Add a shipment to a batch
+    # Prompt user for input
+    echo "Enter a batch ID to add shipments to:"
+    read -r BATCH
+    echo "Enter a shipment ID to add to the batch:"
+    read -r SHIPMENT
+
+    # TODO: Allow multiple batches to be iterated here, separated by commas or something similar
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/add_shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "shipments[0][id]=$SHIPMENT" \
+    | json_pp
+}
+
+function create-batch {
+    # ep create-batch: Create an empty batch object
+    
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function generate-batch-label {
+    # ep generate-batch-label: Generate a label for a batch of shipments
+    # Prompt user for input
+    FORMAT="null"
+    echo "Enter a batch ID to generate a label for:"
+    read -r BATCH
+    while ! [[ $FORMAT = "pdf" ]] || [[ $FORMAT = "PDF" ]] || [[ $FORMAT = "zpl" ]] || [[ $FORMAT = "ZPL" ]] || [[ $FORMAT = "epl2" ]] || [[ $FORMAT = "EPL2" ]] ; do
+        echo "Enter a label format (options: pdf, zpl, epl2):"
+        read -r FORMAT
+        if [[ -z "$FORMAT" ]] ; then
+            echo "Format cannot be blank"
+        fi
+    done
+
+    # Allow the user to choose
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/label \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "label_format=$FORMAT" \
+    | json_pp
+}
+
+function remove-shipment-from-batch {
+    # ep remove-shipment-from-batch: Remove a shipment from a batch
+    # Prompt user for input
+    echo "Enter a batch ID to remove shipments from:"
+    read -r BATCH
+    echo "Enter a shipment ID to remove from the batch:"
+    read -r SHIPMENT
+
+    # TODO: Allow multiple batches to be iterated here, separated by commas or something similar
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/remove_shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "shipments[0][id]=$SHIPMENT" \
     | json_pp
 }
 
@@ -452,6 +523,17 @@ function retrieve-tracker-reports {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/tracker \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+function manifest-batch {
+    # ep manifest-batch: Manifest or scanform a batch
+    echo "Enter a batch ID you'd like to manifest:"
+    read -r BATCH
+    
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/scan_form \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
