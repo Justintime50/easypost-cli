@@ -1,6 +1,6 @@
 
-function create-payment-log-report {
-    # ep create-payment-log-report: Create a payment log report
+create_payment_log_report() {
+    # ep create_payment_log_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -14,8 +14,8 @@ function create-payment-log-report {
     | json_pp
 }
 
-function create-refund-report {
-    # ep create-refund-report: Create a payment log report
+create_refund_report() {
+    # ep create_refund_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -29,8 +29,8 @@ function create-refund-report {
     | json_pp
 }
 
-function create-shipment-report {
-    # ep create-shipment-report: Create a payment log report
+create_shipment_report() {
+    # ep create_shipment_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE
@@ -44,8 +44,8 @@ function create-shipment-report {
     | json_pp
 }
 
-function create-tracker-report {
-    # ep create-tracker-report: Create a payment log report
+create_tracker_report() {
+    # ep create_tracker_report: Create a payment log report
     # Prompt user for input
     echo "Enter a start date (eg: 2016-10-01):"
     read -r STARTDATE

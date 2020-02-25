@@ -1,6 +1,6 @@
 
-function retrieve-addresses {
-    # ep retrieve-addresses: Retrieve a list of addresses
+retrieve_addresses() {
+    # ep retrieve_addresses: Retrieve a list of addresses
 
     # TODO: Add date and page_size options
 

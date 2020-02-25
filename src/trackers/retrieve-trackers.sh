@@ -1,6 +1,6 @@
 
-function retrieve-trackers {
-    # ep retrieve-trackers: Retrieve a list of trackers
+retrieve_trackers() {
+    # ep retrieve_trackers: Retrieve a list of trackers
 
     # TODO: Add date and page_size options
 

@@ -1,6 +1,6 @@
 
-function delete-webhook {
-    # ep delete-webhook: Enables a Webhook that has been disabled.
+delete_webhook() {
+    # ep delete_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
     echo "Enter a webhook ID:"
     read -r WEBHOOK

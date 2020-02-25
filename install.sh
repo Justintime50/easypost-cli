@@ -5,7 +5,7 @@ EASYPOST_CLI_LOCATION="/usr/local/bin"
 EASYPOST_CLI_HOME_LOCATION="$HOME/.easypost-cli"
 
 # Remove the executable if it exists already (for updates sake)
-if [[ -f "$EASYPOST_CLI_LOCATION"/ep ]] ; then
+if [ -f "$EASYPOST_CLI_LOCATION"/ep ] ; then
     rm -f "$EASYPOST_CLI_LOCATION"/ep
 fi
 

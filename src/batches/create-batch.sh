@@ -1,6 +1,6 @@
 
-function create-batch {
-    # ep create-batch: Create an empty batch object
+create_batch() {
+    # ep create_batch: Create an empty batch object
     
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/batches \

@@ -1,6 +1,6 @@
 
-function retrieve-insurance {
-    # ep retrieve-insurance: Retrieve an insurnace record
+retrieve_insurance() {
+    # ep retrieve_insurance: Retrieve an insurnace record
     # Prompt user for input
     echo "Enter insurance ID:"
     read -r INSURANCE

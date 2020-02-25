@@ -1,6 +1,6 @@
 
-function create-pickup {
-    # ep create-pickup: Create a pickup
+create_pickup() {
+    # ep create_pickup: Create a pickup
     echo "Enter a shipment ID for the pickup:"
     read -r SHIPMENT
     echo "Enter an address ID for the pickup:"
@@ -21,7 +21,6 @@ function create-pickup {
     -d "pickup[max_datetime]=$MAXTIME" \
     -d "pickup[shipment][id]=$SHIPMENT" \
     -d "pickup[address][id]=$ADDRESS" \
-    # -d "pickup[is_account_address]=false" \
     -d "pickup[instructions]=$INSTRUCTIONS" \
     | json_pp
 }

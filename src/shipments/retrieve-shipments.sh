@@ -1,6 +1,6 @@
 
-function retrieve-shipments {
-    # ep retrieve-shipments: Retrieve a list of shipments
+retrieve_shipments() {
+    # ep retrieve_shipments: Retrieve a list of shipments
 
     # TODO: Add date and page_size options
 

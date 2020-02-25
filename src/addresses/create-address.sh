@@ -1,6 +1,6 @@
 
-function create-address {
-    # ep create-address: Create an address record
+create_address() {
+    # ep create_address: Create an address record
     # Prompt user for input
     echo "Enter street1:"
     read -r STREET1

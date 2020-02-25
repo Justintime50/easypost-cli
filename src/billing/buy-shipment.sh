@@ -1,6 +1,6 @@
 
-function buy-shipment {
-    # ep buy-shipment: Buy a label for the specified shipment
+buy_shipment() {
+    # ep buy_shipment: Buy a label for the specified shipment
     # Prompt user for input
     echo "Enter shipment ID:"
     read -r SHIPMENT

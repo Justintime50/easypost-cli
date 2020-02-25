@@ -1,6 +1,6 @@
 
-function retrieve-payment-log-reports {
-    # ep retrieve-payment-log-reports: Retrieve a list of payment log reports
+retrieve_payment_log_reports() {
+    # ep retrieve_payment_log_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -10,8 +10,8 @@ function retrieve-payment-log-reports {
     | json_pp
 }
 
-function retrieve-refund-reports {
-    # ep retrieve-refund-reports: Retrieve a list of payment log reports
+retrieve_refund_reports() {
+    # ep retrieve_refund_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -21,8 +21,8 @@ function retrieve-refund-reports {
     | json_pp
 }
 
-function retrieve-shipment-reports {
-    # ep retrieve-shipment-reports: Retrieve a list of payment log reports
+retrieve_shipment_reports() {
+    # ep retrieve_shipment_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 
@@ -32,8 +32,8 @@ function retrieve-shipment-reports {
     | json_pp
 }
 
-function retrieve-tracker-reports {
-    # ep retrieve-tracker-reports: Retrieve a list of payment log reports
+retrieve_tracker_reports() {
+    # ep retrieve_tracker_reports: Retrieve a list of payment log reports
 
     # TODO: Add date and page_size options
 

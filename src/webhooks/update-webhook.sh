@@ -1,6 +1,6 @@
 
-function update-webhook {
-    # ep update-webhook: Enables a Webhook that has been disabled.
+update_webhook() {
+    # ep update_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
     echo "Enter a webhook ID:"
     read -r WEBHOOK

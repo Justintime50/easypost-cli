@@ -1,6 +1,6 @@
 
-function retrieve-payment-log-report {
-    # ep retrieve-payment-log-report: Retrieve a single payment log report
+retrieve_payment_log_report() {
+    # ep retrieve_payment_log_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -11,8 +11,8 @@ function retrieve-payment-log-report {
     | json_pp
 }
 
-function retrieve-refund-report {
-    # ep retrieve-refund-report: Retrieve a single payment log report
+retrieve_refund_report() {
+    # ep retrieve_refund_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -23,8 +23,8 @@ function retrieve-refund-report {
     | json_pp
 }
 
-function retrieve-shipment-report {
-    # ep retrieve-shipment-report: Retrieve a single payment log report
+retrieve_shipment_report() {
+    # ep retrieve_shipment_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT
@@ -35,8 +35,8 @@ function retrieve-shipment-report {
     | json_pp
 }
 
-function retrieve-tracker-report {
-    # ep retrieve-tracker-report: Retrieve a single payment log report
+retrieve_tracker_report() {
+    # ep retrieve_tracker_report: Retrieve a single payment log report
     # Prompt user for input
     echo "Enter report ID:"
     read -r REPORT

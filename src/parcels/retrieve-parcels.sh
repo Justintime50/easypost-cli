@@ -1,6 +1,6 @@
 
-function retrieve-parcels {
-    # ep retrieve-parcels: Retrieve a list of parcels
+retrieve_parcels() {
+    # ep retrieve_parcels: Retrieve a list of parcels
 
     # TODO: Add date and page_size options
 

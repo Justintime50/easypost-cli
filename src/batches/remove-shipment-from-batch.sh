@@ -1,6 +1,6 @@
 
-function remove-shipment-from-batch {
-    # ep remove-shipment-from-batch: Remove a shipment from a batch
+remove_shipment_from_batch() {
+    # ep remove_shipment_from_batch: Remove a shipment from a batch
     # Prompt user for input
     echo "Enter a batch ID to remove shipments from:"
     read -r BATCH

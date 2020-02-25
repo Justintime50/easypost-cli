@@ -1,6 +1,6 @@
 
-function retrieve-scanform {
-    # ep retrieve-scanform: Retrieve a single scanform
+retrieve_scanform() {
+    # ep retrieve_scanform: Retrieve a single scanform
     echo "Enter a scanform ID:"
     read -r SCANFORM
     

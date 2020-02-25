@@ -1,6 +1,6 @@
 
-function retrieve-webhook {
-    # ep retrieve-webhook: Retrieve a list of webhooks
+retrieve_webhook() {
+    # ep retrieve_webhook: Retrieve a list of webhooks
     # Prompt user for input
     echo "Enter a webhook ID:"
     read -r WEBHOOK
