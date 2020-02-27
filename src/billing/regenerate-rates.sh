@@ -2,7 +2,7 @@
 regenerate_rates() {
     # ep regenerate_rates: Regenerate rates for a shipment
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
 
     # Build curl request

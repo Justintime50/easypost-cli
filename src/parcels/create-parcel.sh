@@ -2,13 +2,13 @@
 create_parcel() {
     # ep create_parcel: Create a parcel record
     # Prompt user for input
-    echo "Enter parcel length (in inches):"
+    printf "%s\n" "Enter parcel length (in inches): "
     read -r LENGTH
-    echo "Enter parcel width (in inches):"
+    printf "%s\n" "Enter parcel width (in inches): "
     read -r WIDTH
-    echo "Enter parcel height (in inches):"
+    printf "%s\n" "Enter parcel height (in inches): "
     read -r HEIGHT
-    echo "Enter parcel weight (in ounces):"
+    printf "%s\n" "Enter parcel weight (in ounces): "
     read -r WEIGHT
 
     # Build curl request

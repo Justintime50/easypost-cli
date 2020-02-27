@@ -2,7 +2,7 @@
 retrieve_address() {
     # ep retrieve_address: Retrieve an address record
     # Prompt user for input
-    echo "Enter address ID:"
+    printf "%s\n" "Enter address ID: "
     read -r ADDRESS
 
     # Build curl request

@@ -2,7 +2,7 @@
 create_webhook() {
     # ep create_webhooks: Create a webhook
     # Prompt user for input
-    echo "Enter the webhook URL:"
+    printf "%s\n" "Enter the webhook URL: "
     read -r WEBHOOK
 
     # Build curl request

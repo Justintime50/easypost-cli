@@ -2,7 +2,7 @@
 
 # Build the single EasyPost executable
 
-echo "Building the EasyPost CLI executable..."
+printf "%s\n" "Building the EasyPost CLI executable..."
 
 # Remove the EasyPost CLI executable if it exists
 if [ -f src/ep ] ; then
@@ -25,4 +25,4 @@ cat src/command-router.sh >> src/ep
 # Make the EasyPost CLI executable
 chmod +x src/ep
 
-echo "EasyPost CLI executable built!"
+printf "%s\n" "EasyPost CLI executable built!"

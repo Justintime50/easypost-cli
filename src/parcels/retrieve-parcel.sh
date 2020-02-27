@@ -2,7 +2,7 @@
 retrieve_parcel() {
     # ep retrieve_parcel: Retrieve a parcel record
     # Prompt user for input
-    echo "Enter parcel ID:"
+    printf "%s\n" "Enter parcel ID: "
     read -r PARCEL
 
     # Build curl request

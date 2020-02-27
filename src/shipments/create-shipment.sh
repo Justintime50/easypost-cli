@@ -2,55 +2,55 @@
 create_shipment() {
     # ep create_shipment: Create a shipment record that can then be used to purchase a label
     # Prompt user for input
-    echo "Enter to_street1:"
+    printf "%s\n" "Enter to_street1: "
     read -r TO_STREET1
-    echo "Enter to_street2 (optional):"
+    printf "%s\n" "Enter to_street2 (optional): "
     read -r TO_STREET2
-    echo "Enter to_city:"
+    printf "%s\n" "Enter to_city: "
     read -r TO_CITY
-    echo "Enter to_state:"
+    printf "%s\n" "Enter to_state: "
     read -r TO_STATE
-    echo "Enter to_zip:"
+    printf "%s\n" "Enter to_zip: "
     read -r TO_ZIP
-    echo "Enter to_country (optional):"
+    printf "%s\n" "Enter to_country (optional): "
     read -r TO_COUNTRY
-    echo "Enter to_name (optional):"
+    printf "%s\n" "Enter to_name (optional): "
     read -r TO_NAME
-    echo "Enter to_company (optional):"
+    printf "%s\n" "Enter to_company (optional): "
     read -r TO_COMPANY
-    echo "Enter to_phone (optional):"
+    printf "%s\n" "Enter to_phone (optional): "
     read -r TO_PHONE
-    echo "Enter to_email (optional):"
+    printf "%s\n" "Enter to_email (optional): "
     read -r TO_EMAIL
 
-    echo "Enter from_street1:"
+    printf "%s\n" "Enter from_street1: "
     read -r FROM_STREET1
-    echo "Enter from_street2 (optional):"
+    printf "%s\n" "Enter from_street2 (optional): "
     read -r FROM_STREET2
-    echo "Enter from_city:"
+    printf "%s\n" "Enter from_city: "
     read -r FROM_CITY
-    echo "Enter from_state:"
+    printf "%s\n" "Enter from_state: "
     read -r FROM_STATE
-    echo "Enter from_zip:"
+    printf "%s\n" "Enter from_zip: "
     read -r FROM_ZIP
-    echo "Enter from_country (optional):"
+    printf "%s\n" "Enter from_country (optional): "
     read -r FROM_COUNTRY
-    echo "Enter from_name (optional):"
+    printf "%s\n" "Enter from_name (optional): "
     read -r FROM_NAME
-    echo "Enter from_company (optional):"
+    printf "%s\n" "Enter from_company (optional): "
     read -r FROM_COMPANY
-    echo "Enter from_phone (optional):"
+    printf "%s\n" "Enter from_phone (optional): "
     read -r FROM_PHONE
-    echo "Enter from_email (optional):"
+    printf "%s\n" "Enter from_email (optional): "
     read -r FROM_EMAIL
 
-    echo "Enter parcel length:"
+    printf "%s\n" "Enter parcel length: "
     read -r LENGTH
-    echo "Enter parcel width:"
+    printf "%s\n" "Enter parcel width: "
     read -r WIDTH
-    echo "Enter parcel height:"
+    printf "%s\n" "Enter parcel height: "
     read -r HEIGHT
-    echo "Enter parcel weight:"
+    printf "%s\n" "Enter parcel weight: "
     read -r WEIGHT
 
     # Build curl request

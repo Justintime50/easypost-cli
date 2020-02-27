@@ -2,7 +2,7 @@
 retrieve_webhook() {
     # ep retrieve_webhook: Retrieve a list of webhooks
     # Prompt user for input
-    echo "Enter a webhook ID:"
+    printf "%s\n" "Enter a webhook ID: "
     read -r WEBHOOK
 
     # Build curl request

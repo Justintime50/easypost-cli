@@ -1,11 +1,11 @@
 
 buy_pickup() {
     # ep buy_pickup: Buy a pickup
-    echo "Enter a pickup ID:"
+    printf "%s\n" "Enter a pickup ID: "
     read -r PICKUP
-    echo "Enter a carrier code (eg: \"UPS\"):"
+    printf "%s\n" "Enter a carrier code (eg: \"UPS\"): "
     read -r CARRIER
-    echo "Enter a service level (eg: \"Same-Day Pickup\"):"
+    printf "%s\n" "Enter a service level (eg: \"Same-Day Pickup\"): "
     read -r SERVICE
     
     # Build curl request

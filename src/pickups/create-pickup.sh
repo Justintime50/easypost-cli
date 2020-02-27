@@ -1,15 +1,15 @@
 
 create_pickup() {
     # ep create_pickup: Create a pickup
-    echo "Enter a shipment ID for the pickup:"
+    printf "%s\n" "Enter a shipment ID for the pickup: "
     read -r SHIPMENT
-    echo "Enter an address ID for the pickup:"
+    printf "%s\n" "Enter an address ID for the pickup: "
     read -r ADDRESS
-    echo "Enter a minimum time for the pickup (eg: 2019-10-20 17:10:00):"
+    printf "%s\n" "Enter a minimum time for the pickup (eg: 2019-10-20 17:10:00): "
     read -r MINTIME
-    echo "Enter a maximum time for the pickup (eg: 2019-10-21 10:30:00):"
+    printf "%s\n" "Enter a maximum time for the pickup (eg: 2019-10-21 10:30:00): "
     read -r MAXTIME
-    echo "Enter any special instructions (eg: \"Knock loudly\" - optional):"
+    printf "%s\n" "Enter any special instructions (eg: \"Knock loudly\" - optional): "
     read -r INSTRUCTIONS
 
     # TODO: Allow batches to be picked up, case/switch batch or shipment

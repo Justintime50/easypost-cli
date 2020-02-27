@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Installing EasyPost CLI..."
+printf "%s\n" "Installing EasyPost CLI..."
 EASYPOST_CLI_LOCATION="/usr/local/bin"
 EASYPOST_CLI_HOME_LOCATION="$HOME/.easypost-cli"
 
@@ -17,7 +17,7 @@ curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/docs/
 chmod +x "$EASYPOST_CLI_LOCATION"/ep
 
 # API Key setup
-echo "Enter your EasyPost API key:"
+printf "%s\n" "Enter your EasyPost API key:"
 read -r EASYPOST_CLI_API_KEY
 sed -i '' "s/EASYPOST_CLI_API_KEY=.*/EASYPOST_CLI_API_KEY=$EASYPOST_CLI_API_KEY/" "$EASYPOST_CLI_HOME_LOCATION"/.config
-echo "EasyPost CLI installed!"
+printf "%s\n" "EasyPost CLI installed!"

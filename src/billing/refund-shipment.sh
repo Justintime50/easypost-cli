@@ -2,7 +2,7 @@
 refund_shipment() {
     # ep refund_shipment: Refund a specified shipment
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
 
     # Build curl request

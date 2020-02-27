@@ -1,7 +1,7 @@
 
 retrieve_pickup() {
     # ep retrieve_pickup: Retrieve a single pickup
-    echo "Enter a pickup ID:"
+    printf "%s\n" "Enter a pickup ID: "
     read -r PICKUP
     
     # Build curl request

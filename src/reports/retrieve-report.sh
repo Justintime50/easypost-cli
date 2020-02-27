@@ -2,7 +2,7 @@
 retrieve_payment_log_report() {
     # ep retrieve_payment_log_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -14,7 +14,7 @@ retrieve_payment_log_report() {
 retrieve_refund_report() {
     # ep retrieve_refund_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -26,7 +26,7 @@ retrieve_refund_report() {
 retrieve_shipment_report() {
     # ep retrieve_shipment_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -38,7 +38,7 @@ retrieve_shipment_report() {
 retrieve_tracker_report() {
     # ep retrieve_tracker_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request

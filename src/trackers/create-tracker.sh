@@ -2,9 +2,9 @@
 create_tracker() {
     # ep create_tracker: Create a tracker for a shipment
     # Prompt user for input
-    echo "Enter tracking code:"
+    printf "%s\n" "Enter tracking code: "
     read -r TRACKER
-    echo "Enter carrier (optional):"
+    printf "%s\n" "Enter carrier (optional): "
     read -r CARRIER
 
     # Build curl request

@@ -2,7 +2,7 @@
 retrieve_insurance() {
     # ep retrieve_insurance: Retrieve an insurnace record
     # Prompt user for input
-    echo "Enter insurance ID:"
+    printf "%s\n" "Enter insurance ID: "
     read -r INSURANCE
 
     # Build curl request

@@ -2,11 +2,11 @@
 buy_shipment() {
     # ep buy_shipment: Buy a label for the specified shipment
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
-    echo "Enter rate ID:"
+    printf "%s\n" "Enter rate ID: "
     read -r RATE
-    echo "Enter insurance amount (optional):"
+    printf "%s\n" "Enter insurance amount (optional): "
     read -r INSURANCE
 
     # Build curl request

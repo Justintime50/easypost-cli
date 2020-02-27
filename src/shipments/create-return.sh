@@ -2,11 +2,11 @@
 create_refund() {
     # ep create_refund: Create a return shipment that swaps the to and from addresses on the label
     # Prompt user for input
-    echo "Enter a to_address ID:"
+    printf "%s\n" "Enter a to_address ID: "
     read -r TO_ADDRESS
-    echo "Enter a from_address ID:"
+    printf "%s\n" "Enter a from_address ID: "
     read -r FROM_ADDRESS
-    echo "Enter a parcel ID:"
+    printf "%s\n" "Enter a parcel ID: "
     read -r PARCEL
 
     # Build curl request
