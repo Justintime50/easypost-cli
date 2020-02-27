@@ -1,7 +1,8 @@
 
 # Command Router
 # Check if the command passed is valid or not. Run if it is, warn if it is not
-if "$1" > /dev/null
+# shellcheck disable=SC2039
+if declare -f "$1" > /dev/null
 then
   # Pass in the argument (command)
   "$@"
