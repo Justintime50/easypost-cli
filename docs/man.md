@@ -200,14 +200,6 @@ Retrieve a single parcel. [EasyPost docs for this endpoint](https://www.easypost
 ep retrieve_parcel
 ```
 
-**Retrieve a list of Parcels**
-
-Retrieve a single parcel.
-
-```bash
-ep retrieve_parcels
-```
-
 ### Pickups
 
 **Buy a Pickup**

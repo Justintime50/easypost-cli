@@ -59,6 +59,18 @@ For a full breakdown of how the EasyPost CLI works under the hood, see the accom
 ./build.sh
 ```
 
+### Running Unit Tests
+
+Unit tests thus far are manually verified by checking the terminal output. Automated unit tests are in the works.
+
+```bash
+# Copy the test config (from `tests` dir)
+cp .test-config-example .test-config
+
+# Run unit tests (from `tests` dir)
+./unit-tests.sh
+```
+
 ## Roadmap
 
 Most of the basic functionality of the EasyPost API is included in the EasyPost CLI to this point. Roadmap items would include adding all applicable `shipment options` as appropriate for a CLI tool, `customs info and items`, and additional request customization options.

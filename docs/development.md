@@ -32,6 +32,20 @@ To build the executable, make sure all single scripts only include their respect
 ./build.sh
 ```
 
+## Running Unit Tests
+
+Unit tests thus far are manually verified by checking the terminal output. Automated unit tests are in the works.
+
+***NOTE:** Unit test paths are relative to the `tests` folder.*
+
+```bash
+# Copy the test config (from `tests` dir)
+cp .test-config-example .test-config
+
+# Run unit tests (from `tests` dir)
+./unit-tests.sh
+```
+
 ## Testing/Linting
 
 Testing and Linting occur via Travis CI with Shellcheck on the `ep` executable file itself, not on each individual shell script as testing would fail due to missing shebangs etc. Build, install, and uninstall scripts are also tested.
