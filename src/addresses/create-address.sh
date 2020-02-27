@@ -2,25 +2,25 @@
 create_address() {
     # ep create_address: Create an address record
     # Prompt user for input
-    echo "Enter street1:"
+    printf "%s\n" "Enter street1: "
     read -r STREET1
-    echo "Enter street2 (optional):"
+    printf "%s\n" "Enter street2 (optional): "
     read -r STREET2
-    echo "Enter city:"
+    printf "%s\n" "Enter city: "
     read -r CITY
-    echo "Enter state:"
+    printf "%s\n" "Enter state: "
     read -r STATE
-    echo "Enter zip:"
+    printf "%s\n" "Enter zip: "
     read -r ZIP
-    echo "Enter country (optional):"
+    printf "%s\n" "Enter country (optional): "
     read -r COUNTRY
-    echo "Enter name (optional):"
+    printf "%s\n" "Enter name (optional): "
     read -r NAME
-    echo "Enter company (optional):"
+    printf "%s\n" "Enter company (optional): "
     read -r COMPANY
-    echo "Enter phone (optional):"
+    printf "%s\n" "Enter phone (optional): "
     read -r PHONE
-    echo "Enter email (optional):"
+    printf "%s\n" "Enter email (optional): "
     read -r EMAIL
 
     # TODO: Prompt to verify address or not

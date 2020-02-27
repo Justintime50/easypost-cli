@@ -2,7 +2,7 @@
 retrieve_carrier_account() {
     # ep retrieve_carrier_account: Retrieve a single configured carrier account
     # Prompt user for input
-    echo "Enter carrier account ID:"
+    printf "%s\n" "Enter carrier account ID: "
     read -r CARRIER
 
     # Build curl request

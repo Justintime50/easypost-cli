@@ -2,9 +2,9 @@
 create_payment_log_report() {
     # ep create_payment_log_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -17,9 +17,9 @@ create_payment_log_report() {
 create_refund_report() {
     # ep create_refund_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -32,9 +32,9 @@ create_refund_report() {
 create_shipment_report() {
     # ep create_shipment_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -47,9 +47,9 @@ create_shipment_report() {
 create_tracker_report() {
     # ep create_tracker_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request

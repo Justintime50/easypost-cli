@@ -2,7 +2,7 @@
 retrieve_tracker() {
     # ep retrieve_tracker: Retrieve a tracker record
     # Prompt user for input
-    echo "Enter tracker ID:"
+    printf "%s\n" "Enter tracker ID: "
     read -r TRACKER
 
     # Build curl request

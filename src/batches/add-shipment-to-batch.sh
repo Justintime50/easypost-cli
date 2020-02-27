@@ -2,9 +2,9 @@
 add_shipment_to_batch() {
     # ep add_shipment_to_batch: Add a shipment to a batch
     # Prompt user for input
-    echo "Enter a batch ID to add shipments to:"
+    printf "%s\n" "Enter a batch ID to add shipments to: "
     read -r BATCH
-    echo "Enter a shipment ID to add to the batch:"
+    printf "%s\n" "Enter a shipment ID to add to the batch: "
     read -r SHIPMENT
 
     # TODO: Allow multiple batches to be iterated here, separated by commas or something similar

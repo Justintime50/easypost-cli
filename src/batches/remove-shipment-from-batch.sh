@@ -2,9 +2,9 @@
 remove_shipment_from_batch() {
     # ep remove_shipment_from_batch: Remove a shipment from a batch
     # Prompt user for input
-    echo "Enter a batch ID to remove shipments from:"
+    printf "%s\n" "Enter a batch ID to remove shipments from: "
     read -r BATCH
-    echo "Enter a shipment ID to remove from the batch:"
+    printf "%s\n" "Enter a shipment ID to remove from the batch: "
     read -r SHIPMENT
 
     # TODO: Allow multiple batches to be iterated here, separated by commas or something similar

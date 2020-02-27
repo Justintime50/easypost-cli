@@ -1,7 +1,7 @@
 
 retrieve_scanform() {
     # ep retrieve_scanform: Retrieve a single scanform
-    echo "Enter a scanform ID:"
+    printf "%s\n" "Enter a scanform ID: "
     read -r SCANFORM
     
     # Build curl request

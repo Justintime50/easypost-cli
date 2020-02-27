@@ -3,13 +3,13 @@ generate_batch_label() {
     # ep generate_batch_label: Generate a label for a batch of shipments
     # Prompt user for input
     FORMAT="null"
-    echo "Enter a batch ID to generate a label for:"
+    printf "%s\n" "Enter a batch ID to generate a label for: "
     read -r BATCH
     while ! [ $FORMAT = "pdf" ] || [ $FORMAT = "PDF" ] || [ $FORMAT = "zpl" ] || [ $FORMAT = "ZPL" ] || [ $FORMAT = "epl2" ] || [ $FORMAT = "EPL2" ] ; do
-        echo "Enter a label format (options: pdf, zpl, epl2):"
+        printf "%s\n" "Enter a label format (options: pdf, zpl, epl2): "
         read -r FORMAT
         if [ -z "$FORMAT" ] ; then
-            echo "Format cannot be blank"
+            printf "%s\n" "Format cannot be blank"
         fi
     done
 

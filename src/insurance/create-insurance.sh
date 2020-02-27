@@ -2,17 +2,17 @@
 create_insurance() {
     # ep create_insurance: Create an insurance record for shipments not from EasyPost
     # Prompt user for input
-    echo "Enter to address ID:"
+    printf "%s\n" "Enter to address ID: "
     read -r TO_ADDRESS
-    echo "Enter from address ID:"
+    printf "%s\n" "Enter from address ID: "
     read -r FROM_ADDRESS
-    echo "Enter tracking code from the carrier:"
+    printf "%s\n" "Enter tracking code from the carrier: "
     read -r TRACKING
-    echo "Enter carrier (optional, recommended):"
+    printf "%s\n" "Enter carrier (optional, recommended): "
     read -r CARRIER
-    echo "Enter external reference ID (optional):"
+    printf "%s\n" "Enter external reference ID (optional): "
     read -r REFERENCE
-    echo "Enter amount to insure:"
+    printf "%s\n" "Enter amount to insure: "
     read -r AMOUNT
 
     # Build Curl Request

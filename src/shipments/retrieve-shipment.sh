@@ -2,7 +2,7 @@
 retrieve_shipment() {
     # ep retrieve_shipment: Retrieve a shipment record
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
 
     # Build curl request

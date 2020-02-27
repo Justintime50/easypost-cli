@@ -1,7 +1,7 @@
 
 cancel_pickup() {
     # ep cancel_pickup: Cancel a pickup
-    echo "Enter a pickup ID:"
+    printf "%s\n" "Enter a pickup ID: "
     read -r PICKUP
     
     # Build curl request

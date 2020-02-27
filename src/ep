@@ -12,7 +12,7 @@
 
 # Check that variables are set
 if [ -z "$EASYPOST_CLI_API_KEY" ] || [ -z "$EASYPOST_CLI_API_KEY" ] || [ -z "$EASYPOST_CLI_API_KEY" ] ; then
-    echo "The EasyPost CLI is misconfigured, please see the ep executable and fix any variables that aren't set correctly."
+    printf "%s\n" "The EasyPost CLI is misconfigured, please see the ep executable and fix any variables that aren't set correctly."
     exit 1
 fi
 
@@ -21,7 +21,7 @@ fi
 create_child_user() {
     # ep create_child_user: Create a child user (requires production API key)
     # Prompt user for input
-    echo "Enter child user name:"
+    printf "%s\n" "Enter child user name: "
     read -r USER
     
     # Build curl request
@@ -42,7 +42,7 @@ retrieve_api_keys() {
 retrieve_carrier_account() {
     # ep retrieve_carrier_account: Retrieve a single configured carrier account
     # Prompt user for input
-    echo "Enter carrier account ID:"
+    printf "%s\n" "Enter carrier account ID: "
     read -r CARRIER
 
     # Build curl request
@@ -71,7 +71,7 @@ retrieve_carrier_types() {
 retrieve_user() {
     # ep retrieve_user: Retrieve the users of the associated account
     # Prompt user for input
-    echo "Enter user ID:"
+    printf "%s\n" "Enter user ID: "
     read -r USER
     
     # Build curl request
@@ -91,25 +91,25 @@ retrieve_users() {
 create_address() {
     # ep create_address: Create an address record
     # Prompt user for input
-    echo "Enter street1:"
+    printf "%s\n" "Enter street1: "
     read -r STREET1
-    echo "Enter street2 (optional):"
+    printf "%s\n" "Enter street2 (optional): "
     read -r STREET2
-    echo "Enter city:"
+    printf "%s\n" "Enter city: "
     read -r CITY
-    echo "Enter state:"
+    printf "%s\n" "Enter state: "
     read -r STATE
-    echo "Enter zip:"
+    printf "%s\n" "Enter zip: "
     read -r ZIP
-    echo "Enter country (optional):"
+    printf "%s\n" "Enter country (optional): "
     read -r COUNTRY
-    echo "Enter name (optional):"
+    printf "%s\n" "Enter name (optional): "
     read -r NAME
-    echo "Enter company (optional):"
+    printf "%s\n" "Enter company (optional): "
     read -r COMPANY
-    echo "Enter phone (optional):"
+    printf "%s\n" "Enter phone (optional): "
     read -r PHONE
-    echo "Enter email (optional):"
+    printf "%s\n" "Enter email (optional): "
     read -r EMAIL
 
     # TODO: Prompt to verify address or not
@@ -133,7 +133,7 @@ create_address() {
 retrieve_address() {
     # ep retrieve_address: Retrieve an address record
     # Prompt user for input
-    echo "Enter address ID:"
+    printf "%s\n" "Enter address ID: "
     read -r ADDRESS
 
     # Build curl request
@@ -156,9 +156,9 @@ retrieve_addresses() {
 add_shipment_to_batch() {
     # ep add_shipment_to_batch: Add a shipment to a batch
     # Prompt user for input
-    echo "Enter a batch ID to add shipments to:"
+    printf "%s\n" "Enter a batch ID to add shipments to: "
     read -r BATCH
-    echo "Enter a shipment ID to add to the batch:"
+    printf "%s\n" "Enter a shipment ID to add to the batch: "
     read -r SHIPMENT
 
     # TODO: Allow multiple batches to be iterated here, separated by commas or something similar
@@ -183,13 +183,13 @@ generate_batch_label() {
     # ep generate_batch_label: Generate a label for a batch of shipments
     # Prompt user for input
     FORMAT="null"
-    echo "Enter a batch ID to generate a label for:"
+    printf "%s\n" "Enter a batch ID to generate a label for: "
     read -r BATCH
     while ! [ $FORMAT = "pdf" ] || [ $FORMAT = "PDF" ] || [ $FORMAT = "zpl" ] || [ $FORMAT = "ZPL" ] || [ $FORMAT = "epl2" ] || [ $FORMAT = "EPL2" ] ; do
-        echo "Enter a label format (options: pdf, zpl, epl2):"
+        printf "%s\n" "Enter a label format (options: pdf, zpl, epl2): "
         read -r FORMAT
         if [ -z "$FORMAT" ] ; then
-            echo "Format cannot be blank"
+            printf "%s\n" "Format cannot be blank"
         fi
     done
 
@@ -204,9 +204,9 @@ generate_batch_label() {
 remove_shipment_from_batch() {
     # ep remove_shipment_from_batch: Remove a shipment from a batch
     # Prompt user for input
-    echo "Enter a batch ID to remove shipments from:"
+    printf "%s\n" "Enter a batch ID to remove shipments from: "
     read -r BATCH
-    echo "Enter a shipment ID to remove from the batch:"
+    printf "%s\n" "Enter a shipment ID to remove from the batch: "
     read -r SHIPMENT
 
     # TODO: Allow multiple batches to be iterated here, separated by commas or something similar
@@ -221,11 +221,11 @@ remove_shipment_from_batch() {
 buy_shipment() {
     # ep buy_shipment: Buy a label for the specified shipment
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
-    echo "Enter rate ID:"
+    printf "%s\n" "Enter rate ID: "
     read -r RATE
-    echo "Enter insurance amount (optional):"
+    printf "%s\n" "Enter insurance amount (optional): "
     read -r INSURANCE
 
     # Build curl request
@@ -239,7 +239,7 @@ buy_shipment() {
 refund_shipment() {
     # ep refund_shipment: Refund a specified shipment
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
 
     # Build curl request
@@ -251,7 +251,7 @@ refund_shipment() {
 regenerate_rates() {
     # ep regenerate_rates: Regenerate rates for a shipment
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
 
     # Build curl request
@@ -263,37 +263,37 @@ regenerate_rates() {
 help() {
     # ep help: Show the docs
     cat "$EASYPOST_CLI_HOME_LOCATION"/man.md
-    echo "For additional help, see the EasyPost documentation: https://www.easypost.com/docs/api"
+    printf "%s\n" "For additional help, see the EasyPost documentation: https://www.easypost.com/docs/api"
     # open https://github.com/Justintime50/easypost-cli/blob/master/docs/man.md
 }
 
 update_api_key() {
     # ep update_api_key: Update the stored API key in the EasyPost CLI config file
-    echo "Enter your EasyPost API key:"
+    printf "%s\n" "Enter your EasyPost API key: "
     read -r EASYPOST_CLI_API_KEY
     sed -i '' "s/EASYPOST_CLI_API_KEY=.*/EASYPOST_CLI_API_KEY=$EASYPOST_CLI_API_KEY/" "$EASYPOST_CLI_HOME_LOCATION"/.config
-    echo "Your EasyPost API key has been updated!"
+    printf "%s\n" "Your EasyPost API key has been updated!"
 }
 
 version() {
     # ep version: Show the EasyPost CLI version info
-    echo "EasyPost CLI - v1.0.0"
+    printf "%s\n" "EasyPost CLI - v1.0.0"
 }
 
 create_insurance() {
     # ep create_insurance: Create an insurance record for shipments not from EasyPost
     # Prompt user for input
-    echo "Enter to address ID:"
+    printf "%s\n" "Enter to address ID: "
     read -r TO_ADDRESS
-    echo "Enter from address ID:"
+    printf "%s\n" "Enter from address ID: "
     read -r FROM_ADDRESS
-    echo "Enter tracking code from the carrier:"
+    printf "%s\n" "Enter tracking code from the carrier: "
     read -r TRACKING
-    echo "Enter carrier (optional, recommended):"
+    printf "%s\n" "Enter carrier (optional, recommended): "
     read -r CARRIER
-    echo "Enter external reference ID (optional):"
+    printf "%s\n" "Enter external reference ID (optional): "
     read -r REFERENCE
-    echo "Enter amount to insure:"
+    printf "%s\n" "Enter amount to insure: "
     read -r AMOUNT
 
     # Build Curl Request
@@ -311,7 +311,7 @@ create_insurance() {
 retrieve_insurance() {
     # ep retrieve_insurance: Retrieve an insurnace record
     # Prompt user for input
-    echo "Enter insurance ID:"
+    printf "%s\n" "Enter insurance ID: "
     read -r INSURANCE
 
     # Build curl request
@@ -334,13 +334,13 @@ retrieve_insurances() {
 create_parcel() {
     # ep create_parcel: Create a parcel record
     # Prompt user for input
-    echo "Enter parcel length (in inches):"
+    printf "%s\n" "Enter parcel length (in inches): "
     read -r LENGTH
-    echo "Enter parcel width (in inches):"
+    printf "%s\n" "Enter parcel width (in inches): "
     read -r WIDTH
-    echo "Enter parcel height (in inches):"
+    printf "%s\n" "Enter parcel height (in inches): "
     read -r HEIGHT
-    echo "Enter parcel weight (in ounces):"
+    printf "%s\n" "Enter parcel weight (in ounces): "
     read -r WEIGHT
 
     # Build curl request
@@ -356,7 +356,7 @@ create_parcel() {
 retrieve_parcel() {
     # ep retrieve_parcel: Retrieve a parcel record
     # Prompt user for input
-    echo "Enter parcel ID:"
+    printf "%s\n" "Enter parcel ID: "
     read -r PARCEL
 
     # Build curl request
@@ -378,11 +378,11 @@ retrieve_parcels() {
 
 buy_pickup() {
     # ep buy_pickup: Buy a pickup
-    echo "Enter a pickup ID:"
+    printf "%s\n" "Enter a pickup ID: "
     read -r PICKUP
-    echo "Enter a carrier code (eg: \"UPS\"):"
+    printf "%s\n" "Enter a carrier code (eg: \"UPS\"): "
     read -r CARRIER
-    echo "Enter a service level (eg: \"Same-Day Pickup\"):"
+    printf "%s\n" "Enter a service level (eg: \"Same-Day Pickup\"): "
     read -r SERVICE
     
     # Build curl request
@@ -395,7 +395,7 @@ buy_pickup() {
 
 cancel_pickup() {
     # ep cancel_pickup: Cancel a pickup
-    echo "Enter a pickup ID:"
+    printf "%s\n" "Enter a pickup ID: "
     read -r PICKUP
     
     # Build curl request
@@ -406,15 +406,15 @@ cancel_pickup() {
 
 create_pickup() {
     # ep create_pickup: Create a pickup
-    echo "Enter a shipment ID for the pickup:"
+    printf "%s\n" "Enter a shipment ID for the pickup: "
     read -r SHIPMENT
-    echo "Enter an address ID for the pickup:"
+    printf "%s\n" "Enter an address ID for the pickup: "
     read -r ADDRESS
-    echo "Enter a minimum time for the pickup (eg: 2019-10-20 17:10:00):"
+    printf "%s\n" "Enter a minimum time for the pickup (eg: 2019-10-20 17:10:00): "
     read -r MINTIME
-    echo "Enter a maximum time for the pickup (eg: 2019-10-21 10:30:00):"
+    printf "%s\n" "Enter a maximum time for the pickup (eg: 2019-10-21 10:30:00): "
     read -r MAXTIME
-    echo "Enter any special instructions (eg: \"Knock loudly\" - optional):"
+    printf "%s\n" "Enter any special instructions (eg: \"Knock loudly\" - optional): "
     read -r INSTRUCTIONS
 
     # TODO: Allow batches to be picked up, case/switch batch or shipment
@@ -432,7 +432,7 @@ create_pickup() {
 
 retrieve_pickup() {
     # ep retrieve_pickup: Retrieve a single pickup
-    echo "Enter a pickup ID:"
+    printf "%s\n" "Enter a pickup ID: "
     read -r PICKUP
     
     # Build curl request
@@ -444,9 +444,9 @@ retrieve_pickup() {
 create_payment_log_report() {
     # ep create_payment_log_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -459,9 +459,9 @@ create_payment_log_report() {
 create_refund_report() {
     # ep create_refund_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -474,9 +474,9 @@ create_refund_report() {
 create_shipment_report() {
     # ep create_shipment_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -489,9 +489,9 @@ create_shipment_report() {
 create_tracker_report() {
     # ep create_tracker_report: Create a payment log report
     # Prompt user for input
-    echo "Enter a start date (eg: 2016-10-01):"
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
     read -r STARTDATE
-    echo "Enter an end date (eg: 2016-10-31):"
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
     read -r ENDDATE
 
     # Build curl request
@@ -504,7 +504,7 @@ create_tracker_report() {
 retrieve_payment_log_report() {
     # ep retrieve_payment_log_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -516,7 +516,7 @@ retrieve_payment_log_report() {
 retrieve_refund_report() {
     # ep retrieve_refund_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -528,7 +528,7 @@ retrieve_refund_report() {
 retrieve_shipment_report() {
     # ep retrieve_shipment_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -540,7 +540,7 @@ retrieve_shipment_report() {
 retrieve_tracker_report() {
     # ep retrieve_tracker_report: Retrieve a single payment log report
     # Prompt user for input
-    echo "Enter report ID:"
+    printf "%s\n" "Enter report ID: "
     read -r REPORT
 
     # Build curl request
@@ -595,7 +595,7 @@ retrieve_tracker_reports() {
 
 manifest_batch() {
     # ep manifest_batch: Manifest or scanform a batch
-    echo "Enter a batch ID you'd like to manifest:"
+    printf "%s\n" "Enter a batch ID you'd like to manifest: "
     read -r BATCH
     
     # Build curl request
@@ -606,7 +606,7 @@ manifest_batch() {
 
 retrieve_scanform() {
     # ep retrieve_scanform: Retrieve a single scanform
-    echo "Enter a scanform ID:"
+    printf "%s\n" "Enter a scanform ID: "
     read -r SCANFORM
     
     # Build curl request
@@ -629,11 +629,11 @@ retrieve_scanforms() {
 create_refund() {
     # ep create_refund: Create a return shipment that swaps the to and from addresses on the label
     # Prompt user for input
-    echo "Enter a to_address ID:"
+    printf "%s\n" "Enter a to_address ID: "
     read -r TO_ADDRESS
-    echo "Enter a from_address ID:"
+    printf "%s\n" "Enter a from_address ID: "
     read -r FROM_ADDRESS
-    echo "Enter a parcel ID:"
+    printf "%s\n" "Enter a parcel ID: "
     read -r PARCEL
 
     # Build curl request
@@ -649,55 +649,55 @@ create_refund() {
 create_shipment() {
     # ep create_shipment: Create a shipment record that can then be used to purchase a label
     # Prompt user for input
-    echo "Enter to_street1:"
+    printf "%s\n" "Enter to_street1: "
     read -r TO_STREET1
-    echo "Enter to_street2 (optional):"
+    printf "%s\n" "Enter to_street2 (optional): "
     read -r TO_STREET2
-    echo "Enter to_city:"
+    printf "%s\n" "Enter to_city: "
     read -r TO_CITY
-    echo "Enter to_state:"
+    printf "%s\n" "Enter to_state: "
     read -r TO_STATE
-    echo "Enter to_zip:"
+    printf "%s\n" "Enter to_zip: "
     read -r TO_ZIP
-    echo "Enter to_country (optional):"
+    printf "%s\n" "Enter to_country (optional): "
     read -r TO_COUNTRY
-    echo "Enter to_name (optional):"
+    printf "%s\n" "Enter to_name (optional): "
     read -r TO_NAME
-    echo "Enter to_company (optional):"
+    printf "%s\n" "Enter to_company (optional): "
     read -r TO_COMPANY
-    echo "Enter to_phone (optional):"
+    printf "%s\n" "Enter to_phone (optional): "
     read -r TO_PHONE
-    echo "Enter to_email (optional):"
+    printf "%s\n" "Enter to_email (optional): "
     read -r TO_EMAIL
 
-    echo "Enter from_street1:"
+    printf "%s\n" "Enter from_street1: "
     read -r FROM_STREET1
-    echo "Enter from_street2 (optional):"
+    printf "%s\n" "Enter from_street2 (optional): "
     read -r FROM_STREET2
-    echo "Enter from_city:"
+    printf "%s\n" "Enter from_city: "
     read -r FROM_CITY
-    echo "Enter from_state:"
+    printf "%s\n" "Enter from_state: "
     read -r FROM_STATE
-    echo "Enter from_zip:"
+    printf "%s\n" "Enter from_zip: "
     read -r FROM_ZIP
-    echo "Enter from_country (optional):"
+    printf "%s\n" "Enter from_country (optional): "
     read -r FROM_COUNTRY
-    echo "Enter from_name (optional):"
+    printf "%s\n" "Enter from_name (optional): "
     read -r FROM_NAME
-    echo "Enter from_company (optional):"
+    printf "%s\n" "Enter from_company (optional): "
     read -r FROM_COMPANY
-    echo "Enter from_phone (optional):"
+    printf "%s\n" "Enter from_phone (optional): "
     read -r FROM_PHONE
-    echo "Enter from_email (optional):"
+    printf "%s\n" "Enter from_email (optional): "
     read -r FROM_EMAIL
 
-    echo "Enter parcel length:"
+    printf "%s\n" "Enter parcel length: "
     read -r LENGTH
-    echo "Enter parcel width:"
+    printf "%s\n" "Enter parcel width: "
     read -r WIDTH
-    echo "Enter parcel height:"
+    printf "%s\n" "Enter parcel height: "
     read -r HEIGHT
-    echo "Enter parcel weight:"
+    printf "%s\n" "Enter parcel weight: "
     read -r WEIGHT
 
     # Build curl request
@@ -733,7 +733,7 @@ create_shipment() {
 retrieve_shipment() {
     # ep retrieve_shipment: Retrieve a shipment record
     # Prompt user for input
-    echo "Enter shipment ID:"
+    printf "%s\n" "Enter shipment ID: "
     read -r SHIPMENT
 
     # Build curl request
@@ -756,9 +756,9 @@ retrieve_shipments() {
 create_tracker() {
     # ep create_tracker: Create a tracker for a shipment
     # Prompt user for input
-    echo "Enter tracking code:"
+    printf "%s\n" "Enter tracking code: "
     read -r TRACKER
-    echo "Enter carrier (optional):"
+    printf "%s\n" "Enter carrier (optional): "
     read -r CARRIER
 
     # Build curl request
@@ -772,7 +772,7 @@ create_tracker() {
 retrieve_tracker() {
     # ep retrieve_tracker: Retrieve a tracker record
     # Prompt user for input
-    echo "Enter tracker ID:"
+    printf "%s\n" "Enter tracker ID: "
     read -r TRACKER
 
     # Build curl request
@@ -795,7 +795,7 @@ retrieve_trackers() {
 create_webhook() {
     # ep create_webhooks: Create a webhook
     # Prompt user for input
-    echo "Enter the webhook URL:"
+    printf "%s\n" "Enter the webhook URL: "
     read -r WEBHOOK
 
     # Build curl request
@@ -808,7 +808,7 @@ create_webhook() {
 delete_webhook() {
     # ep delete_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
-    echo "Enter a webhook ID:"
+    printf "%s\n" "Enter a webhook ID: "
     read -r WEBHOOK
 
     # Build curl request
@@ -820,7 +820,7 @@ delete_webhook() {
 retrieve_webhook() {
     # ep retrieve_webhook: Retrieve a list of webhooks
     # Prompt user for input
-    echo "Enter a webhook ID:"
+    printf "%s\n" "Enter a webhook ID: "
     read -r WEBHOOK
 
     # Build curl request
@@ -841,7 +841,7 @@ retrieve_webhooks() {
 update_webhook() {
     # ep update_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
-    echo "Enter a webhook ID:"
+    printf "%s\n" "Enter a webhook ID: "
     read -r WEBHOOK
 
     # Build curl request
@@ -852,13 +852,13 @@ update_webhook() {
 
 # Command Router
 # Check if the command passed is valid or not. Run if it is, warn if it is not
-# shellcheck disable=SC2039
+# shellcheck disable=SC2039,SC2169
 if declare -f "$1" > /dev/null
 then
   # Pass in the argument (command)
   "$@"
 else
   # Tell the user their command is not valid
-  echo "'$1' is not an EasyPost CLI command, please try again." >&2
+  printf "%s\n" "\"$1\" is not an EasyPost CLI command, please try again." >&2
   exit 1
 fi
