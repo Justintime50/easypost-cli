@@ -1,0 +1,5 @@
+# Configure the EasyPost CLI for Unit Testing
+EASYPOST_CLI_API_KEY=
+# EASYPOST_CLI_LOCATION="/usr/local/bin"
+# EASYPOST_CLI_HOME_LOCATION="$HOME/.easypost-cli"
+EASYPOST_API_URL="https://api.easypost.com/v2"

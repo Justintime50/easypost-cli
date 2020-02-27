@@ -16,3 +16,5 @@ scripts:
     # Test KSH
     - shellcheck *.sh --shell=ksh
     - shellcheck src/ep --shell=ksh
+
+    # TODO: Add unit tests here when working
