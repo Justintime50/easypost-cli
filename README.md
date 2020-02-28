@@ -5,7 +5,7 @@ Easily interact with the EasyPost API via the CLI.
 [![Build Status](https://travis-ci.org/Justintime50/easypost-cli.svg?branch=master)](https://travis-ci.org/Justintime50/easypost-cli)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-Written in pure `Shell` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or view the accompanying [EasyPost CLI docs](/docs/DOCS.md).
+Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or view the accompanying [EasyPost CLI docs](/docs/DOCS.md).
 
 ## What Can it Do?
 
@@ -17,32 +17,19 @@ At a high level, the EasyPost CLI can:
 
 ## Install
 
-The EasyPost CLI was intended to be used in `bash` but can instead be installed and run in `sh`, `dash`, or `ksh` if elected. Simply change the shell name in the install command below and change the shebang in the `ep` executable found at the default installation location.
-
-Install the EasyPost CLI into the default location `/usr/local/bin` which should already be in your path. 
-
-***NOTE:** This script assumes you have write access to this path or sudo access.* A Homebrew installer is in the works.
-
 ```bash
-# 1) Downloads, installs, and configures the EasyPost CLI
-bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/install.sh)
-```
+# 1) Install the EasyPost CLI
+brew tap justintime50/easypost-cli
+brew install easypost-cli
 
-### Updating
-
-Updating the EasyPost CLI is as simple as running the installation command above. You will be prompted for your EasyPost API key again.
-
-### Uninstall
-
-```bash
-# Completely removes the EasyPost CLI from its default location
-bash <(curl -s https://raw.githubusercontent.com/justintime50/easypost-cli/master/uninstall.sh)
+# 2) Configure the EasyPost CLI with your API key
+echo "EASYPOST_CLI_API_KEY=<your_key_here>" >> ~/.easypost-cli-config
 ```
 
 ## Usage
 
 ```bash
-# Create a shipment with a single command
+# Create a shipment with a single command, you will be prompted for details
 ep create_shipment
 ```
 
