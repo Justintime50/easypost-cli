@@ -10,7 +10,6 @@ All EasyPost CLI commands use the syntax `ep mycommand`. Each available command 
 
 - If you'd like to view these docs, run `ep help`. 
 - View the version info by running `ep version`.
-- Update your API key by running `ep update-api-key`.
 
 ### Account Management
 
