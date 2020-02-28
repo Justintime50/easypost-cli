@@ -19,7 +19,9 @@ At a high level, the EasyPost CLI can:
 
 The EasyPost CLI was intended to be used in `bash` but can instead be installed and run in `sh`, `dash`, or `ksh` if elected. Simply change the shell name in the install command below and change the shebang in the `ep` executable found at the default installation location.
 
-Install the EasyPost CLI into the default location `/usr/local/bin` which should already be in your path:
+Install the EasyPost CLI into the default location `/usr/local/bin` which should already be in your path. 
+
+***NOTE:** This script assumes you have write access to this path or sudo access.* A Homebrew installer is in the works.
 
 ```bash
 # 1) Downloads, installs, and configures the EasyPost CLI
