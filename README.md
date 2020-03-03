@@ -44,8 +44,8 @@ For a full breakdown of how the EasyPost CLI works under the hood, see the accom
 ### Building the EasyPost CLI
 
 ```bash
-# Build a single `ep` executable file for the EasyPost CLI
-./build.sh
+# Build the EasyPost CLI, passing in the version number as a parameter
+./build.sh 1.1.2
 ```
 
 ### Running Unit Tests
