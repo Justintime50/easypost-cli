@@ -1,7 +1,7 @@
 language: bash
 
 before_scripts:
-    - ./build.sh
+    - ./build.sh 1.0.0 bash
 
 scripts:
     # Test Default Bash
