@@ -25,12 +25,14 @@ The EasyPost CLI ultimately has 5 parts:
 
 The EasyPost CLI is broken up into separate microservices. Each endpoint or command is its own shell script. Each script is compiled into a single executable file tacking on configuration at the beginning and a command router at the end.
 
-To build the executable, make sure all single scripts only include their respective single function and run the following which will place an `ep` executable file in the `src` folder. **This should be done with each push to master** as the installation script relies on an up-to-date version of the `ep` executable to be present in the `src` folder for the installation script to pull the correct file.
+To build the executable, make sure all single scripts only include their respective single function and run the following which will place an `ep` executable file in the `src` folder. **This should be done with each push to master** as the installation script relies on an up-to-date version of the `ep` executable to be present in the `src` folder for the installation script to pull the correct file. When running the build script, you must pass a version number as a parameter.
 
 ```bash
-# Build a single `ep` executable file for the EasyPost CLI
-./build.sh
+# Build the EasyPost CLI, passing in the version number as a parameter
+./build.sh 1.1.2
 ```
+
+Once the CLI executable has been built, you'll need to grab the output `checksum`, `version`, and `filename` and update that data in the Homebrew Formula found at the link below.
 
 ## Building the EasyPost CLI Homebrew Formula
 
