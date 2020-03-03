@@ -2,11 +2,11 @@
 
 Here you will find all you need to know about the EasyPost CLI.
 
-## General Project README
+## GitHub Project
 
-The project README can be [viewed here](../README.md).
+The GitHub project for the EasyPost CLI can be [viewed here](https://github.com/Justintime50/easypost-cli).
 
-## Usage Docs
+## Documentation
 
 If you are using the EasyPost CLI, you'll want to [start here](./man.md).
 
