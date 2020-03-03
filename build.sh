@@ -2,7 +2,7 @@
 
 # Build the single EasyPost executable
 
-printf "%s\n" "Building the EasyPost CLI executable..."
+printf "%s\n" "Building easypost-cli-$1..."
 
 # Remove the EasyPost CLI executable if it exists
 if [ -f src/ep ] ; then
@@ -25,4 +25,9 @@ cat src/command-router.sh >> src/ep
 # Make the EasyPost CLI executable
 chmod +x src/ep
 
-printf "%s\n" "EasyPost CLI executable built!"
+# Create Homebrew Tar file and print checksum
+tar -czf homebrew/easypost-cli-"$1".tgz src/ep
+printf "Tar Checksum: "
+shasum -a 256 homebrew/easypost-cli-"$1".tgz
+
+printf "%s\n" "easypost-cli-$1 built!"
