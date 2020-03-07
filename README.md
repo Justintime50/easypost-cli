@@ -26,6 +26,25 @@ brew install easypost-cli
 echo "EASYPOST_CLI_API_KEY=<your_key_here>" >> ~/.easypost-cli-config
 ```
 
+## Install on Windows (experimental)
+
+**Compatibility:** Works on Windows 7 or later. Requires `Chocolatey` be installed first to install `jq`.
+
+Download the EasyPost CLI installer and double click it. This will install the tool to `C:/easypost-cli`.
+
+```batch
+:: 1) Download and run the install script
+curl -LJOs https://raw.githubusercontent.com/justintime50/easypost-cli/master/install-win.bat && install-win.bat
+
+:: 2) Setup the config file with your API key
+@echo EASYPOST_CLI_API_KEY=123... >> C:/easypost-cli/easypost-cli-config.bat
+:: Hide the config file (optional but recommended)
+attrib +h C:/easypost-cli/easypost-cli-config.bat
+
+:: 3) Edit your path to allow the EasyPost CLI to be called from anywhere
+setx PATH=%PATH%;C:\easypost-cli
+```
+
 ## Usage
 
 ```bash
