@@ -3,7 +3,7 @@
 printf "%s\n" "Running unit tests..."
 
 # Test ep create_parcel
-for TEST in endpoints/* ; do
+for TEST in tests/endpoints/* ; do
     if [ -f "$TEST" ] ; then
         ./"$TEST"
     fi

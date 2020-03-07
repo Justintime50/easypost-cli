@@ -15,7 +15,7 @@ At a high level, the EasyPost CLI can:
 - Create and retrieve custom reports
 - Lookup EasyPost account details, create child users, and more
 
-## Install
+## Install on macOS & Linux
 
 ```bash
 # 1) Install the EasyPost CLI
@@ -53,11 +53,11 @@ For a full breakdown of how the EasyPost CLI works under the hood, see the accom
 Unit tests thus far are manually verified by checking the terminal output. Automated unit tests are in the works.
 
 ```bash
-# Copy the test config (from `tests` dir)
-cp .test-config-example .test-config
+# Copy the test config
+cp tests/.test-config-example tests/.test-config
 
-# Run unit tests (from `tests` dir)
-./unit-tests.sh
+# Run unit tests
+./test.sh
 ```
 
 ## Roadmap
