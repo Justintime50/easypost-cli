@@ -75,22 +75,19 @@ The EasyPost CLI website is currently hosted on `GitHub Pages` from the `master 
 
 ## Install on Windows (experimental)
 
-**Compatibility:** Works on Windows 7 or later.
+**Compatibility:** Works on Windows 7 or later. Requires `Chocolatey` be installed first.
 
-To install on Windows, you'll need the `ep-win` executable saved to `C:/easypost-cli/ep` where `ep` is the name of the batch file. In the `easypost-cli` folder, you'll also need to run the following:
+Download the EasyPost CLI installer and double click it. This will install the tool to `C:/easypost-cli/ep`.
 
 ```batch
-:: 1) Setup the config file with your API key
-@echo EASYPOST_CLI_API_KEY=123... >> C:/easypost-cli/easypost-cli-config.bat
+:: 1) Download and run the install script
+curl -LJOs https://raw.githubusercontent.com/justintime50/easypost-cli/master/install-win.bat && install-win.bat
 
+:: 2) Setup the config file with your API key
+@echo EASYPOST_CLI_API_KEY=123... >> C:/easypost-cli/easypost-cli-config.bat
 :: Hide the config file (optional but recommended)
 attrib +h C:/easypost-cli/easypost-cli-config.bat
 
-:: 2) Edit your path to allow the EasyPost CLI to be called from anywhere
+:: 3) Edit your path to allow the EasyPost CLI to be called from anywhere
 setx PATH=%PATH%;C:\easypost-cli
-
-:: 3) Install the single project dependency for JSON output (must be done from Admin Powershell prompt)
-choco install jq
 ```
-
-Once the commands above have been run and the `ep.bat` file is in place, you can start calling commands via the normal `cmd` interface!

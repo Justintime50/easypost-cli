@@ -6,15 +6,15 @@ before_scripts:
 scripts:
     # Test Default Bash
     - shellcheck *.sh
-    - shellcheck src/ep
+    - shellcheck executables/unix/ep
     # Test SH
     - shellcheck *.sh --shell=sh
-    - shellcheck src/ep --shell=sh
+    - shellcheck executables/unix/ep --shell=sh
     # Test Dash
     - shellcheck *.sh --shell=dash
-    - shellcheck src/ep --shell=dash
+    - shellcheck executables/unix/ep --shell=dash
     # Test KSH
     - shellcheck *.sh --shell=ksh
-    - shellcheck src/ep --shell=ksh
+    - shellcheck executables/unix/ep --shell=ksh
 
     # TODO: Add unit tests here when working
