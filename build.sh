@@ -48,17 +48,19 @@ build() {
     chmod +x "$FILENAME"
 
     # Create Homebrew Tar file and print checksum
-    printf "\nUnix:\n"
-    tar -czf executables/unix/easypost-cli-"$1".tgz "$FILENAME"
+    printf "\nUnix\n"
+    cd executables/unix || exit
+    tar -czf easypost-cli-"$1".tgz "ep"
     printf "Tar File: easypost-cli-%s.tgz" "$1"
     printf "\nVersion: %s" "$1"
     printf "\nChecksum: "
-    shasum -a 256 executables/unix/easypost-cli-"$1".tgz
+    shasum -a 256 easypost-cli-"$1".tgz
+    cd ../../ || exit
 }
 
 build_win() {
-    FILENAME="executables/windows/ep-win"
-    TEMP="executables/windows/ep-win-temp"
+    FILENAME="executables/windows/ep"
+    TEMP="executables/windows/ep-temp"
 
     # Ensure a version number is passed in
     if [ -z "$1" ] ; then
@@ -105,13 +107,15 @@ build_win() {
     sed -i "" "s;EASYPOST_CLI_VERSION=.*;EASYPOST_CLI_VERSION=$1;" "$FILENAME"
     sed -i "" "s;VERSION=.*;VERSION=$1;" "install-win.bat"
 
-    # Create Windows zip file and print checksum
-    printf "\nWindows:\n"
-    tar -czf executables/windows/easypost-cli-"$1".zip "$FILENAME"
-    printf "Zip File: easypost-cli-%s.zip" "$1"
+    # Create Windows tar file and print checksum
+    printf "\nWindows\n"
+    cd executables/windows || exit
+    tar -czf easypost-cli-"$1".tgz "ep"
+    printf "Tar File: easypost-cli-%s.tgz" "$1"
     printf "\nVersion: %s" "$1"
     printf "\nChecksum: "
-    shasum -a 256 executables/windows/easypost-cli-"$1".zip
+    shasum -a 256 easypost-cli-"$1".tgz
+    cd ../../ || exit
 }
 
 # Invoke the build functions
