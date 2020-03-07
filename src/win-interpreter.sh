@@ -11,7 +11,7 @@
 # TODO: if & while statements in endpoints -- REMOVE THESE, VALIDATION ALREADY OCCURS ON THE EASYPOST SIDE
 
 # Specify the file to edit
-WIN_FILENAME="executables/windows/ep-win-temp"
+WIN_FILENAME="executables/windows/ep-temp"
 
 # General changes
 sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$WIN_FILENAME"     # !important -- change the STARTDATE variables
