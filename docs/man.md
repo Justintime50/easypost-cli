@@ -241,7 +241,7 @@ Create a report based on type. Provide a start date and end date for the report 
 
 ```bash
 # Available options:
-ep create_payment-log_report
+ep create_payment_log_report
 ep create_refund_report
 ep create_shipment_report
 ep create_tracker_report
