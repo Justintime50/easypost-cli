@@ -3,7 +3,7 @@
 # Build the single EasyPost executable across various OS's
 
 build() {
-    FILENAME="src/ep"
+    FILENAME="executables/unix/ep"
 
     # Ensure a version number is passed in
     if [ -z "$1" ] ; then
@@ -48,16 +48,17 @@ build() {
     chmod +x "$FILENAME"
 
     # Create Homebrew Tar file and print checksum
-    tar -czf homebrew/easypost-cli-"$1".tgz "$FILENAME"
+    printf "\nUnix:\n"
+    tar -czf executables/unix/easypost-cli-"$1".tgz "$FILENAME"
     printf "Tar File: easypost-cli-%s.tgz" "$1"
     printf "\nVersion: %s" "$1"
     printf "\nChecksum: "
-    shasum -a 256 homebrew/easypost-cli-"$1".tgz
+    shasum -a 256 executables/unix/easypost-cli-"$1".tgz
 }
 
 build_win() {
-    FILENAME="src/ep-win"
-    TEMP="src/ep-win-temp"
+    FILENAME="executables/windows/ep-win"
+    TEMP="executables/windows/ep-win-temp"
 
     # Ensure a version number is passed in
     if [ -z "$1" ] ; then
@@ -80,22 +81,19 @@ build_win() {
         fi
     done
 
-    # Update version number found in executable
-    sed -i "" "s;EASYPOST_CLI_VERSION=.*;EASYPOST_CLI_VERSION=$1;" "$TEMP"
-
     # Source the Windows Interpreter and do some magic
     # shellcheck disable=SC1091
     . src/win-interpreter.sh
 
     {
-    # Build the Windows command router
-    cat src/command-router.bat
+        # Build the Windows command router
+        cat src/command-router.bat
 
-    # Grab the temp file and put it in the real one
-    cat "$TEMP"
+        # Grab the temp file and put it in the real one
+        cat "$TEMP"
 
-    # Add the eof tag
-    printf "\n:eof\n" 
+        # Add the eof tag
+        printf "\n:eof\n" 
     } >> "$FILENAME"
 
     # Remove the EasyPost CLI temp file
@@ -103,6 +101,17 @@ build_win() {
         rm -f "$TEMP"
     fi
 
+    # Update version number found in executable
+    sed -i "" "s;EASYPOST_CLI_VERSION=.*;EASYPOST_CLI_VERSION=$1;" "$FILENAME"
+    sed -i "" "s;VERSION=.*;VERSION=$1;" "install-win.bat"
+
+    # Create Windows zip file and print checksum
+    printf "\nWindows:\n"
+    tar -czf executables/windows/easypost-cli-"$1".zip "$FILENAME"
+    printf "Zip File: easypost-cli-%s.zip" "$1"
+    printf "\nVersion: %s" "$1"
+    printf "\nChecksum: "
+    shasum -a 256 executables/windows/easypost-cli-"$1".zip
 }
 
 # Invoke the build functions
