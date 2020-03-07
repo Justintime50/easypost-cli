@@ -3,5 +3,4 @@
 .test-config
 ep
 ep-win
-#*.bat
-*.ps1
+ep-temp
