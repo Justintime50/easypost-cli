@@ -59,8 +59,8 @@ build() {
 }
 
 build_win() {
-    FILENAME="executables/windows/ep"
-    TEMP="executables/windows/ep-temp"
+    FILENAME="executables/windows/ep.bat"
+    TEMP="executables/windows/ep-temp.bat"
 
     # Ensure a version number is passed in
     if [ -z "$1" ] ; then
