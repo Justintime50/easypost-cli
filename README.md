@@ -2,7 +2,7 @@
 
 Easily interact with the EasyPost API via the CLI.
 
-[![Build Status](https://travis-ci.org/Justintime50/easypost-cli.svg?branch=master)](https://travis-ci.org/Justintime50/easypost-cli)
+[![Build Status](https://travis-ci.com/Justintime50/easypost-cli.svg?branch=master)](https://travis-ci.com/Justintime50/easypost-cli)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or visit the [EasyPost CLI website](https://justintime50.github.io/easypost-cli).
