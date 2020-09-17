@@ -1,6 +1,16 @@
 # EasyPost CLI Home
 
-Here you will find all you need to know about the [EasyPost CLI]((https://github.com/Justintime50/easypost-cli)).
+> The EasyPost API on the CLI.
+
+**What Can it Do?**
+
+At a high level, the EasyPost CLI can:
+- Create and retrieve addresses, parcels, insurance, shipments, pickups, trackers, webhooks, batches, and more
+- Buy labels, refund shipments, and rate carriers
+- Create and retrieve custom reports
+- Lookup EasyPost account details, create child users, and more
+
+Check out the project on [GitHub]((https://github.com/Justintime50/easypost-cli)).
 
 ## User Documentation
 
