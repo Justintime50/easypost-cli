@@ -4,70 +4,12 @@ The EasyPost CLI allows a user to interact with the EasyPost API without needing
 
 ## Usage
 
-All EasyPost CLI commands use the syntax `ep mycommand`. Each available command can be found below, broken up by endpoint type.
+All EasyPost CLI commands use the syntax `ep mycommand`. Each available command can be found below.
 
 ### EasyPost CLI Specific Commands
 
 - If you'd like to view these docs, run `ep help`. 
 - View the version info by running `ep version`.
-
-### Account Management
-
-**Create a Child User**
-
-Create a child user under the configured parent account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#child-users).
-
-```bash
-ep create_child_user
-```
-
-**Retrieve a list of API Keys**
-
-Retrieve test and production API keys for an account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-an-api-key).
-
-```bash
-ep retrieve_api_keys
-```
-
-**Retrieve a Carrier Account**
-
-Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-carrieraccount).
-
-```bash
-ep retrieve_carrier_account
-```
-
-**Retrieve a list of Carrier Accounts**
-
-Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#list-all-carrier-accounts).
-
-```bash
-ep retrieve_carrier_accounts
-```
-
-**Retrieve a list of Carrier Types**
-
-Retrieve the list of all carrier types available to the account of the given API key. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-available-carrier-types).
-
-```bash
-ep retrieve_carrier_types
-```
-
-**Retrieve Users**
-
-Retrieve a single user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-user).
-
-```bash
-ep retrieve_user
-```
-
-**Retrieve a list of Users**
-
-Retrieve a list of users for the configured account.
-
-```bash
-ep retrieve_users
-```
 
 ### Addresses
 
@@ -179,6 +121,16 @@ Retrieve a single insurance record. [EasyPost docs for this endpoint](https://ww
 
 ```bash
 ep retrieve_insurances
+```
+
+### Orders
+
+**Retrieve an Order Record**
+
+Retrieve a single order record. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-an-order).
+
+```bash
+ep retrieve_order
 ```
 
 ### Parcels
@@ -357,6 +309,64 @@ Retrieve a single tracker. [EasyPost docs for this endpoint](https://www.easypos
 ep retrieve_trackers
 ```
 
+### Users
+
+**Create a Child User**
+
+Create a child user under the configured parent account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#child-users).
+
+```bash
+ep create_child_user
+```
+
+**Retrieve a list of API Keys**
+
+Retrieve test and production API keys for an account. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-an-api-key).
+
+```bash
+ep retrieve_api_keys
+```
+
+**Retrieve a Carrier Account**
+
+Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-carrieraccount).
+
+```bash
+ep retrieve_carrier_account
+```
+
+**Retrieve a list of Carrier Accounts**
+
+Retrieve a list of all configured carrier accounts for the configured user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#list-all-carrier-accounts).
+
+```bash
+ep retrieve_carrier_accounts
+```
+
+**Retrieve a list of Carrier Types**
+
+Retrieve the list of all carrier types available to the account of the given API key. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-available-carrier-types).
+
+```bash
+ep retrieve_carrier_types
+```
+
+**Retrieve Users**
+
+Retrieve a single user. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#retrieve-a-user).
+
+```bash
+ep retrieve_user
+```
+
+**Retrieve a list of Users**
+
+Retrieve a list of users for the configured account.
+
+```bash
+ep retrieve_users
+```
+
 ### Webhooks
 
 **Create a Webhook**
@@ -398,11 +408,3 @@ Enables a Webhook that has been disabled. [EasyPost docs for this endpoint](http
 ```bash
 ep update_webhook
 ```
-
-## Features that Will Not Be Supported via the EasyPost CLI
-
-There are a few EasyPost API endpoints that will not be supported here. They are listed below:
-
-- Creating a Carrier Account (too many options to provide comprehensive coverage).
-- The Orders endpoint (touchy carrier support, poor error handling, and the same functionality can be accomplished when batching shipments together).
-- Creating a scanform from shipments - not a batch ID (not a great way to handle many shipment ID's via a CLI).

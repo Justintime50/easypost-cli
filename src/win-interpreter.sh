@@ -1,20 +1,18 @@
 #!/bin/bash
 
 # INTRO: Interpret the Bash executable for Windows and do text replacement across the entire file
-# PURPOSE: Instead of developing the CLI for 2-3 sets of OS's, we build the CLI in pure Bash and have a tool like this to convert it into a Windows equivelant.
+# PURPOSE: Instead of developing the CLI for 2-3 sets of OS's or requiring other dependencies, we build the CLI in pure Bash and have a tool like this to convert it into a Windows equivalent.
 # NOTE: Please know this conversion tool was built quickly and is not guaranteed to build a Windows executable correctly. See LINTING.
-# LINTING: There is no way to lint a batch file and therefore the output of this file is not checked for syntax and instead must be manually tested.
 # COMPATIBILITY: This has only been tested on macOS 10.15 (Catalina), other variants of macOS of Linux may have different versions of the `sed` tool and may exhibit different behavior.
 # ORDER: comments with `!important` must come first, they probably have another rule farther down that breaks them if they happen after.
 
-# TODO: Ensure that this script is compatible on both macOS and Linux
-# TODO: if & while statements in endpoints -- REMOVE THESE, VALIDATION ALREADY OCCURS ON THE EASYPOST SIDE
-
 # Specify the file to edit
-WIN_FILENAME="executables/windows/ep-temp.bat"
+WIN_FILENAME="dist/windows_ep_temp.bat"
 
 # General changes
+ # shellcheck disable=SC2016
 sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$WIN_FILENAME"     # !important -- change the STARTDATE variables
+ # shellcheck disable=SC2016
 sed -i "" 's;$ENDDATE;%ENDDATE%;g;' "$WIN_FILENAME"         # !important -- change the ENDDATE variables
 sed -i "" 's;.*();:&;g;' "$WIN_FILENAME"                    # !important -- change all function `()` with `:`
 sed -i "" 's;#!/bin/bash;;' "$WIN_FILENAME"                 # remove the shebang
@@ -32,7 +30,9 @@ sed -i "" ';s; "$; ;g;' "$WIN_FILENAME"                     # change closing `"`
 sed -i "" 's;open;start;g;' "$WIN_FILENAME"                 # replace open with start for web pages
 
 # Replace variables
+# shellcheck disable=SC2016
 sed -i "" 's;"$EASYPOST_API_URL";%EASYPOST_API_URL%;g;' "$WIN_FILENAME"             # change EASYPOST_API_URL
+# shellcheck disable=SC2016
 sed -i "" 's;"$EASYPOST_CLI_API_KEY";%EASYPOST_CLI_API_KEY%;g;' "$WIN_FILENAME"     # change EASYPOST_CLI_API_KEY
 sed -i "" 's;\$;%;g;' "$WIN_FILENAME"                                               # change `$` to `%`
 sed -i "" 's;=$;=%;g;' "$WIN_FILENAME"                                              # change `$` to `%` (cont)
@@ -40,7 +40,7 @@ sed -i "" 's;" ^;%" ^;g;' "$WIN_FILENAME"                                       
 sed -i "" 's;set.*;&=;g;' "$WIN_FILENAME"                                           # add `=` after setting each variable
 
 # URL variables
-# TODO: There is a better way to do this without explicitly calling these variables. This works during beta. Fix ASAP
+# TODO: There is a better way to do this without explicitly calling these variables.
 sed -i "" 's;"%WEBHOOK%";%WEBHOOK%;g;' "$WIN_FILENAME"
 sed -i "" 's;"%ADDRESS%";%ADDRESS%;g;' "$WIN_FILENAME"
 sed -i "" 's;"%REPORT%";%REPORT%;g;' "$WIN_FILENAME"

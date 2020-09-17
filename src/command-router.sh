@@ -1,4 +1,6 @@
 
+# shellcheck disable=SC2148
+
 # Command Router
 # Check if the command passed is valid or not. Run if it is, warn if it is not
 # shellcheck disable=SC2039,SC2169
