@@ -6,15 +6,18 @@ before_scripts:
 scripts:
     # Test Default Bash
     - shellcheck *.sh
-    - shellcheck executables/unix/ep
+    - shellcheck src/*.sh
+    - shellcheck dist/*.sh
     # Test SH
     - shellcheck *.sh --shell=sh
-    - shellcheck executables/unix/ep --shell=sh
+    - shellcheck src/*.sh --shell=sh
+    - shellcheck dist/*.sh --shell=sh
     # Test Dash
     - shellcheck *.sh --shell=dash
-    - shellcheck executables/unix/ep --shell=dash
+    - shellcheck src/*.sh --shell=dash
+    - shellcheck dist/*.sh --shell=dash
     # Test KSH
     - shellcheck *.sh --shell=ksh
-    - shellcheck executables/unix/ep --shell=ksh
-
-    # TODO: Add unit tests here when working
+    - shellcheck src/*.sh --shell=ksh
+    - shellcheck dist/*.sh --shell=ksh
+    # TODO: Find a way to lint ".bat" files

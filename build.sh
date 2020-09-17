@@ -2,8 +2,8 @@
 
 # Build the single EasyPost executable across various OS's
 
-build() {
-    FILENAME="executables/unix/ep"
+build_unix() {
+    FILENAME="dist/unix_ep.sh"
 
     # Ensure a version number is passed in
     if [ -z "$1" ] ; then
@@ -32,9 +32,9 @@ build() {
     cat src/core-logic.sh >> "$FILENAME"
 
     # Build each endpoint
-    for DIR in src/* ; do
-        if [ -d "$DIR" ] ; then
-            cat "$DIR"/*.sh >> "$FILENAME"
+    for FILE in src/functions/* ; do
+        if [ -f "$FILE" ] ; then
+            cat "$FILE" >> "$FILENAME"
         fi
     done
 
@@ -47,20 +47,12 @@ build() {
     # Make the EasyPost CLI executable
     chmod +x "$FILENAME"
 
-    # Create Homebrew Tar file and print checksum
-    printf "\nUnix\n"
-    cd executables/unix || exit
-    tar -czf easypost-cli-"$1".tgz "ep"
-    printf "Tar File: easypost-cli-%s.tgz" "$1"
-    printf "\nVersion: %s" "$1"
-    printf "\nChecksum: "
-    shasum -a 256 easypost-cli-"$1".tgz
-    cd ../../ || exit
+    printf "%s\n" "Unix $1 EasyPost CLI executable built!"
 }
 
 build_win() {
-    FILENAME="executables/windows/ep.bat"
-    TEMP="executables/windows/ep-temp.bat"
+    FILENAME="dist/windows_ep.bat"
+    TEMP_FILE="dist/windows_ep_temp.bat"
 
     # Ensure a version number is passed in
     if [ -z "$1" ] ; then
@@ -72,14 +64,14 @@ build_win() {
     if [ -f "$FILENAME" ] ; then
         rm -f "$FILENAME"
     fi
-    if [ -f "$TEMP" ] ; then
-        rm -f "$TEMP"
+    if [ -f "$TEMP_FILE" ] ; then
+        rm -f "$TEMP_FILE"
     fi
 
     # Build each endpoint
-    for DIR in src/* ; do
-        if [ -d "$DIR" ] ; then
-            cat "$DIR"/*.sh >> "$TEMP"
+    for FILE in src/functions/* ; do
+        if [ -f "$FILE" ] ; then
+            cat "$FILE" >> "$TEMP_FILE"
         fi
     done
 
@@ -91,33 +83,24 @@ build_win() {
         # Build the Windows command router
         cat src/command-router.bat
 
-        # Grab the temp file and put it in the real one
-        cat "$TEMP"
+        # Grab the TEMP_FILE file and put it in the real one
+        cat "$TEMP_FILE"
 
         # Add the eof tag
         printf "\n:eof\n" 
     } >> "$FILENAME"
 
-    # Remove the EasyPost CLI temp file
-    if [ -f "$TEMP" ] ; then
-        rm -f "$TEMP"
+    # Remove the EasyPost CLI TEMP_FILE file
+    if [ -f "$TEMP_FILE" ] ; then
+        rm -f "$TEMP_FILE"
     fi
 
     # Update version number found in executable
     sed -i "" "s;EASYPOST_CLI_VERSION=.*;EASYPOST_CLI_VERSION=$1;" "$FILENAME"
-    sed -i "" "s;VERSION=.*;VERSION=$1;" "install-win.bat"
 
-    # Create Windows tar file and print checksum
-    printf "\nWindows\n"
-    cd executables/windows || exit
-    tar -czf easypost-cli-"$1".tgz "ep"
-    printf "Tar File: easypost-cli-%s.tgz" "$1"
-    printf "\nVersion: %s" "$1"
-    printf "\nChecksum: "
-    shasum -a 256 easypost-cli-"$1".tgz
-    cd ../../ || exit
+    printf "%s\n" "Windows $1 EasyPost CLI executable built!"
 }
 
 # Invoke the build functions
-build "$1" "$2"
+build_unix "$1" "$2"
 build_win "$1"

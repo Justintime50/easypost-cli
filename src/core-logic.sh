@@ -1,4 +1,6 @@
 
+# shellcheck disable=SC2148
+
 ################################################
 # EASYPOST CLI
 # https://github.com/Justintime50/easypost-cli
@@ -7,6 +9,7 @@
 
 # Specify some variables
 EASYPOST_API_URL="https://api.easypost.com/v2"
+# shellcheck disable=SC2034
 EASYPOST_CLI_VERSION="1.0.0-beta"
 # shellcheck disable=SC1090
 . "$HOME"/.easypost-cli-config

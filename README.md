@@ -18,26 +18,28 @@ At a high level, the EasyPost CLI can:
 ## Install on macOS & Linux
 
 ```bash
-# 1) Install the EasyPost CLI
-brew tap justintime50/easypost-cli
-brew install easypost-cli
+# Setup the tap
+brew tap justintime50/formulas
 
-# 2) Configure the EasyPost CLI with your API key
-echo "EASYPOST_CLI_API_KEY=<your_key_here>" >> ~/.easypost-cli-config
+# Install the EasyPost CLI
+brew install easypost_cli
+
+# Configure the EasyPost CLI with your API key
+echo "EASYPOST_CLI_API_KEY=<your_key_here>" > ~/.easypost-cli-config
 ```
 
-## Install on Windows (experimental)
+## Install on Windows
 
-**Compatibility:** Works on Windows 7 or later. 
+**NOTE:** Although every attempt was made to ensure the EasyPost CLI is compatible on Windows, there may be small discrepencies.
 
-Requires that the [Chocolatey package manager](https://chocolatey.org) be installed first which will install `jq` allowing for formatted JSON.
+The EasyPost CLI on Windows requires that the [Chocolatey package manager](https://chocolatey.org) be installed first which will install `jq` allowing for formatted JSON.
 
 ```batch
 :: 1) Download and run the install script
 curl -LJOs https://raw.githubusercontent.com/justintime50/easypost-cli/master/install-win.bat && install-win.bat
 
 :: 2) Setup the config file with your API key
-@echo set EASYPOST_CLI_API_KEY=123... >> C:/easypost-cli/easypost-cli-config.bat
+@echo set EASYPOST_CLI_API_KEY=123... > C:/easypost-cli/easypost-cli-config.bat
 :: Hide the config file (optional but recommended)
 attrib +h C:/easypost-cli/easypost-cli-config.bat
 
@@ -64,21 +66,5 @@ For a full breakdown of how the EasyPost CLI works under the hood, see the accom
 
 ```bash
 # Build the EasyPost CLI, passing in the version number as a parameter
-./build.sh 1.1.2
+./build.sh 1.1.2 bash
 ```
-
-### Running Unit Tests
-
-Unit tests thus far are manually verified by checking the terminal output. Automated unit tests are in the works.
-
-```bash
-# Copy the test config
-cp tests/.test-config-example tests/.test-config
-
-# Run unit tests
-./test.sh
-```
-
-## Roadmap
-
-Most of the basic functionality of the EasyPost API is included in the EasyPost CLI to this point. Roadmap items would include adding all applicable `shipment options` as appropriate for a CLI tool, `customs info and items`, and additional request customization options.

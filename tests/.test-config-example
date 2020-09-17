@@ -1,3 +1,0 @@
-# Configure the EasyPost CLI for Unit Testing
-EASYPOST_CLI_API_KEY=
-EASYPOST_API_URL="https://api.easypost.com/v2"
