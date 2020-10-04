@@ -28,7 +28,7 @@ At a high level, the EasyPost CLI can:
 brew tap justintime50/formulas
 
 # Install the EasyPost CLI
-brew install easypost_cli
+brew install easypost-cli
 
 # Configure the EasyPost CLI with your API key
 echo "EASYPOST_CLI_API_KEY=<your_key_here>" > ~/.easypost-cli-config
