@@ -1,23 +1,23 @@
 language: bash
 
 before_scripts:
-    - ./build.sh 1.0.0 bash
+    # Test that building doesn't blow up
+    - ./utils/build.sh 1.0.0 bash
 
 scripts:
     # Test Default Bash
-    - shellcheck *.sh
     - shellcheck src/*.sh
     - shellcheck dist/*.sh
+    - shellcheck utils/*.sh
     # Test SH
-    - shellcheck *.sh --shell=sh
     - shellcheck src/*.sh --shell=sh
     - shellcheck dist/*.sh --shell=sh
+    - shellcheck utils/*.sh --shell=sh
     # Test Dash
-    - shellcheck *.sh --shell=dash
     - shellcheck src/*.sh --shell=dash
     - shellcheck dist/*.sh --shell=dash
+    - shellcheck utils/*.sh --shell=dash
     # Test KSH
-    - shellcheck *.sh --shell=ksh
     - shellcheck src/*.sh --shell=ksh
     - shellcheck dist/*.sh --shell=ksh
-    # TODO: Find a way to lint ".bat" files
+    - shellcheck utils/*.sh --shell=ksh
