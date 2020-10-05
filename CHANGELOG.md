@@ -1,5 +1,12 @@
 # EasyPost CLI Changelog
 
+## v1.1.0 (2020-10-05)
+
+* We now properly throw an error when a config file is not found (closes #12)
+* Bringing the Windows executable in-line with the shell executable by populating missing code and making the init/router logic uniform
+* Removing additional overhead in the build process by doing more code reuse, removing unused code, renaming files and relocating them
+* Wrapping all code inside a function to ensure encapsulation, sepration of concerns, and code-reuse. This was done both in the tool and all the utilities to build it (closes #14)
+
 ## v1.0.0 (2020-09-15)
 
 * Major code refactor removing various overhead
