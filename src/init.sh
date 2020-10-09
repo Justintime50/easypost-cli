@@ -5,6 +5,7 @@
 ################################################
 
 # Init Functions
+# shellcheck disable=SC1090,SC2034
 
 main() {
     # Run this main function anytime the CLI is used
