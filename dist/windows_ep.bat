@@ -4,52 +4,46 @@
 :: Author: Justintime50
 :::::::::::::::::::::::::::::::::::::::::::::::
 
-:: Setup global variables
-@echo off
-set EASYPOST_API_URL="https://api.easypost.com/v2"
-set EASYPOST_CLI_VERSION="1.1.0"
+:: Init Functions
+
+:main
+    :: Run this main function anytime the CLI is used
+    @echo off
+    set EASYPOST_API_URL="https://api.easypost.com/v2"
+    set EASYPOST_CLI_VERSION="1.2.0"
+
+    call :check_config_file
+    call :check_api_key
+    call :check_api_url
+    call :command_router %1
+exit /b 0
 
 :check_config_file
     :: Check that the config file is available
-    set CONFIG_FILE=C:/easypost-cli/easypost-cli-config.bat
-    if not exist {%CONFIG_FILE%} (
-        echo {%CONFIG_FILE%} not found, please ensure this file exists before using the easypost-cli
-        exit /b 1
-    )
-    else (
-        call {%CONFIG_FILE%}
-    )
-EXIT /B 0
+    call C:/easypost-cli/easypost-cli-config.bat 2>null || (echo C:/easypost-cli/easypost-cli-config.bat not found, please ensure this file exists before using the easypost-cli. & exit /b 1)
+exit /b 0
 
 :check_api_key
     :: Check that the API key is set
-    if {%EASYPOST_CLI_API_KEY%} == {} (
+    if not defined EASYPOST_CLI_API_KEY (
         echo The EasyPost CLI is misconfigured, please ensure your API key is set and accessible via this shell.
         exit /b 1
     )
-EXIT /B 0
+exit /b 0
 
 :check_api_url
     :: Check that the API URL is set
-    if {%EASYPOST_API_URL%} == {} (
+    if not defined EASYPOST_API_URL (
         echo The EasyPost API URL is not set. API calls cannot be sent without this variable.
         exit /b 1
     )
-EXIT /B 0
-
-call check_config_file
-call check_api_key
-call check_api_url
+exit /b 0
 
 :command_router
-    :: Command Router: Check if the command passed is valid or not. 
+    :: Check if the command passed is valid or not. 
     :: Run if it is a valid command, warn and exit if it is not.
-    call :%1
-    echo :%1 is not an EasyPost CLI command, please try again.
-    exit /b 1
-EXIT /B 0
-
-call command_router :%1
+    call :%1 2>null || (echo "%1" is not an EasyPost CLI command, please try again. & exit /b 1)
+exit /b 0
 
 :: Endpoint Functions
 
@@ -93,7 +87,7 @@ call command_router :%1
     -d "address[phone]=%PHONE%" ^
     -d "address[email]=%EMAIL%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_address
     :: ep retrieve_address: Retrieve an address record
@@ -105,7 +99,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/addresses/%ADDRESS% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_addresses
     :: ep retrieve_addresses: Retrieve a list of addresses
@@ -116,7 +110,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/addresses ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :add_shipment_to_batch
     :: ep add_shipment_to_batch: Add a shipment to a batch
@@ -133,7 +127,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "shipments[0][id]=%SHIPMENT%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_batch
     :: ep create_batch: Create an empty batch object
@@ -142,7 +136,7 @@ EXIT /B 0
     curl -s -X POST %EASYPOST_API_URL%/batches ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :generate_batch_label
     :: ep generate_batch_label: Generate a label for a batch of shipments
@@ -164,7 +158,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "label_format=%FORMAT%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :remove_shipment_from_batch
     :: ep remove_shipment_from_batch: Remove a shipment from a batch
@@ -181,7 +175,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "shipments[0][id]=%SHIPMENT%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :buy_shipment
     :: ep buy_shipment: Buy a label for the specified shipment
@@ -199,7 +193,7 @@ EXIT /B 0
     -d "rate[id]=%RATE%" ^
     -d "insurance=%INSURANCE%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :refund_shipment
     :: ep refund_shipment: Refund a specified shipment
@@ -211,7 +205,7 @@ EXIT /B 0
     curl -s -X POST %EASYPOST_API_URL%/shipments/%SHIPMENT%/refund ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :regenerate_rates
     :: ep regenerate_rates: Regenerate rates for a shipment
@@ -223,12 +217,12 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT%/rates ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :help
     :: ep help: Show the docs
     start https://github.com/Justintime50/easypost-cli/blob/master/docs/man.md
-EXIT /B 0
+exit /b 0
 
 :create_insurance
     :: ep create_insurance: Create an insurance record for shipments not from EasyPost
@@ -256,7 +250,7 @@ EXIT /B 0
     -d "insurance[reference]=%REFERENCE%" ^
     -d "insurance[amount]=%AMOUNT%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_insurance
     :: ep retrieve_insurance: Retrieve an insurnace record
@@ -268,7 +262,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/insurances/%INSURANCE% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_insurances
     :: ep retrieve_insurances: Retrieve a list of insurances
@@ -279,7 +273,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/insurances ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_order
     :: ep retrieve_order: Retrieve a order record
@@ -291,7 +285,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/orders/"%order%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_parcel
     :: ep create_parcel: Create a parcel record
@@ -313,7 +307,7 @@ EXIT /B 0
     -d "parcel[height]=%HEIGHT%" ^
     -d "parcel[weight]=%WEIGHT%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_parcel
     :: ep retrieve_parcel: Retrieve a parcel record
@@ -325,7 +319,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/parcels/%PARCEL% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :buy_pickup
     :: ep buy_pickup: Buy a pickup
@@ -342,7 +336,7 @@ EXIT /B 0
     -d "carrier=%CARRIER%" ^
     -d "service=%SERVICE%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :cancel_pickup
     :: ep cancel_pickup: Cancel a pickup
@@ -353,7 +347,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP%/cancel ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_pickup
     :: ep create_pickup: Create a pickup
@@ -379,7 +373,7 @@ EXIT /B 0
     -d "pickup[address][id]=%ADDRESS%" ^
     -d "pickup[instructions]=%INSTRUCTIONS%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_pickup
     :: ep retrieve_pickup: Retrieve a single pickup
@@ -390,7 +384,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_payment_log_report
     :: ep create_payment_log_report: Create a payment log report
@@ -405,7 +399,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "{'start_date':%STARTDATE%,'end_date':%ENDDATE%}" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_refund_report
     :: ep create_refund_report: Create a payment log report
@@ -420,7 +414,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "{'start_date':%STARTDATE%,'end_date':%ENDDATE%}" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_shipment_report
     :: ep create_shipment_report: Create a payment log report
@@ -435,7 +429,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "{'start_date':%STARTDATE%,'end_date':%ENDDATE%}" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_tracker_report
     :: ep create_tracker_report: Create a payment log report
@@ -450,7 +444,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "{'start_date':%STARTDATE%,'end_date':%ENDDATE%}" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_payment_log_report
     :: ep retrieve_payment_log_report: Retrieve a single payment log report
@@ -462,7 +456,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/payment_log/%REPORT% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_refund_report
     :: ep retrieve_refund_report: Retrieve a single payment log report
@@ -474,7 +468,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/refund/%REPORT% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_shipment_report
     :: ep retrieve_shipment_report: Retrieve a single payment log report
@@ -486,7 +480,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/shipment/%REPORT% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_tracker_report
     :: ep retrieve_tracker_report: Retrieve a single payment log report
@@ -498,7 +492,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/tracker/%REPORT% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_payment_log_reports
     :: ep retrieve_payment_log_reports: Retrieve a list of payment log reports
@@ -509,7 +503,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/payment_log ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_refund_reports
     :: ep retrieve_refund_reports: Retrieve a list of payment log reports
@@ -520,7 +514,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/refund ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_shipment_reports
     :: ep retrieve_shipment_reports: Retrieve a list of payment log reports
@@ -531,7 +525,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/shipment ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_tracker_reports
     :: ep retrieve_tracker_reports: Retrieve a list of payment log reports
@@ -542,7 +536,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/reports/tracker ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :: TODO: Add "payment-log" report endpoints
 
@@ -555,7 +549,7 @@ EXIT /B 0
     curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/scan_form ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_scanform
     :: ep retrieve_scanform: Retrieve a single scanform
@@ -566,7 +560,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/scan_forms/%SCANFORM% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_scanforms
     :: ep retrieve_scanforms: Retrieve a list of scanforms
@@ -577,7 +571,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/scan_forms ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_refund
     :: ep create_refund: Create a return shipment that swaps the to and from addresses on the label
@@ -597,7 +591,7 @@ EXIT /B 0
     -d "shipment[parcel][id]=%PARCEL%" ^
     -d "shipment[is_return]=true%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_shipment
     :: ep create_shipment: Create a shipment record that can then be used to purchase a label
@@ -681,7 +675,7 @@ EXIT /B 0
     -d "parcel[height]=%HEIGHT%" ^
     -d "parcel[weight]=%WEIGHT%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_shipment
     :: ep retrieve_shipment: Retrieve a shipment record
@@ -693,7 +687,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_shipments
     :: ep retrieve_shipments: Retrieve a list of shipments
@@ -704,7 +698,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/shipments ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_tracker
     :: ep create_tracker: Create a tracker for a shipment
@@ -720,7 +714,7 @@ EXIT /B 0
     -d "tracker[tracking_code]=%TRACKER%" ^
     -d "tracker[carrier]=%CARRIER%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_tracker
     :: ep retrieve_tracker: Retrieve a tracker record
@@ -732,7 +726,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/trackers/%TRACKER% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_trackers
     :: ep retrieve_trackers: Retrieve a list of trackers
@@ -743,7 +737,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/trackers ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :create_child_user
     :: ep create_child_user: Create a child user (requires production API key)
@@ -756,7 +750,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "user[name]=%USER%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_api_keys
     :: ep retrieve_api_keys: Retrieve the API keys of the associated account
@@ -764,7 +758,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/api_keys ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_carrier_account
     :: ep retrieve_carrier_account: Retrieve a single configured carrier account
@@ -776,7 +770,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/carrier_accounts/%CARRIER% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_carrier_accounts
     :: ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
@@ -785,7 +779,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/carrier_accounts ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_carrier_types
     :: ep retrieve_carrier_types: Retrieve the list of all carrier types available to the account of the given API key.
@@ -793,7 +787,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/carrier_types ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_user
     :: ep retrieve_user: Retrieve the users of the associated account
@@ -805,7 +799,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/users/%USER% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_users
     :: ep retrieve_users: Retrieve the users of the associated account
@@ -813,12 +807,12 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/users ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :version
     :: ep version: Show the EasyPost CLI version info
     echo EasyPost CLI - %EASYPOST_CLI_VERSION"
-EXIT /B 0
+exit /b 0
 
 :create_webhook
     :: ep create_webhooks: Create a webhook
@@ -831,7 +825,7 @@ EXIT /B 0
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "webhook[url]=%WEBHOOK%" ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :delete_webhook
     :: ep delete_webhook: Enables a Webhook that has been disabled.
@@ -843,7 +837,7 @@ EXIT /B 0
     curl -s -X DELETE %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_webhook
     :: ep retrieve_webhook: Retrieve a list of webhooks
@@ -855,7 +849,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :retrieve_webhooks
     :: ep retrieve_webhooks: Retrieve a list of webhooks
@@ -864,7 +858,7 @@ EXIT /B 0
     curl -s -X GET %EASYPOST_API_URL%/webhooks ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
 :update_webhook
     :: ep update_webhook: Enables a Webhook that has been disabled.
@@ -876,6 +870,6 @@ EXIT /B 0
     curl -s -X PUT %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
-EXIT /B 0
+exit /b 0
 
-:eof
+main %1

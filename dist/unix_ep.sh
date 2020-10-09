@@ -1,22 +1,26 @@
 #!/bin/bash
-
-# shellcheck disable=SC2148
-
 ################################################
 # EASYPOST CLI
 # https://github.com/Justintime50/easypost-cli
 # Author: Justintime50
 ################################################
 
-# Setup global variables
-EASYPOST_API_URL="https://api.easypost.com/v2"
-# shellcheck disable=SC2034
-EASYPOST_CLI_VERSION="1.1.0"
+# Init Functions
+
+main() {
+    # Run this main function anytime the CLI is used
+    EASYPOST_API_URL="https://api.easypost.com/v2"
+    EASYPOST_CLI_VERSION="1.2.0"
+
+    check_config_file
+    check_api_key
+    check_api_url
+    command_router "$1"
+}
 
 check_config_file() {
     # Check that the config file is available
-    # shellcheck disable=SC1090
-    . "$HOME/.easypost-cli-config" > /dev/null 2>&1 || { printf "%s\n" "\"~/.easypost-cli-config\" not found, please ensure this file exists before using the easypost-cli"; exit 1; }
+    . "$HOME/.easypost-cli-config" > /dev/null 2>&1 || { printf "%s\n" "\"~/.easypost-cli-config\" not found, please ensure this file exists before using the easypost-cli."; exit 1; }
 }
 
 check_api_key() {
@@ -35,9 +39,18 @@ check_api_url() {
     fi
 }
 
-check_config_file
-check_api_key
-check_api_url
+command_router() {
+    # Check if the command passed is valid or not. 
+    # Run if it is a valid command, warn and exit if it is not.
+    # shellcheck disable=SC2039,SC2169
+    if declare -f "$1" > /dev/null
+    then
+        "$@"
+    else
+        printf "%s\n" "\"$1\" is not an EasyPost CLI command, please try again." >&2
+        exit 1
+    fi
+}
 
 # Endpoint Functions
 
@@ -866,21 +879,4 @@ update_webhook() {
     | json_pp
 }
 
-# shellcheck disable=SC2148
-
-command_router() {
-    # Command Router: Check if the command passed is valid or not. 
-    # Run if it is a valid command, warn and exit if it is not.
-    # shellcheck disable=SC2039,SC2169
-    if declare -f "$1" > /dev/null
-    then
-        # Pass in the argument (command - function)
-        "$@"
-    else
-        # Tell the user their command is not valid
-        printf "%s\n" "\"$1\" is not an EasyPost CLI command, please try again." >&2
-        exit 1
-    fi
-}
-
-command_router "$@"
+main "$1"
