@@ -6,18 +6,14 @@ before_scripts:
 
 scripts:
     # Test Default Bash
-    - shellcheck src/*.sh
     - shellcheck dist/*.sh
     - shellcheck utils/*.sh
     # Test SH
-    - shellcheck src/*.sh --shell=sh
     - shellcheck dist/*.sh --shell=sh
     - shellcheck utils/*.sh --shell=sh
     # Test Dash
-    - shellcheck src/*.sh --shell=dash
     - shellcheck dist/*.sh --shell=dash
     - shellcheck utils/*.sh --shell=dash
     # Test KSH
-    - shellcheck src/*.sh --shell=ksh
     - shellcheck dist/*.sh --shell=ksh
     - shellcheck utils/*.sh --shell=ksh
