@@ -1,5 +1,12 @@
 # EasyPost CLI Changelog
 
+## v1.2.0 (2020-10-09)
+
+* Further bringing the Unix and Windows build process and executables in-line with each other. There is now only a single file difference which has mostly been unified. In a coming version, we'll be able to combine these into a single shell file and convert it to Batch during the build process like all other functionality
+* Fixed the broken Windows executable
+* Added a main function which helps encapsulate each invokaction of the CLI tool
+* Refactored utils and code location to be more streamlined - rebuilt executables to take advantage of these changes
+
 ## v1.1.0 (2020-10-05)
 
 * We now properly throw an error when a config file is not found (closes #12)

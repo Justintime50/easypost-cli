@@ -8,18 +8,16 @@ The EasyPost CLI is built in pure `Bash` and only requires `cURL` to work. There
 
 ## Breakdown
 
-The EasyPost CLI ultimately has 5 parts:
+The EasyPost CLI ultimately has 4 parts:
 
 1. **Init**
-    - The `init` script imports the config file and handles any other core functionality of the tool including running checks to ensure the environment is setup correctly. This is built at the beginning of the executable. The shell shebang also lives here. (A `init` file can be found for both Unix and Windows.)
+    - The `init` script imports the config file and handles any other core functionality of the tool including running checks to ensure the environment is setup correctly and routing the command passed to the right function. This is built at the beginning of the executable. The shell shebang also lives here for Unix. (A `init` file can be found for both Unix and Windows.)
 1. **Config**
     - The config file carries variables necessary to run the tool including the provided EasyPost API key. The config file is placed in the user's home folder by default during installation and is not found in this repo.
 1. **Functions**
     - The functions for each EasyPost API call (endpoint) that can be made are broken up into several pieces, each category of endpoints being its own shell script for simplicity and readability. These are built in the middle of the executable and can be found separated into categories of folders in the `src/functions` directory.
-1. **Router**
-    - The `router` searches the library of functions and points the user's command to that function or returns an error saying that no such endpoint exists. This is built at the end of the executable. (A `router` file can be found for both Unix and Windows.)
 1. **EasyPost CLI Executable**
-    - The EasyPost CLI executables (`unix_ep.sh`, and `windows_ep.bat`) are built from `items 1, 3, and 4` in their respective orders. A build script concatenates all of these records into a single executable file which is then placed in the user's path, ready to be called upon in the syntax of `ep my_command`.
+    - The EasyPost CLI executables (`unix_ep.sh`, and `windows_ep.bat`) are built from `items 1 and 3`. A build script concatenates all of these records into a single executable file which is then placed in the user's path, ready to be called upon in the syntax of `ep my_command`.
     
 ## Building the EasyPost CLI Executables
 

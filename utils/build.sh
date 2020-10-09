@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Build the executables that will work on Linux, macOS, and Windows
+# Usage: ./utils/build.sh 1.0.0 bash
 
 check_for_version_number() {
     # Ensure a version number is passed in
@@ -39,8 +40,8 @@ prepare_shebang() {
 }
 
 update_version_number() {
-    # Update version number found in executable
-    sed -i "" "s;EASYPOST_CLI_VERSION=.*;EASYPOST_CLI_VERSION=\"$1\";" "$FILENAME"
+    # Update version placeholder found in the executable
+    sed -i "" "s;VERSION_PLACEHOLDER;$1;" "$FILENAME"
 }
 
 make_file_executable() {
@@ -60,7 +61,7 @@ build_unix() {
     # Build the executable file
     cat src/init.sh >> "$FILENAME"
     build_functions "$FILENAME"
-    cat src/router.sh >> "$FILENAME"
+    printf "\n%s\n" "main \"\$1\"" >> "$FILENAME"
 
     update_version_number "$1"
     make_file_executable "$FILENAME"
@@ -77,19 +78,17 @@ build_windows() {
     # Build the functions to a temp file, then run the windows-interpreter 
     # tool to convert from Shell to Batch
     build_functions "$TEMP_FILE"
-    # shellcheck disable=SC1091
-    . utils/windows-interpreter.sh
+    ./utils/windows-interpreter.sh "$TEMP_FILE"
 
     # Build the real executable file passing in the temp data that is now converted
     {
         cat src/init.bat
-        cat src/router.bat
         cat "$TEMP_FILE"
-        printf "\n%s\n" ":eof" 
+        printf "\n%s\n" "main %1" >> "$FILENAME"
     } >> "$FILENAME"
 
-    clean_files "$TEMP_FILE"
     update_version_number "$1"
+    clean_files "$TEMP_FILE"
     printf "%s\n" "Windows \"$1\" EasyPost CLI executable built!"
 }
 
