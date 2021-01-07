@@ -1,0 +1,27 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Build easypost-cli
+        run: ./utils/build.sh 1.0.0 bash
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        # TODO: When https://github.com/ludeeus/action-shellcheck/issues/34 is closed,
+        # come back and add each shell here
+      - name: Run ShellCheck on /dist
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "dist"
+      - name: Run ShellCheck on /utils
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "utils"
