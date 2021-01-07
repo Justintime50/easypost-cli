@@ -4,14 +4,14 @@
 
 The EasyPost API on the CLI.
 
-[![Build Status](https://travis-ci.com/Justintime50/easypost-cli.svg?branch=master)](https://travis-ci.com/Justintime50/easypost-cli)
+[![Build](https://github.com/Justintime50/easypost-cli/workflows/build/badge.svg)](https://github.com/Justintime50/easypost-cli/actions)
 [![Licence](https://img.shields.io/github/license/justintime50/easypost-cli)](LICENSE)
 
 <img src="assets/showcase.png" alt="Showcase">
 
 </div>
 
-Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is portable and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or visit the [EasyPost CLI website](https://justintime50.github.io/easypost-cli).
+Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is incredibly portable for both users and developers and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or visit the [EasyPost CLI website](https://justintime50.github.io/easypost-cli).
 
 ## What Can it Do?
 
@@ -77,7 +77,3 @@ Build the EasyPost CLI, passing in the version number as the first parameter and
 ```bash
 ./utils/build.sh 1.1.2 bash
 ```
-
-## Disclaimer
-
-This project is not endorsed or maintained by EasyPost.

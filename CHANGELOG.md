@@ -1,5 +1,11 @@
 # EasyPost CLI Changelog
 
+## v1.2.1 (2021-01-07)
+
+* Switching from Travis-CI to GitHub Actions
+* Using `homebrew-releaser` for automated releasing
+* Small documentation updates
+
 ## v1.2.0 (2020-10-09)
 
 * Further bringing the Unix and Windows build process and executables in-line with each other. There is now only a single file difference which has mostly been unified. In a coming version, we'll be able to combine these into a single shell file and convert it to Batch during the build process like all other functionality
