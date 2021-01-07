@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       - name: Build easypost-cli
         run: ./utils/build.sh 1.0.0 bash
   shellcheck:
