@@ -9,12 +9,11 @@ jobs:
     name: homebrew-releaser
     steps:
       - name: Release my project to my Homebrew tap
-        uses: Justintime50/homebrew-releaser@v0.3.0
+        uses: Justintime50/homebrew-releaser@v0.4.0
         with:
-          owner: Justintime50
-          owner_email: justinpaulhammond@gmail.com
-          repo: easypost-cli
-          install: 'bin.install "dist/unix_ep.sh" => "ep"'
+          commit_owner: Justintime50
+          commit_email: justinpaulhammond@gmail.com
+          homebrew_owner: Justintime50
           homebrew_tap: homebrew-formulas
-          homebrew_formula_folder: formula
+          install: 'bin.install "dist/unix_ep.sh" => "ep"'
           github_token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
