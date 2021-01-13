@@ -15,13 +15,51 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        # TODO: When https://github.com/ludeeus/action-shellcheck/issues/34 is closed,
-        # come back and add each shell here
-      - name: Run ShellCheck on /dist
+      - name: Run ShellCheck on /dist for bash
         uses: ludeeus/action-shellcheck@1.0.0
         with:
           scandir: "dist"
-      - name: Run ShellCheck on /utils
+        env:
+          SHELLCHECK_OPTS: -s bash
+      - name: Run ShellCheck on /dist for sh
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "dist"
+        env:
+          SHELLCHECK_OPTS: -s sh
+      - name: Run ShellCheck on /dist for dash
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "dist"
+        env:
+          SHELLCHECK_OPTS: -s dash
+      - name: Run ShellCheck on /dist for ksh
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "dist"
+        env:
+          SHELLCHECK_OPTS: -s ksh
+      - name: Run ShellCheck on /utils for bash
         uses: ludeeus/action-shellcheck@1.0.0
         with:
           scandir: "utils"
+        env:
+          SHELLCHECK_OPTS: -s bash
+      - name: Run ShellCheck on /utils for sh
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "utils"
+        env:
+          SHELLCHECK_OPTS: -s sh
+      - name: Run ShellCheck on /utils for dash
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "utils"
+        env:
+          SHELLCHECK_OPTS: -s dash
+      - name: Run ShellCheck on /utils for ksh
+        uses: ludeeus/action-shellcheck@1.0.0
+        with:
+          scandir: "utils"
+        env:
+          SHELLCHECK_OPTS: -s ksh
