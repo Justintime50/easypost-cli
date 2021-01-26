@@ -42,7 +42,7 @@ The EasyPost CLI on Windows requires that the [Chocolatey package manager](https
 
 ```batch
 :: 1) Download and run the install script
-curl -LJOs https://raw.githubusercontent.com/justintime50/easypost-cli/master/utils/windows-install.bat && windows-install.bat
+curl -LJOs https://raw.githubusercontent.com/justintime50/easypost-cli/main/utils/windows-install.bat && windows-install.bat
 
 :: 2) Setup the config file with your API key
 @echo set EASYPOST_CLI_API_KEY=123... > C:/easypost-cli/easypost-cli-config.bat

@@ -10,7 +10,7 @@
     :: Run this main function anytime the CLI is used
     @echo off
     set EASYPOST_API_URL="https://api.easypost.com/v2"
-    set EASYPOST_CLI_VERSION="1.2.0"
+    set EASYPOST_CLI_VERSION="1.3.0"
 
     call :check_config_file
     call :check_api_key
@@ -174,48 +174,6 @@ exit /b 0
     curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/remove_shipments ^
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "shipments[0][id]=%SHIPMENT%" ^
-    | jq .
-exit /b 0
-
-:buy_shipment
-    :: ep buy_shipment: Buy a label for the specified shipment
-    :: Prompt user for input
-    echo Enter shipment ID: 
-    set /P SHIPMENT=
-    echo Enter rate ID: 
-    set /P RATE=
-    echo Enter insurance amount (optional): 
-    set /P INSURANCE=
-
-    :: Build curl request
-    curl -s -X POST %EASYPOST_API_URL%/shipments/%SHIPMENT%/buy ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    -d "rate[id]=%RATE%" ^
-    -d "insurance=%INSURANCE%" ^
-    | jq .
-exit /b 0
-
-:refund_shipment
-    :: ep refund_shipment: Refund a specified shipment
-    :: Prompt user for input
-    echo Enter shipment ID: 
-    set /P SHIPMENT=
-
-    :: Build curl request
-    curl -s -X POST %EASYPOST_API_URL%/shipments/%SHIPMENT%/refund ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:regenerate_rates
-    :: ep regenerate_rates: Regenerate rates for a shipment
-    :: Prompt user for input
-    echo Enter shipment ID: 
-    set /P SHIPMENT=
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT%/rates ^
-    -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
 
@@ -573,8 +531,96 @@ exit /b 0
     | jq .
 exit /b 0
 
-:create_refund
-    :: ep create_refund: Create a return shipment that swaps the to and from addresses on the label
+:buy_shipment
+    :: ep buy_shipment: Buy a label for the specified shipment
+    :: Prompt user for input
+    echo Enter shipment ID: 
+    set /P SHIPMENT=
+    echo Enter rate ID: 
+    set /P RATE=
+    echo Enter insurance amount (optional): 
+    set /P INSURANCE=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/shipments/%SHIPMENT%/buy ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "rate[id]=%RATE%" ^
+    -d "insurance=%INSURANCE%" ^
+    | jq .
+exit /b 0
+
+:buy_stamp
+    :: ep buy_stamp: Purchases a single USPS domestic stamp and creates a ::10 letter size label to print onto a standard envelope
+    :: Prompt user for input
+    echo Enter to_street1: 
+    set /P TO_STREET1=
+    echo Enter to_street2 (optional): 
+    set /P TO_STREET2=
+    echo Enter to_city: 
+    set /P TO_CITY=
+    echo Enter to_state: 
+    set /P TO_STATE=
+    echo Enter to_zip: 
+    set /P TO_ZIP=
+    echo Enter to_name (optional): 
+    set /P TO_NAME=
+    echo Enter to_company (optional): 
+    set /P TO_COMPANY=
+    echo Enter to_phone (optional): 
+    set /P TO_PHONE=
+    echo Enter to_email (optional): 
+    set /P TO_EMAIL=
+
+    echo Enter from_street1: 
+    set /P FROM_STREET1=
+    echo Enter from_street2 (optional): 
+    set /P FROM_STREET2=
+    echo Enter from_city: 
+    set /P FROM_CITY=
+    echo Enter from_state: 
+    set /P FROM_STATE=
+    echo Enter from_zip: 
+    set /P FROM_ZIP=
+    echo Enter from_name (optional): 
+    set /P FROM_NAME=
+    echo Enter from_company (optional): 
+    set /P FROM_COMPANY=
+    echo Enter from_phone (optional): 
+    set /P FROM_PHONE=
+    echo Enter from_email (optional): 
+    set /P FROM_EMAIL=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/shipments ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "address[to_address][street1]=%TO_STREET1%" ^
+    -d "address[to_address][street2]=%TO_STREET2%" ^
+    -d "address[to_address][city]=%TO_CITY%" ^
+    -d "address[to_address][state]=%TO_STATE%" ^
+    -d "address[to_address][zip]=%TO_ZIP%" ^
+    -d "address[to_address][country]=US%" ^
+    -d "address[to_address][name]=%TO_NAME%" ^
+    -d "address[to_address][company]=%TO_COMPANY%" ^
+    -d "address[to_address][phone]=%TO_PHONE%" ^
+    -d "address[to_address][email]=%TO_EMAIL%" ^
+    -d "address[from_address][street1]=%FROM_STREET1%" ^
+    -d "address[from_address][street2]=%FROM_STREET2%" ^
+    -d "address[from_address][city]=%FROM_CITY%" ^
+    -d "address[from_address][state]=%FROM_STATE%" ^
+    -d "address[from_address][zip]=%FROM_ZIP%" ^
+    -d "address[from_address][country]=US%" ^
+    -d "address[from_address][name]=%FROM_NAME%" ^
+    -d "address[from_address][company]=%FROM_COMPANY%" ^
+    -d "address[from_address][phone]=%FROM_PHONE%" ^
+    -d "address[from_address][email]=%FROM_EMAIL%" ^
+    -d "parcel[weight]=1%" ^
+    -d "parcel[predefined_package]=Letter%" ^
+    -d "carrier=USPS%" ^
+    | jq .
+exit /b 0
+
+:create_return
+    :: ep create_return: Create a return shipment that swaps the to and from addresses on the label (requires address and parcel IDs)
     :: Prompt user for input
     echo Enter a to_address ID: 
     set /P TO_ADDRESS=
@@ -674,6 +720,30 @@ exit /b 0
     -d "parcel[width]=%WIDTH%" ^
     -d "parcel[height]=%HEIGHT%" ^
     -d "parcel[weight]=%WEIGHT%" ^
+    | jq .
+exit /b 0
+
+:refund_shipment
+    :: ep refund_shipment: Refund a specified shipment
+    :: Prompt user for input
+    echo Enter shipment ID: 
+    set /P SHIPMENT=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/shipments/%SHIPMENT%/refund ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:regenerate_rates
+    :: ep regenerate_rates: Regenerate rates for a shipment
+    :: Prompt user for input
+    echo Enter shipment ID: 
+    set /P SHIPMENT=
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT%/rates ^
+    -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
 
