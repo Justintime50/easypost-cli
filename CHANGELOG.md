@@ -1,5 +1,10 @@
 # EasyPost CLI Changelog
 
+## v1.3.0 (2021-01-25)
+
+* Adds `buy_stamp` as a feature. Now you can purchase USPS stamps right on the command line!
+* Fixes a bad reference to `create_return` which was unusable before with a duplicate function name of `create_refund`
+
 ## v1.2.1 (2021-01-07)
 
 * Switching from Travis-CI to GitHub Actions

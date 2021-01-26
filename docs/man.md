@@ -71,32 +71,6 @@ Remove a shipment from a batch. [EasyPost docs for this endpoint](https://www.ea
 ep remove_shipment_from_batch
 ```
 
-### Billing
-
-**Buy a Shipment**
-
-Provide the shipment ID and rate ID to purchase a label. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#buy-a-shipment).
-
-```bash
-ep buy_shipment
-```
-
-**Refund a Shipment**
-
-Provide the shipment ID to refund the payment. This can take upwards of 15 days to process. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#refund-a-shipment).
-
-```bash
-ep refund_shipment
-```
-
-**Regenerate Rates**
-
-Regenerate rates for a shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#regenerate-rates-for-a-shipment).
-
-```bash
-ep regenerate_rates
-```
-
 ### Insurance
 
 **Create Insurance**
@@ -251,6 +225,22 @@ ep retrieve_scanforms
 
 ### Shipments
 
+**Buy a Shipment**
+
+Provide the shipment ID and rate ID to purchase a label. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#buy-a-shipment).
+
+```bash
+ep buy_shipment
+```
+
+**Buy a USPS Stamp**
+
+Buy a single USPS domestic stamp that prints onto a #10 standard envelope.
+
+```bash
+ep buy_stamp
+```
+
 **Create a Return**
 
 Create a return shipment that swaps the to and from addresses on the label.
@@ -265,6 +255,22 @@ Create a shipment and have rates returned for all configured carriers. [EasyPost
 
 ```bash
 ep create_shipment
+```
+
+**Refund a Shipment**
+
+Provide the shipment ID to refund the payment. This can take upwards of 15 days to process. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#refund-a-shipment).
+
+```bash
+ep refund_shipment
+```
+
+**Regenerate Rates**
+
+Regenerate rates for a shipment. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#regenerate-rates-for-a-shipment).
+
+```bash
+ep regenerate_rates
 ```
 
 **Retrieve a Shipment**
