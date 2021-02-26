@@ -12,7 +12,7 @@ jobs:
         uses: Justintime50/homebrew-releaser@v1
         with:
           commit_owner: Justintime50
-          commit_email: justinpaulhammond@gmail.com
+          commit_email: 39606064+Justintime50@users.noreply.github.com
           homebrew_owner: Justintime50
           homebrew_tap: homebrew-formulas
           install: 'bin.install "dist/unix_ep.sh" => "ep"'
