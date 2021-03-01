@@ -1,5 +1,9 @@
 # EasyPost CLI Changelog
 
+## v1.3.2 (2021-03-01)
+
+* Fixed a bug where shipments couldn't be created properly as the address and parcel objects weren't encaspulated correctly in the request
+
 ## v1.3.1 (2021-03-01)
 
 * Fixed a bug where stamps couldn't be bought due to missing service
