@@ -83,6 +83,7 @@ buy_stamp() {
     -d "address[from_address][email]=$FROM_EMAIL" \
     -d "parcel[weight]=1" \
     -d "parcel[predefined_package]=Letter" \
+    -d "service=First" \
     -d "carrier=USPS" \
     | json_pp
 }

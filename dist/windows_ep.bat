@@ -10,7 +10,7 @@
     :: Run this main function anytime the CLI is used
     @echo off
     set EASYPOST_API_URL="https://api.easypost.com/v2"
-    set EASYPOST_CLI_VERSION="1.3.0"
+    set EASYPOST_CLI_VERSION="1.3.1"
 
     call :check_config_file
     call :check_api_key
@@ -615,6 +615,7 @@ exit /b 0
     -d "address[from_address][email]=%FROM_EMAIL%" ^
     -d "parcel[weight]=1%" ^
     -d "parcel[predefined_package]=Letter%" ^
+    -d "service=First%" ^
     -d "carrier=USPS%" ^
     | jq .
 exit /b 0
