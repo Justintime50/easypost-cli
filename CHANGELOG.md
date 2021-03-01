@@ -1,5 +1,10 @@
 # EasyPost CLI Changelog
 
+## v1.3.3 (2021-03-01)
+
+* Adds missing USPS carrier account ID environment variable to one-call buy a USPS stamp
+* Adds documentation surrounding buying USPS stamps
+
 ## v1.3.2 (2021-03-01)
 
 * Fixed a bug where shipments couldn't be created properly as the address and parcel objects weren't encaspulated correctly in the request

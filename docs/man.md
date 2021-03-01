@@ -241,6 +241,16 @@ Buy a single USPS domestic stamp that prints onto a #10 standard envelope.
 ep buy_stamp
 ```
 
+To do this, you'll need to configure an additional environment variable:
+
+```bash
+# macOS and Linux
+echo "USPS_CARRIER_ACCOUNT_ID=ca_123..." >> ~/.easypost-cli-config
+
+# Windows
+@echo set USPS_CARRIER_ACCOUNT_ID=ca_123... >> C:/easypost-cli/easypost-cli-config.bat
+```
+
 **Create a Return**
 
 Create a return shipment that swaps the to and from addresses on the label.
