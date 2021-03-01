@@ -61,30 +61,30 @@ buy_stamp() {
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/shipments \
     -u "$EASYPOST_CLI_API_KEY": \
-    -d "address[to_address][street1]=$TO_STREET1" \
-    -d "address[to_address][street2]=$TO_STREET2" \
-    -d "address[to_address][city]=$TO_CITY" \
-    -d "address[to_address][state]=$TO_STATE" \
-    -d "address[to_address][zip]=$TO_ZIP" \
-    -d "address[to_address][country]=US" \
-    -d "address[to_address][name]=$TO_NAME" \
-    -d "address[to_address][company]=$TO_COMPANY" \
-    -d "address[to_address][phone]=$TO_PHONE" \
-    -d "address[to_address][email]=$TO_EMAIL" \
-    -d "address[from_address][street1]=$FROM_STREET1" \
-    -d "address[from_address][street2]=$FROM_STREET2" \
-    -d "address[from_address][city]=$FROM_CITY" \
-    -d "address[from_address][state]=$FROM_STATE" \
-    -d "address[from_address][zip]=$FROM_ZIP" \
-    -d "address[from_address][country]=US" \
-    -d "address[from_address][name]=$FROM_NAME" \
-    -d "address[from_address][company]=$FROM_COMPANY" \
-    -d "address[from_address][phone]=$FROM_PHONE" \
-    -d "address[from_address][email]=$FROM_EMAIL" \
-    -d "parcel[weight]=1" \
-    -d "parcel[predefined_package]=Letter" \
-    -d "service=First" \
-    -d "carrier=USPS" \
+    -d "shipment[to_address][street1]=$TO_STREET1" \
+    -d "shipment[to_address][street2]=$TO_STREET2" \
+    -d "shipment[to_address][city]=$TO_CITY" \
+    -d "shipment[to_address][state]=$TO_STATE" \
+    -d "shipment[to_address][zip]=$TO_ZIP" \
+    -d "shipment[to_address][country]=US" \
+    -d "shipment[to_address][name]=$TO_NAME" \
+    -d "shipment[to_address][company]=$TO_COMPANY" \
+    -d "shipment[to_address][phone]=$TO_PHONE" \
+    -d "shipment[to_address][email]=$TO_EMAIL" \
+    -d "shipment[from_address][street1]=$FROM_STREET1" \
+    -d "shipment[from_address][street2]=$FROM_STREET2" \
+    -d "shipment[from_address][city]=$FROM_CITY" \
+    -d "shipment[from_address][state]=$FROM_STATE" \
+    -d "shipment[from_address][zip]=$FROM_ZIP" \
+    -d "shipment[from_address][country]=US" \
+    -d "shipment[from_address][name]=$FROM_NAME" \
+    -d "shipment[from_address][company]=$FROM_COMPANY" \
+    -d "shipment[from_address][phone]=$FROM_PHONE" \
+    -d "shipment[from_address][email]=$FROM_EMAIL" \
+    -d "shipment[parcel][weight]=1" \
+    -d "shipment[parcel][predefined_package]=Letter" \
+    -d "shipment[service]=First" \
+    -d "shipment[carrier]=USPS" \
     | json_pp
 }
 
@@ -165,30 +165,30 @@ create_shipment() {
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/shipments \
     -u "$EASYPOST_CLI_API_KEY": \
-    -d "address[to_address][street1]=$TO_STREET1" \
-    -d "address[to_address][street2]=$TO_STREET2" \
-    -d "address[to_address][city]=$TO_CITY" \
-    -d "address[to_address][state]=$TO_STATE" \
-    -d "address[to_address][zip]=$TO_ZIP" \
-    -d "address[to_address][country]=$TO_COUNTRY" \
-    -d "address[to_address][name]=$TO_NAME" \
-    -d "address[to_address][company]=$TO_COMPANY" \
-    -d "address[to_address][phone]=$TO_PHONE" \
-    -d "address[to_address][email]=$TO_EMAIL" \
-    -d "address[from_address][street1]=$FROM_STREET1" \
-    -d "address[from_address][street2]=$FROM_STREET2" \
-    -d "address[from_address][city]=$FROM_CITY" \
-    -d "address[from_address][state]=$FROM_STATE" \
-    -d "address[from_address][zip]=$FROM_ZIP" \
-    -d "address[from_address][country]=$FROM_COUNTRY" \
-    -d "address[from_address][name]=$FROM_NAME" \
-    -d "address[from_address][company]=$FROM_COMPANY" \
-    -d "address[from_address][phone]=$FROM_PHONE" \
-    -d "address[from_address][email]=$FROM_EMAIL" \
-    -d "parcel[length]=$LENGTH" \
-    -d "parcel[width]=$WIDTH" \
-    -d "parcel[height]=$HEIGHT" \
-    -d "parcel[weight]=$WEIGHT" \
+    -d "shipment[to_address][street1]=$TO_STREET1" \
+    -d "shipment[to_address][street2]=$TO_STREET2" \
+    -d "shipment[to_address][city]=$TO_CITY" \
+    -d "shipment[to_address][state]=$TO_STATE" \
+    -d "shipment[to_address][zip]=$TO_ZIP" \
+    -d "shipment[to_address][country]=$TO_COUNTRY" \
+    -d "shipment[to_address][name]=$TO_NAME" \
+    -d "shipment[to_address][company]=$TO_COMPANY" \
+    -d "shipment[to_address][phone]=$TO_PHONE" \
+    -d "shipment[to_address][email]=$TO_EMAIL" \
+    -d "shipment[from_address][street1]=$FROM_STREET1" \
+    -d "shipment[from_address][street2]=$FROM_STREET2" \
+    -d "shipment[from_address][city]=$FROM_CITY" \
+    -d "shipment[from_address][state]=$FROM_STATE" \
+    -d "shipment[from_address][zip]=$FROM_ZIP" \
+    -d "shipment[from_address][country]=$FROM_COUNTRY" \
+    -d "shipment[from_address][name]=$FROM_NAME" \
+    -d "shipment[from_address][company]=$FROM_COMPANY" \
+    -d "shipment[from_address][phone]=$FROM_PHONE" \
+    -d "shipment[from_address][email]=$FROM_EMAIL" \
+    -d "shipment[parcel][length]=$LENGTH" \
+    -d "shipment[parcel][width]=$WIDTH" \
+    -d "shipment[parcel][height]=$HEIGHT" \
+    -d "shipment[parcel][weight]=$WEIGHT" \
     | json_pp
 }
 
