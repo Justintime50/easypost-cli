@@ -85,6 +85,7 @@ buy_stamp() {
     -d "shipment[parcel][predefined_package]=Letter" \
     -d "shipment[service]=First" \
     -d "shipment[carrier]=USPS" \
+    -d "shipment[carrier_accounts][]=$USPS_CARRIER_ACCOUNT_ID" \
     | json_pp
 }
 

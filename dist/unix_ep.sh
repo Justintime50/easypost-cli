@@ -11,7 +11,7 @@
 main() {
     # Run this main function anytime the CLI is used
     EASYPOST_API_URL="https://api.easypost.com/v2"
-    EASYPOST_CLI_VERSION="1.3.2"
+    EASYPOST_CLI_VERSION="1.3.3"
 
     check_config_file
     check_api_key
@@ -625,6 +625,7 @@ buy_stamp() {
     -d "shipment[parcel][predefined_package]=Letter" \
     -d "shipment[service]=First" \
     -d "shipment[carrier]=USPS" \
+    -d "shipment[carrier_accounts][]=$USPS_CARRIER_ACCOUNT_ID" \
     | json_pp
 }
 

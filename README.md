@@ -31,7 +31,7 @@ brew tap justintime50/formulas
 brew install easypost-cli
 
 # Configure the EasyPost CLI with your API key
-echo "EASYPOST_CLI_API_KEY=<your_key_here>" > ~/.easypost-cli-config
+echo "EASYPOST_CLI_API_KEY=123..." > ~/.easypost-cli-config
 ```
 
 ## Install on Windows
@@ -60,6 +60,18 @@ The EasyPost CLI allows you to run dozens of commands to create or retrieve reco
 ```bash
 # Create a shipment with a single command, you will be prompted for details
 ep create_shipment
+```
+
+**Buying Stamps**
+
+You can buy single, domestic USPS stamps from the command line by configuring an additional environment variable:
+
+```bash
+# macOS and Linux
+echo "USPS_CARRIER_ACCOUNT_ID=ca_123..." >> ~/.easypost-cli-config
+
+# Windows
+@echo set USPS_CARRIER_ACCOUNT_ID=ca_123... >> C:/easypost-cli/easypost-cli-config.bat
 ```
 
 ### Documentation
