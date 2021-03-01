@@ -1,5 +1,9 @@
 # EasyPost CLI Changelog
 
+## v1.3.1 (2021-03-01)
+
+* Fixed a bug where stamps couldn't be bought due to missing service
+
 ## v1.3.0 (2021-01-25)
 
 * Adds `buy_stamp` as a feature. Now you can purchase USPS stamps right on the command line!
