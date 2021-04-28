@@ -17,3 +17,4 @@ jobs:
           homebrew_tap: homebrew-formulas
           install: 'bin.install "dist/unix_ep.sh" => "ep"'
           github_token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          update_readme_table: true
