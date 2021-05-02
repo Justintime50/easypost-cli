@@ -42,10 +42,9 @@ check_api_url() {
 command_router() {
     # Check if the command passed is valid or not. 
     # Run if it is a valid command, warn and exit if it is not.
-    # shellcheck disable=SC2039,SC2169
-    if declare -f "$1" > /dev/null
+    if type -t "$1" > /dev/null
     then
-        "$@"
+        "$1"
     else
         printf "%s\n" "\"$1\" is not an EasyPost CLI command, please try again." >&2
         exit 1

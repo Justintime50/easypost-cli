@@ -41,21 +41,21 @@ windows_interpreter() {
 
     # URL variables
     # TODO: There is a better way to do this without explicitly calling these variables.
-    sed -i "" 's;"%WEBHOOK%";%WEBHOOK%;g;' "$FILENAME"
     sed -i "" 's;"%ADDRESS%";%ADDRESS%;g;' "$FILENAME"
-    sed -i "" 's;"%REPORT%";%REPORT%;g;' "$FILENAME"
-    sed -i "" 's;"%TRACKER%";%TRACKER%;g;' "$FILENAME"
-    sed -i "" 's;"%BATCH%";%BATCH%;g;' "$FILENAME"
     sed -i "" 's;"%BATCH";%BATCH%;g;' "$FILENAME"
-    sed -i "" 's;"%SHIPMENT%";%SHIPMENT%;g;' "$FILENAME"
-    sed -i "" 's;"%SHIPMENT";%SHIPMENT%;g;' "$FILENAME"
-    sed -i "" 's;"%SCANFORM%";%SCANFORM%;g;' "$FILENAME"
-    sed -i "" 's;"%PICKUP%";%PICKUP%;g;' "$FILENAME"
-    sed -i "" 's;"%PICKUP";%PICKUP%;g;' "$FILENAME"
-    sed -i "" 's;"%PARCEL%";%PARCEL%;g;' "$FILENAME"
-    sed -i "" 's;"%INSURANCE%";%INSURANCE%;g;' "$FILENAME"
+    sed -i "" 's;"%BATCH%";%BATCH%;g;' "$FILENAME"
     sed -i "" 's;"%CARRIER%";%CARRIER%;g;' "$FILENAME"
+    sed -i "" 's;"%INSURANCE%";%INSURANCE%;g;' "$FILENAME"
+    sed -i "" 's;"%PARCEL%";%PARCEL%;g;' "$FILENAME"
+    sed -i "" 's;"%PICKUP";%PICKUP%;g;' "$FILENAME"
+    sed -i "" 's;"%PICKUP%";%PICKUP%;g;' "$FILENAME"
+    sed -i "" 's;"%REPORT%";%REPORT%;g;' "$FILENAME"
+    sed -i "" 's;"%SCANFORM%";%SCANFORM%;g;' "$FILENAME"
+    sed -i "" 's;"%SHIPMENT";%SHIPMENT%;g;' "$FILENAME"
+    sed -i "" 's;"%SHIPMENT%";%SHIPMENT%;g;' "$FILENAME"
+    sed -i "" 's;"%TRACKER%";%TRACKER%;g;' "$FILENAME"
     sed -i "" 's;"%USER%";%USER%;g;' "$FILENAME"
+    sed -i "" 's;"%WEBHOOK%";%WEBHOOK%;g;' "$FILENAME"
 
     # Cleanup fixes (we broke something earlier so let's fix it here)
     sed -i "" 's;}%" ^;}" ^;g;' "$FILENAME"     # fix what we broke before with options such as start_date and end_date

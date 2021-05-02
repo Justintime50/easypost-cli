@@ -1,5 +1,12 @@
 # EasyPost CLI Changelog
 
+## v1.4.0 (2021-05-02)
+
+* Adds `shipment_invoice` report functionality
+* Corrects comments about reports
+* Replaces `declare` with `type` on the command router which fixes POSIX compatibility
+* Only accept a single paremeter (command) instead of many
+
 ## v1.3.3 (2021-03-01)
 
 * Adds missing USPS carrier account ID environment variable to one-call buy a USPS stamp

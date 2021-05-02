@@ -10,7 +10,7 @@
     :: Run this main function anytime the CLI is used
     @echo off
     set EASYPOST_API_URL="https://api.easypost.com/v2"
-    set EASYPOST_CLI_VERSION="1.3.3"
+    set EASYPOST_CLI_VERSION="1.4.0"
 
     call :check_config_file
     call :check_api_key
@@ -389,6 +389,21 @@ exit /b 0
     | jq .
 exit /b 0
 
+:create_shipment_invoice_report
+    :: ep create_shipment_invoice_report: Create a shipment invoice report
+    :: Prompt user for input
+    echo Enter a start date (eg: 2016-10-01): 
+    set /P STARTDATE=
+    echo Enter an end date (eg: 2016-10-31): 
+    set /P ENDDATE=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/reports/shipment_invoice ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "{'start_date':%STARTDATE%,'end_date':%ENDDATE%}" ^
+    | jq .
+exit /b 0
+
 :create_tracker_report
     :: ep create_tracker_report: Create a payment log report
     :: Prompt user for input
@@ -417,7 +432,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_refund_report
-    :: ep retrieve_refund_report: Retrieve a single payment log report
+    :: ep retrieve_refund_report: Retrieve a single refund report
     :: Prompt user for input
     echo Enter report ID: 
     set /P REPORT=
@@ -429,7 +444,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_shipment_report
-    :: ep retrieve_shipment_report: Retrieve a single payment log report
+    :: ep retrieve_shipment_report: Retrieve a single shipment report
     :: Prompt user for input
     echo Enter report ID: 
     set /P REPORT=
@@ -440,8 +455,20 @@ exit /b 0
     | jq .
 exit /b 0
 
+:retrieve_shipment_invoice_report
+    :: ep retrieve_shipment_invoice_report: Retrieve a single shipment invoice report
+    :: Prompt user for input
+    echo Enter report ID: 
+    set /P REPORT=
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/shipment_invoice/%REPORT% ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
 :retrieve_tracker_report
-    :: ep retrieve_tracker_report: Retrieve a single payment log report
+    :: ep retrieve_tracker_report: Retrieve a single tracker report
     :: Prompt user for input
     echo Enter report ID: 
     set /P REPORT=
@@ -464,7 +491,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_refund_reports
-    :: ep retrieve_refund_reports: Retrieve a list of payment log reports
+    :: ep retrieve_refund_reports: Retrieve a list of refund reports
 
     :: TODO: Add date and page_size options
 
@@ -475,7 +502,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_shipment_reports
-    :: ep retrieve_shipment_reports: Retrieve a list of payment log reports
+    :: ep retrieve_shipment_reports: Retrieve a list of shipment reports
 
     :: TODO: Add date and page_size options
 
@@ -485,8 +512,19 @@ exit /b 0
     | jq .
 exit /b 0
 
+:retrieve_shipment_invoice_reports
+    :: ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
+
+    :: TODO: Add date and page_size options
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/shipment_invoice ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
 :retrieve_tracker_reports
-    :: ep retrieve_tracker_reports: Retrieve a list of payment log reports
+    :: ep retrieve_tracker_reports: Retrieve a list of tracker reports
 
     :: TODO: Add date and page_size options
 
@@ -495,8 +533,6 @@ exit /b 0
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
-
-:: TODO: Add "payment-log" report endpoints
 
 :manifest_batch
     :: ep manifest_batch: Manifest or scanform a batch

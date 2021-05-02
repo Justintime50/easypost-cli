@@ -170,6 +170,7 @@ Create a report based on type. Provide a start date and end date for the report 
 ep create_payment_log_report
 ep create_refund_report
 ep create_shipment_report
+ep create_shipment_invoice_report
 ep create_tracker_report
 ```
 
@@ -182,6 +183,7 @@ Retrieve a list of reports based on type. [EasyPost docs for this endpoint](http
 ep retrieve_payment_log_reports
 ep retrieve_refund_reports
 ep retrieve_shipment_reports
+ep retrieve_shipment_invoice_reports
 ep retrieve_tracker_reports
 ```
 
@@ -194,6 +196,7 @@ Retrieve a report based on report type. Provide an ID for the report you want to
 ep retrieve_payment_log_report
 ep retrieve_refund_report
 ep retrieve_shipment_report
+ep retrieve_shipment_invoice_report
 ep retrieve_tracker_report
 ```
 
