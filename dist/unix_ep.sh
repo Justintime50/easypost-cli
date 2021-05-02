@@ -43,7 +43,7 @@ check_api_url() {
 command_router() {
     # Check if the command passed is valid or not. 
     # Run if it is a valid command, warn and exit if it is not.
-    if type -t "$1" > /dev/null
+    if type "$1" > /dev/null
     then
         "$1"
     else
