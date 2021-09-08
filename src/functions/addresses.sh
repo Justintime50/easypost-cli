@@ -23,8 +23,6 @@ create_address() {
     printf "%s\n" "Enter email (optional): "
     read -r EMAIL
 
-    # TODO: Prompt to verify address or not
-
     # Build Curl Request
     curl -s -X POST "$EASYPOST_API_URL"/addresses \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -55,8 +53,6 @@ retrieve_address() {
 
 retrieve_addresses() {
     # ep retrieve_addresses: Retrieve a list of addresses
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/addresses \

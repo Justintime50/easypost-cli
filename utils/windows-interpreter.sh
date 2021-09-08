@@ -54,7 +54,7 @@ windows_interpreter() {
 
     # TODO: Get multiline mode working
     # TODO: Add in the last `3` chars here and remove the `"`
-    sed -i "" 's;^    curl(.*)" \^$;lala;Mg;' "$FILENAME"   # TODO: fix variables mixed in urls via new lines
+    sed -i "" 's;^    curl(.*)" \^$;lala;g;' "$FILENAME"   # TODO: fix variables mixed in urls via new lines
 
 
     # Cleanup fixes (we broke something earlier so let's fix it here)

@@ -78,8 +78,6 @@ create_address() {
     printf "%s\n" "Enter email (optional): "
     read -r EMAIL
 
-    # TODO: Prompt to verify address or not
-
     # Build Curl Request
     curl -s -X POST "$EASYPOST_API_URL"/addresses \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -111,8 +109,6 @@ retrieve_address() {
 retrieve_addresses() {
     # ep retrieve_addresses: Retrieve a list of addresses
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/addresses \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -126,8 +122,6 @@ add_shipment_to_batch() {
     read -r BATCH
     printf "%s\n" "Enter a shipment ID to add to the batch: "
     read -r SHIPMENT
-
-    # TODO: Allow multiple batches to be iterated here, separated by commas or something similar
 
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/add_shipments \
@@ -167,8 +161,6 @@ remove_shipment_from_batch() {
     read -r BATCH
     printf "%s\n" "Enter a shipment ID to remove from the batch: "
     read -r SHIPMENT
-
-    # TODO: Allow multiple batches to be iterated here, separated by commas or something similar
 
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/remove_shipments \
@@ -224,8 +216,6 @@ retrieve_insurance() {
 
 retrieve_insurances() {
     # ep retrieve_insurances: Retrieve a list of insurances
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/insurances \
@@ -320,8 +310,6 @@ create_pickup() {
     printf "%s\n" "Enter any special instructions (eg: \"Knock loudly\" - optional): "
     read -r INSTRUCTIONS
 
-    # TODO: Allow batches to be picked up, case/switch batch or shipment
-    
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/pickups \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -482,8 +470,6 @@ retrieve_tracker_report() {
 retrieve_payment_log_reports() {
     # ep retrieve_payment_log_reports: Retrieve a list of payment log reports
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/payment_log \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -492,8 +478,6 @@ retrieve_payment_log_reports() {
 
 retrieve_refund_reports() {
     # ep retrieve_refund_reports: Retrieve a list of refund reports
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/refund \
@@ -504,8 +488,6 @@ retrieve_refund_reports() {
 retrieve_shipment_reports() {
     # ep retrieve_shipment_reports: Retrieve a list of shipment reports
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/shipment \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -515,8 +497,6 @@ retrieve_shipment_reports() {
 retrieve_shipment_invoice_reports() {
     # ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/shipment_invoice \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -525,8 +505,6 @@ retrieve_shipment_invoice_reports() {
 
 retrieve_tracker_reports() {
     # ep retrieve_tracker_reports: Retrieve a list of tracker reports
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/tracker \
@@ -559,8 +537,6 @@ retrieve_scanform() {
 retrieve_scanforms() {
     # ep retrieve_scanforms: Retrieve a list of scanforms
 
-    # TODO: Add date and page_size options
-    
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/scan_forms \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -800,8 +776,6 @@ retrieve_shipment() {
 retrieve_shipments() {
     # ep retrieve_shipments: Retrieve a list of shipments
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/shipments \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -850,8 +824,6 @@ retrieve_tracker() {
 
 retrieve_trackers() {
     # ep retrieve_trackers: Retrieve a list of trackers
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/trackers \
