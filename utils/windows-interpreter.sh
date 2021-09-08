@@ -6,12 +6,15 @@ windows_interpreter() {
     # INTRO: Interpret the Bash executable for Windows and do text replacement across the entire file
     # PURPOSE: Instead of developing the CLI for 2-3 sets of OS's or requiring other dependencies, we build the CLI in pure Bash and have a tool like this to convert it into a Windows equivalent.
     # NOTE: This tool is not guaranteed to build a Windows executable correctly; however, every effort has been made to ensure it works as anticipated.
-    # COMPATIBILITY: This has only been tested on macOS 10.15 (Catalina), other variants of macOS of Linux may have different versions of the `sed` tool and may exhibit different behavior.
+    # COMPATIBILITY: This script assumes you are running the `BSD` version of `sed` and NOT the `GNU` version, as such, it may only be compatible with macOS
     # ORDER: comments with `!important` must come first, they probably have another rule farther down that breaks them if they happen after.
-    # USAGE: ./windows-interpreter.sh path/to/file_to_interpret
+    # USAGE: ./windows-interpreter.sh path/to/file_to_interpret.sh
 
     # Specify the file to edit
     FILENAME="$1"
+
+    # The following `sed` commands use `-i` for "edit in-place", `s` for "substitute", and `g` for "global", meaning the entire file
+    # Unlike the traditional `/` used as a delimiter, we are using `;` for better readability
 
     # General changes
     sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$FILENAME"     # !important -- change the STARTDATE variables
@@ -32,30 +35,27 @@ windows_interpreter() {
     sed -i "" 's;open;start;g;' "$FILENAME"                 # replace open with start for web pages
 
     # Replace variables
+    # TODO: These can be combined in the variables below?
     sed -i "" 's;"$EASYPOST_API_URL";%EASYPOST_API_URL%;g;' "$FILENAME"             # change EASYPOST_API_URL
     sed -i "" 's;"$EASYPOST_CLI_API_KEY";%EASYPOST_CLI_API_KEY%;g;' "$FILENAME"     # change EASYPOST_CLI_API_KEY
     sed -i "" 's;\$;%;g;' "$FILENAME"                                               # change `$` to `%`
-    sed -i "" 's;=$;=%;g;' "$FILENAME"                                              # change `$` to `%` (cont)
+    sed -i "" 's;=$;=%;g;' "$FILENAME"                                              # change `$` to `%` (cont.)
     sed -i "" 's;" ^;%" ^;g;' "$FILENAME"                                           # add missing `%` for variables in a data field
     sed -i "" 's;set.*;&=;g;' "$FILENAME"                                           # add `=` after setting each variable
 
     # URL variables
-    # TODO: There is a better way to do this without explicitly calling these variables.
-    sed -i "" 's;"%ADDRESS%";%ADDRESS%;g;' "$FILENAME"
-    sed -i "" 's;"%BATCH";%BATCH%;g;' "$FILENAME"
-    sed -i "" 's;"%BATCH%";%BATCH%;g;' "$FILENAME"
-    sed -i "" 's;"%CARRIER%";%CARRIER%;g;' "$FILENAME"
-    sed -i "" 's;"%INSURANCE%";%INSURANCE%;g;' "$FILENAME"
-    sed -i "" 's;"%PARCEL%";%PARCEL%;g;' "$FILENAME"
-    sed -i "" 's;"%PICKUP";%PICKUP%;g;' "$FILENAME"
-    sed -i "" 's;"%PICKUP%";%PICKUP%;g;' "$FILENAME"
-    sed -i "" 's;"%REPORT%";%REPORT%;g;' "$FILENAME"
-    sed -i "" 's;"%SCANFORM%";%SCANFORM%;g;' "$FILENAME"
-    sed -i "" 's;"%SHIPMENT";%SHIPMENT%;g;' "$FILENAME"
-    sed -i "" 's;"%SHIPMENT%";%SHIPMENT%;g;' "$FILENAME"
-    sed -i "" 's;"%TRACKER%";%TRACKER%;g;' "$FILENAME"
-    sed -i "" 's;"%USER%";%USER%;g;' "$FILENAME"
-    sed -i "" 's;"%WEBHOOK%";%WEBHOOK%;g;' "$FILENAME"
+    sed -i "" 's;"%;%;g;' "$FILENAME"
+
+    sed -i "" 's;"\/;%\/;g;' "$FILENAME"     # fix variables mixed in urls
+    sed -i "" 's;\/"%;%\/%;g;' "$FILENAME"   # fix variables mixed in urls (cont.)
+
+    sed -i "" 's;/% ^;/%" ^;g;' "$FILENAME"
+    sed -i "" 's;=% ^;=%" ^;g;' "$FILENAME"
+
+    # TODO: Get multiline mode working
+    # TODO: Add in the last `3` chars here and remove the `"`
+    sed -i "" 's;^    curl(.*)" \^$;lala;Mg;' "$FILENAME"   # TODO: fix variables mixed in urls via new lines
+
 
     # Cleanup fixes (we broke something earlier so let's fix it here)
     sed -i "" 's;}%" ^;}" ^;g;' "$FILENAME"     # fix what we broke before with options such as start_date and end_date

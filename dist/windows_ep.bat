@@ -10,7 +10,7 @@
     :: Run this main function anytime the CLI is used
     @echo off
     set EASYPOST_API_URL="https://api.easypost.com/v2"
-    set EASYPOST_CLI_VERSION="1.4.0"
+    set EASYPOST_CLI_VERSION="1.5.0"
 
     call :check_config_file
     call :check_api_key
@@ -96,7 +96,7 @@ exit /b 0
     set /P ADDRESS=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/addresses/%ADDRESS% ^
+    curl -s -X GET %EASYPOST_API_URL%/addresses/%ADDRESS%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -144,13 +144,6 @@ exit /b 0
     FORMAT="null"
     echo Enter a batch ID to generate a label for: 
     set /P BATCH=
-    :: while ! [ %FORMAT = "pdf" ] || [ %FORMAT = "PDF" ] || [ %FORMAT = "zpl" ] || [ %FORMAT = "ZPL" ] || [ %FORMAT = "epl2" ] || [ %FORMAT = "EPL2" ] ; do
-    ::     echo Enter a label format (options: pdf, zpl, epl2): 
-    ::     set /P FORMAT=
-    ::     if [ -z "%FORMAT" ] ; then
-    ::         echo Format cannot be blank"
-    ::     fi
-    :: done
 
     :: Allow the user to choose
     :: Build curl request
@@ -217,7 +210,7 @@ exit /b 0
     set /P INSURANCE=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/insurances/%INSURANCE% ^
+    curl -s -X GET %EASYPOST_API_URL%/insurances/%INSURANCE%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -237,10 +230,10 @@ exit /b 0
     :: ep retrieve_order: Retrieve a order record
     :: Prompt user for input
     echo Enter order ID: 
-    set /P order=
+    set /P ORDER=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/orders/"%order%" ^
+    curl -s -X GET %EASYPOST_API_URL%/orders/%ORDER%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -274,7 +267,7 @@ exit /b 0
     set /P PARCEL=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/parcels/%PARCEL% ^
+    curl -s -X GET %EASYPOST_API_URL%/parcels/%PARCEL%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -339,7 +332,7 @@ exit /b 0
     set /P PICKUP=
     
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP% ^
+    curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -426,7 +419,7 @@ exit /b 0
     set /P REPORT=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/payment_log/%REPORT% ^
+    curl -s -X GET %EASYPOST_API_URL%/reports/payment_log/%REPORT%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -438,7 +431,7 @@ exit /b 0
     set /P REPORT=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/refund/%REPORT% ^
+    curl -s -X GET %EASYPOST_API_URL%/reports/refund/%REPORT%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -450,7 +443,7 @@ exit /b 0
     set /P REPORT=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/shipment/%REPORT% ^
+    curl -s -X GET %EASYPOST_API_URL%/reports/shipment/%REPORT%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -462,7 +455,7 @@ exit /b 0
     set /P REPORT=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/shipment_invoice/%REPORT% ^
+    curl -s -X GET %EASYPOST_API_URL%/reports/shipment_invoice/%REPORT%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -474,7 +467,7 @@ exit /b 0
     set /P REPORT=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/tracker/%REPORT% ^
+    curl -s -X GET %EASYPOST_API_URL%/reports/tracker/%REPORT%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -551,7 +544,7 @@ exit /b 0
     set /P SCANFORM=
     
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/scan_forms/%SCANFORM% ^
+    curl -s -X GET %EASYPOST_API_URL%/scan_forms/%SCANFORM%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -792,7 +785,7 @@ exit /b 0
     set /P SHIPMENT=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT% ^
+    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -804,6 +797,18 @@ exit /b 0
 
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/shipments ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_smartrates
+    :: ep retrieve_smartrates: Retrieve a shipment's smartrates
+    :: Prompt user for input
+    echo Enter shipment ID: 
+    set /P SHIPMENT=
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT%/smartrate ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -831,7 +836,7 @@ exit /b 0
     set /P TRACKER=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/trackers/%TRACKER% ^
+    curl -s -X GET %EASYPOST_API_URL%/trackers/%TRACKER%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -875,7 +880,7 @@ exit /b 0
     set /P CARRIER=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/carrier_accounts/%CARRIER% ^
+    curl -s -X GET %EASYPOST_API_URL%/carrier_accounts/%CARRIER%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -904,7 +909,7 @@ exit /b 0
     set /P USER=
     
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/users/%USER% ^
+    curl -s -X GET %EASYPOST_API_URL%/users/%USER%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -942,7 +947,7 @@ exit /b 0
     set /P WEBHOOK=
 
     :: Build curl request
-    curl -s -X DELETE %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
+    curl -s -X DELETE %EASYPOST_API_URL%/webhooks/%WEBHOOK%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -954,7 +959,7 @@ exit /b 0
     set /P WEBHOOK=
 
     :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
+    curl -s -X GET %EASYPOST_API_URL%/webhooks/%WEBHOOK%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -975,7 +980,7 @@ exit /b 0
     set /P WEBHOOK=
 
     :: Build curl request
-    curl -s -X PUT %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
+    curl -s -X PUT %EASYPOST_API_URL%/webhooks/%WEBHOOK%" ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0

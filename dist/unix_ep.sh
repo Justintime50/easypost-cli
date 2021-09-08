@@ -11,7 +11,7 @@
 main() {
     # Run this main function anytime the CLI is used
     EASYPOST_API_URL="https://api.easypost.com/v2"
-    EASYPOST_CLI_VERSION="1.4.0"
+    EASYPOST_CLI_VERSION="1.5.0"
 
     check_config_file
     check_api_key
@@ -151,13 +151,6 @@ generate_batch_label() {
     FORMAT="null"
     printf "%s\n" "Enter a batch ID to generate a label for: "
     read -r BATCH
-    # while ! [ $FORMAT = "pdf" ] || [ $FORMAT = "PDF" ] || [ $FORMAT = "zpl" ] || [ $FORMAT = "ZPL" ] || [ $FORMAT = "epl2" ] || [ $FORMAT = "EPL2" ] ; do
-    #     printf "%s\n" "Enter a label format (options: pdf, zpl, epl2): "
-    #     read -r FORMAT
-    #     if [ -z "$FORMAT" ] ; then
-    #         printf "%s\n" "Format cannot be blank"
-    #     fi
-    # done
 
     # Allow the user to choose
     # Build curl request
@@ -244,10 +237,10 @@ retrieve_order() {
     # ep retrieve_order: Retrieve a order record
     # Prompt user for input
     printf "%s\n" "Enter order ID: "
-    read -r order
+    read -r ORDER
 
     # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/orders/"$order" \
+    curl -s -X GET "$EASYPOST_API_URL"/orders/"$ORDER" \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -811,6 +804,18 @@ retrieve_shipments() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_smartrates() {
+    # ep retrieve_smartrates: Retrieve a shipment's smartrates
+    # Prompt user for input
+    printf "%s\n" "Enter shipment ID: "
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/smartrate \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

@@ -1,4 +1,8 @@
-# EasyPost CLI Changelog
+# CHANGELOG
+
+## v1.5.0 (2021-09-08)
+
+* Adds the `retrieve_smartrates` function allowing you to retrieve a Shipment's smartrates
 
 ## v1.4.0 (2021-05-02)
 

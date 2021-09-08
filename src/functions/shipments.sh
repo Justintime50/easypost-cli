@@ -239,3 +239,15 @@ retrieve_shipments() {
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
+
+retrieve_smartrates() {
+    # ep retrieve_smartrates: Retrieve a shipment's smartrates
+    # Prompt user for input
+    printf "%s\n" "Enter shipment ID: "
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/smartrate \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
