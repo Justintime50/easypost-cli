@@ -48,4 +48,4 @@ shellcheck src/*.sh --shell=dash
 
 ## Website
 
-The EasyPost CLI website is currently hosted on `GitHub Pages` from the `master branch` and the `docs` folder. Each time a commit is made to master, the website will be built with any new changes to the docs folder.
+The EasyPost CLI website is currently hosted on `GitHub Pages` from the `main` branch and the `docs` folder. Each time a commit is made to master, the website will be built with any new changes to the docs folder.

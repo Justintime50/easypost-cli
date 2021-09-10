@@ -5,6 +5,7 @@
 The EasyPost API on the CLI.
 
 [![Build](https://github.com/Justintime50/easypost-cli/workflows/build/badge.svg)](https://github.com/Justintime50/easypost-cli/actions)
+[![Version](https://img.shields.io/github/v/tag/justintime50/easypost-cli)](https://github.com/justintime50/easypost-cli/releases)
 [![Licence](https://img.shields.io/github/license/justintime50/easypost-cli)](LICENSE)
 
 <img src="assets/showcase.png" alt="Showcase">
@@ -12,6 +13,8 @@ The EasyPost API on the CLI.
 </div>
 
 Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is incredibly portable for both users and developers and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or visit the [EasyPost CLI website](https://justintime50.github.io/easypost-cli).
+
+**NOTE:** This project was created as an expirement to craft an entire library out of Shell scripts that could easily be ported to Windows as well - it's certainly not the best approach to building a CLI tool.
 
 ## What Can it Do?
 
@@ -35,8 +38,6 @@ echo "EASYPOST_CLI_API_KEY=123..." > ~/.easypost-cli-config
 ```
 
 ## Install on Windows
-
-**NOTE:** The EasyPost CLI on Windows is considered "experimental". Please help improve this tool on Windows by submitting issues and pull requests.
 
 The EasyPost CLI on Windows requires that the [Chocolatey package manager](https://chocolatey.org) be installed first which will install `jq` allowing for formatted JSON.
 

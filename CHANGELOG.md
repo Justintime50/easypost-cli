@@ -1,4 +1,10 @@
-# EasyPost CLI Changelog
+# CHANGELOG
+
+## v1.5.0 (2021-09-10)
+
+* Adds the `retrieve_smartrates` function allowing you to retrieve a Shipment's smartrates
+* Refactors the entire `windows-interpreter` tool to be more modular and generic
+* Corrected a bug on the Windows version of the EasyPost CLI that would not allow returns or stamps to be created due to bad Windows interpretation
 
 ## v1.4.0 (2021-05-02)
 
