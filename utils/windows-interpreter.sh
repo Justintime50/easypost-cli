@@ -10,16 +10,15 @@ main() {
     # ORDER: comments with `!important` must come first, they probably have another rule farther down that breaks them if they happen after.
     # USAGE: ./windows-interpreter.sh path/to/file_to_interpret.sh
 
-    # Specify the file to edit
-    FILENAME="$1"
-
     # The following `sed` commands use `-i` for "edit in-place", `s` for "substitute", and `g` for "global", meaning the entire file
     # Unlike the traditional `/` used as a delimiter, we are using `;` for better readability
 
-    # General changes
+    # Specify the file to edit
+    FILENAME="$1"
+
+    # Run the rules and interpret the Unix scripts into a Windows equivalent
     remove_shebang
     change_functions
-    change_explicit_variables
     change_line_continuation
     change_input_prompt
     change_print
@@ -27,19 +26,7 @@ main() {
     change_quotes
     change_open
     change_variables
-
-
-     sed -i "" 's;" ^;%" ^;g;' "$FILENAME"   # !important -- add missing `%` for variables in a data field (must come before the following lines)
-
-    sed -i "" 's;%" \^$;;g;' "$FILENAME" # Remove all line continuation from data fields and curls (must be paired with the following lines)
-
-    # TODO: This is breaking items such as `is_return` and the stamp data fields that are hardcoded and not variables
-    sed -i "" 's;^    -d .*;&%" \^;g;' "$FILENAME" # Put back the curl line continuations
-
-    sed -i "" 's;[A-Z]$;&% \^;g;' "$FILENAME"   # If the line ends with an uppercased variable (eg: curl lines), put back the line continuation
-
-
-
+    correct_line_continuation
     cleanup
 }
 
@@ -52,13 +39,6 @@ change_functions() {
     sed -i "" 's;();;g' "$FILENAME"             # remove `()` from each function name
     sed -i "" 's; {;;g;' "$FILENAME"            # remove opening function brackets
     sed -i "" 's;}$;exit /b 0;g;' "$FILENAME"   # change closing function brackets
-}
-
-change_explicit_variables() {
-    sed -i "" 's;"$EASYPOST_API_URL";%EASYPOST_API_URL%;g;' "$FILENAME"         # change EASYPOST_API_URL
-    sed -i "" 's;"$EASYPOST_CLI_API_KEY";%EASYPOST_CLI_API_KEY%;g;' "$FILENAME" # change EASYPOST_CLI_API_KEY
-    sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$FILENAME"                         # !important -- change the STARTDATE variables
-    sed -i "" 's;$ENDDATE;%ENDDATE%;g;' "$FILENAME"                             # !important -- change the ENDDATE variables
 }
 
 change_line_continuation() {
@@ -88,10 +68,23 @@ change_open() {
 }
 
 change_variables() {
-    sed -i "" 's;\$;%;g;' "$FILENAME"       # change `$` to `%` generally
-    sed -i "" 's;set.*;&=;g;' "$FILENAME"   # add `=` after setting each variable
-    sed -i "" 's;"\/;%\/;g;' "$FILENAME"    # fix variables mixed in urls (not at the end)
-    sed -i "" 's;\/"%;\/%;g;' "$FILENAME"   # fix variables mixed in urls (not at the end, cont.)
+    sed -i "" 's;"$EASYPOST_API_URL";%EASYPOST_API_URL%;g;' "$FILENAME"         # change EASYPOST_API_URL
+    sed -i "" 's;"$EASYPOST_CLI_API_KEY";%EASYPOST_CLI_API_KEY%;g;' "$FILENAME" # change EASYPOST_CLI_API_KEY
+    sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$FILENAME"                         # !important -- change the STARTDATE variables
+    sed -i "" 's;$ENDDATE;%ENDDATE%;g;' "$FILENAME"                             # !important -- change the ENDDATE variables
+    sed -i "" 's;" ^;%" ^;g;' "$FILENAME"                                       # !important -- add missing `%` for variables in a data field (must come before the following lines)
+    sed -i "" 's;\$;%;g;' "$FILENAME"                                           # change `$` to `%` generally
+    sed -i "" 's;set.*;&=;g;' "$FILENAME"                                       # add `=` after setting each variable
+    sed -i "" 's;^    STAMP;    set &;g;' "$FILENAME"                           # MUST COME AFTER (add `=` after setting each variable)
+    sed -i "" 's;^    RETURN_BOOLEAN;    set &;g;' "$FILENAME"                  # MUST COME AFTER (add `=` after setting each variable)
+    sed -i "" 's;"\/;%\/;g;' "$FILENAME"                                        # fix variables mixed in urls (not at the end)
+    sed -i "" 's;\/"%;\/%;g;' "$FILENAME"                                       # fix variables mixed in urls (not at the end, cont.)
+}
+
+correct_line_continuation() {
+    sed -i "" 's;%" \^$;;g;' "$FILENAME"            # Remove all line continuation from data fields and curls (must be paired with the following lines)
+    sed -i "" 's;^    -d .*;&%" \^;g;' "$FILENAME"  # Put back the curl line continuations
+    sed -i "" 's;[A-Z]$;&% \^;g;' "$FILENAME"       # If the line ends with an uppercased variable (eg: curl lines), put back the line continuation
 }
 
 cleanup() {

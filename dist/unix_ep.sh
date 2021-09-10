@@ -602,6 +602,13 @@ buy_stamp() {
     printf "%s\n" "Enter from_email (optional): "
     read -r FROM_EMAIL
 
+    # Set hardcoded variables
+    STAMP_US_COUNTRY="US"
+    STAMP_WEIGHT="1"
+    STAMP_PREDEFINED_PACKAGE="Letter"
+    STAMP_SERVICE="First"
+    STAMP_USPS_STRING="USPS"
+
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/shipments \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -610,7 +617,7 @@ buy_stamp() {
     -d "shipment[to_address][city]=$TO_CITY" \
     -d "shipment[to_address][state]=$TO_STATE" \
     -d "shipment[to_address][zip]=$TO_ZIP" \
-    -d "shipment[to_address][country]=US" \
+    -d "shipment[to_address][country]=$STAMP_US_COUNTRY" \
     -d "shipment[to_address][name]=$TO_NAME" \
     -d "shipment[to_address][company]=$TO_COMPANY" \
     -d "shipment[to_address][phone]=$TO_PHONE" \
@@ -620,15 +627,15 @@ buy_stamp() {
     -d "shipment[from_address][city]=$FROM_CITY" \
     -d "shipment[from_address][state]=$FROM_STATE" \
     -d "shipment[from_address][zip]=$FROM_ZIP" \
-    -d "shipment[from_address][country]=US" \
+    -d "shipment[from_address][country]=$STAMP_US_COUNTRY" \
     -d "shipment[from_address][name]=$FROM_NAME" \
     -d "shipment[from_address][company]=$FROM_COMPANY" \
     -d "shipment[from_address][phone]=$FROM_PHONE" \
     -d "shipment[from_address][email]=$FROM_EMAIL" \
-    -d "shipment[parcel][weight]=1" \
-    -d "shipment[parcel][predefined_package]=Letter" \
-    -d "shipment[service]=First" \
-    -d "shipment[carrier]=USPS" \
+    -d "shipment[parcel][weight]=$STAMP_WEIGHT" \
+    -d "shipment[parcel][predefined_package]=$STAMP_PREDEFINED_PACKAGE" \
+    -d "shipment[service]=$STAMP_SERVICE" \
+    -d "shipment[carrier]=$STAMP_USPS_STRING" \
     -d "shipment[carrier_accounts][]=$USPS_CARRIER_ACCOUNT_ID" \
     | json_pp
 }
@@ -643,13 +650,16 @@ create_return() {
     printf "%s\n" "Enter a parcel ID: "
     read -r PARCEL
 
+    # Set hardcoded variables
+    RETURN_BOOLEAN="true"
+
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/shipments \
     -u "$EASYPOST_CLI_API_KEY": \
     -d "shipment[to_address][id]=$TO_ADDRESS" \
     -d "shipment[from_address][id]=$FROM_ADDRESS" \
     -d "shipment[parcel][id]=$PARCEL" \
-    -d "shipment[is_return]=true" \
+    -d "shipment[is_return]=$RETURN_BOOLEAN" \
     | json_pp
 }
 
