@@ -35,7 +35,7 @@ remove_shebang() {
 }
 
 change_functions() {
-    sed -i "" 's;.*();:&;g;' "$FILENAME"        # !important -- change all functions that have a `()` to start with a `:`
+    sed -i "" 's;.*();:&;g;' "$FILENAME"        # !important - change all functions that have a `()` to start with a `:`
     sed -i "" 's;();;g' "$FILENAME"             # remove `()` from each function name
     sed -i "" 's; {;;g;' "$FILENAME"            # remove opening function brackets
     sed -i "" 's;}$;exit /b 0;g;' "$FILENAME"   # change closing function brackets
@@ -68,11 +68,11 @@ change_open() {
 }
 
 change_variables() {
-    sed -i "" 's;"$EASYPOST_API_URL";%EASYPOST_API_URL%;g;' "$FILENAME"         # change EASYPOST_API_URL
-    sed -i "" 's;"$EASYPOST_CLI_API_KEY";%EASYPOST_CLI_API_KEY%;g;' "$FILENAME" # change EASYPOST_CLI_API_KEY
-    sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$FILENAME"                         # !important -- change the STARTDATE variables
-    sed -i "" 's;$ENDDATE;%ENDDATE%;g;' "$FILENAME"                             # !important -- change the ENDDATE variables
-    sed -i "" 's;" ^;%" ^;g;' "$FILENAME"                                       # !important -- add missing `%` for variables in a data field (must come before the following lines)
+    sed -i "" 's;"$EASYPOST_API_URL";%EASYPOST_API_URL%;g;' "$FILENAME"         # !important - change EASYPOST_API_URL
+    sed -i "" 's;"$EASYPOST_CLI_API_KEY";%EASYPOST_CLI_API_KEY%;g;' "$FILENAME" # !important - change EASYPOST_CLI_API_KEY
+    sed -i "" 's;$STARTDATE;%STARTDATE%;g;' "$FILENAME"                         # !important - change the STARTDATE variables
+    sed -i "" 's;$ENDDATE;%ENDDATE%;g;' "$FILENAME"                             # !important - change the ENDDATE variables
+    sed -i "" 's;" ^;%" ^;g;' "$FILENAME"                                       # !important - add missing `%` for variables in a data field (must come before the following lines)
     sed -i "" 's;\$;%;g;' "$FILENAME"                                           # change `$` to `%` generally
     sed -i "" 's;set.*;&=;g;' "$FILENAME"                                       # add `=` after setting each variable
     sed -i "" 's;^    STAMP;    set &;g;' "$FILENAME"                           # MUST COME AFTER (add `=` after setting each variable)
