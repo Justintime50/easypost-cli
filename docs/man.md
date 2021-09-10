@@ -302,6 +302,14 @@ Retrieve a list of shipments. [EasyPost docs for this endpoint](https://www.easy
 ep retrieve_shipments
 ```
 
+**Retrieve a Shipment's SmartRates**
+
+Retrieve a shipment's smartrates. [EasyPost docs for this endpoint](https://www.easypost.com/docs/api#smartrate-retrieve_time_in_transit_statistics-codesample).
+
+```bash
+ep retrieve_smartrates
+```
+
 ### Trackers
 
 **Create a Tracker**

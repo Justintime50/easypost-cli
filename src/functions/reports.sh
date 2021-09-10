@@ -137,8 +137,6 @@ retrieve_tracker_report() {
 retrieve_payment_log_reports() {
     # ep retrieve_payment_log_reports: Retrieve a list of payment log reports
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/payment_log \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -147,8 +145,6 @@ retrieve_payment_log_reports() {
 
 retrieve_refund_reports() {
     # ep retrieve_refund_reports: Retrieve a list of refund reports
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/refund \
@@ -159,8 +155,6 @@ retrieve_refund_reports() {
 retrieve_shipment_reports() {
     # ep retrieve_shipment_reports: Retrieve a list of shipment reports
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/shipment \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -170,8 +164,6 @@ retrieve_shipment_reports() {
 retrieve_shipment_invoice_reports() {
     # ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
 
-    # TODO: Add date and page_size options
-
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/shipment_invoice \
     -u "$EASYPOST_CLI_API_KEY": \
@@ -180,8 +172,6 @@ retrieve_shipment_invoice_reports() {
 
 retrieve_tracker_reports() {
     # ep retrieve_tracker_reports: Retrieve a list of tracker reports
-
-    # TODO: Add date and page_size options
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/tracker \

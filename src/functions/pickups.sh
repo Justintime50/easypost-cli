@@ -40,8 +40,6 @@ create_pickup() {
     printf "%s\n" "Enter any special instructions (eg: \"Knock loudly\" - optional): "
     read -r INSTRUCTIONS
 
-    # TODO: Allow batches to be picked up, case/switch batch or shipment
-    
     # Build curl request
     curl -s -X POST "$EASYPOST_API_URL"/pickups \
     -u "$EASYPOST_CLI_API_KEY": \
