@@ -8,7 +8,7 @@ The EasyPost API on the CLI.
 [![Version](https://img.shields.io/github/v/tag/justintime50/easypost-cli)](https://github.com/justintime50/easypost-cli/releases)
 [![Licence](https://img.shields.io/github/license/justintime50/easypost-cli)](LICENSE)
 
-<img src="assets/showcase.png" alt="Showcase">
+<img src="https://raw.githubusercontent.com/justintime50/assets/main/src/easypost-cli/showcase.png" alt="Showcase">
 
 </div>
 
