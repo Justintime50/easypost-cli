@@ -14,14 +14,14 @@ The EasyPost API on the CLI.
 
 Written in pure `Bash` and only requiring `cURL`, the EasyPost CLI is incredibly portable for both users and developers and simple to use. View the official [EasyPost documentation](https://www.easypost.com/docs/api) for more information about the API or visit the [EasyPost CLI website](https://justintime50.github.io/easypost-cli).
 
-**NOTE:** This project was created as a proof of concept to craft an entire library out of Shell scripts that could be easily ported to Windows as is not intended for production use.
+**NOTE:** This project was created as a proof of concept to craft an entire library out of Shell scripts that could be easily ported to Windows and is not intended for production use.
 
 ## What Can it Do?
 
 At a high level, the EasyPost CLI can:
 
 - Create and retrieve addresses, parcels, insurance, shipments, pickups, trackers, webhooks, batches, and more
-- Buy labels, refund shipments, and rate carriers
+- Buy labels and USPS stamps, refund shipments, and rate against all your carriers
 - Create and retrieve custom reports
 - Lookup EasyPost account details, create child users, and more
 
