@@ -20,6 +20,15 @@ retrieve_api_keys() {
     | json_pp
 }
 
+retrieve_carrier_accounts() {
+    # ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/carrier_accounts \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_carrier_account() {
     # ep retrieve_carrier_account: Retrieve a single configured carrier account
     # Prompt user for input
@@ -32,19 +41,18 @@ retrieve_carrier_account() {
     | json_pp
 }
 
-retrieve_carrier_accounts() {
-    # ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
-    
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/carrier_accounts \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
 retrieve_carrier_types() {
     # ep retrieve_carrier_types: Retrieve the list of all carrier types available to the account of the given API key.
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/carrier_types \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_users() {
+    # ep retrieve_users: Retrieve the users of the associated account
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/users \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -57,14 +65,6 @@ retrieve_user() {
     
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/users/"$USER" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_users() {
-    # ep retrieve_users: Retrieve the users of the associated account
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/users \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

@@ -1,19 +1,4 @@
 
-add_shipment_to_batch() {
-    # ep add_shipment_to_batch: Add a shipment to a batch
-    # Prompt user for input
-    printf "%s\n" "Enter a batch ID to add shipments to: "
-    read -r BATCH
-    printf "%s\n" "Enter a shipment ID to add to the batch: "
-    read -r SHIPMENT
-
-    # Build curl request
-    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/add_shipments \
-    -u "$EASYPOST_CLI_API_KEY": \
-    -d "shipments[0][id]=$SHIPMENT" \
-    | json_pp
-}
-
 create_batch() {
     # ep create_batch: Create an empty batch object
     
@@ -35,6 +20,21 @@ generate_batch_label() {
     curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/label \
     -u "$EASYPOST_CLI_API_KEY": \
     -d "label_format=$FORMAT" \
+    | json_pp
+}
+
+add_shipment_to_batch() {
+    # ep add_shipment_to_batch: Add a shipment to a batch
+    # Prompt user for input
+    printf "%s\n" "Enter a batch ID to add shipments to: "
+    read -r BATCH
+    printf "%s\n" "Enter a shipment ID to add to the batch: "
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/add_shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "shipments[0][id]=$SHIPMENT" \
     | json_pp
 }
 

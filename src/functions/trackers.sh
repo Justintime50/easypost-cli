@@ -15,6 +15,15 @@ create_tracker() {
     | json_pp
 }
 
+retrieve_trackers() {
+    # ep retrieve_trackers: Retrieve a list of trackers
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/trackers \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_tracker() {
     # ep retrieve_tracker: Retrieve a tracker record
     # Prompt user for input
@@ -23,15 +32,6 @@ retrieve_tracker() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/trackers/"$TRACKER" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_trackers() {
-    # ep retrieve_trackers: Retrieve a list of trackers
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/trackers \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

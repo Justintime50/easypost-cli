@@ -22,6 +22,7 @@ create_address() {
     read -r PHONE
     printf "%s\n" "Enter email (optional): "
     read -r EMAIL
+    # TODO: Address Verification
 
     # Build Curl Request
     curl -s -X POST "$EASYPOST_API_URL"/addresses \
@@ -39,6 +40,15 @@ create_address() {
     | json_pp
 }
 
+retrieve_addresses() {
+    # ep retrieve_addresses: Retrieve a list of addresses
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/addresses \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_address() {
     # ep retrieve_address: Retrieve an address record
     # Prompt user for input
@@ -47,15 +57,6 @@ retrieve_address() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/addresses/"$ADDRESS" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_addresses() {
-    # ep retrieve_addresses: Retrieve a list of addresses
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/addresses \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

@@ -27,6 +27,15 @@ create_insurance() {
     | json_pp
 }
 
+retrieve_insurances() {
+    # ep retrieve_insurances: Retrieve a list of insurances
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/insurances \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_insurance() {
     # ep retrieve_insurance: Retrieve an insurnace record
     # Prompt user for input
@@ -35,15 +44,6 @@ retrieve_insurance() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/insurances/"$INSURANCE" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_insurances() {
-    # ep retrieve_insurances: Retrieve a list of insurances
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/insurances \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

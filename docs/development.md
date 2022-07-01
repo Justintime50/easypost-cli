@@ -18,10 +18,10 @@ The EasyPost CLI ultimately has 4 parts:
     - The functions for each EasyPost API call (endpoint) that can be made are broken up into several pieces, each category of endpoints being its own shell script for simplicity and readability. These are built in the middle of the executable and can be found separated into categories of folders in the `src/functions` directory.
 1. **EasyPost CLI Executable**
     - The EasyPost CLI executables (`unix_ep.sh`, and `windows_ep.bat`) are built from `items 1 and 3`. A build script concatenates all of these records into a single executable file which is then placed in the user's path, ready to be called upon in the syntax of `ep my_command`.
-    
+
 ## Building the EasyPost CLI Executables
 
-**Note:** Building should be done with each push to master! 
+**Note:** Building should be done with each push to master!
 
 When running the build script, you must pass a version number as the first parameter. Optionally, you can pass in `bash`, `dash`, `sh`, or `ksh` as a second parameter which will change the shebang on the compiled executable (Unix only). Bash is the default option; if a shell parameter is omitted, `bash` will be used.
 
@@ -33,7 +33,7 @@ When running the build script, you must pass a version number as the first param
 
 There is an expiremental build functionality to convert the Bash EasyPost CLI into a Windows Batch equivelant. This logic lives in the `windows-interpreter.sh` file. The file is completely documented. The rationale is instead of developing the CLI for 2-3 sets of OS's, we build the CLI in pure Bash and have a tool like this to convert it into a Windows equivelant. Building for windows happens at the same time as building for macOS/Linux.
 
-### Testing Supported Shells:
+### Testing Supported Shells
 
 The EasyPost CLI was intended to be used in `bash` but can instead be installed and run in `sh`, `dash`, or `ksh` if elected. Simply specify a different shell when building the executable or linting the project.
 

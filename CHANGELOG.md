@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## NEXT RELEASE
+
+* Deprecates the indiviaul report functions and replaces them with generic `create_report`, `retrieve_reports`, and `retrieve_report` functions
+
 ## v1.5.0 (2021-09-10)
 
 * Adds the `retrieve_smartrates` function allowing you to retrieve a Shipment's smartrates
@@ -60,11 +64,12 @@
 * Updated all documentation
 
 ## v1.0.0-beta (2020)
-- Added automated installer/uninstaller
-- Added creation of addresses, insurance, parcels, shipments, trackers, pickups, batches, webhooks, and more
-- Added retrieval of addresses, insurance, parcels, shipments, trackers, pickups, batches, webhooks, api_keys, users, and more
-- Added buy and refund shipment along with regenerating rates
-- Added Travis CI Shellcheck testing
-- Added complete user and developer documentation
-- Added executable build script for deployment
-- Added manual unit tests
+
+* Added automated installer/uninstaller
+* Added creation of addresses, insurance, parcels, shipments, trackers, pickups, batches, webhooks, and more
+* Added retrieval of addresses, insurance, parcels, shipments, trackers, pickups, batches, webhooks, api_keys, users, and more
+* Added buy and refund shipment along with regenerating rates
+* Added Travis CI Shellcheck testing
+* Added complete user and developer documentation
+* Added executable build script for deployment
+* Added manual unit tests

@@ -1,32 +1,4 @@
 
-buy_pickup() {
-    # ep buy_pickup: Buy a pickup
-    printf "%s\n" "Enter a pickup ID: "
-    read -r PICKUP
-    printf "%s\n" "Enter a carrier code (eg: \"UPS\"): "
-    read -r CARRIER
-    printf "%s\n" "Enter a service level (eg: \"Same-Day Pickup\"): "
-    read -r SERVICE
-    
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/buy \
-    -u "$EASYPOST_CLI_API_KEY": \
-    -d "carrier=$CARRIER" \
-    -d "service=$SERVICE" \
-    | json_pp
-}
-
-cancel_pickup() {
-    # ep cancel_pickup: Cancel a pickup
-    printf "%s\n" "Enter a pickup ID: "
-    read -r PICKUP
-    
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/cancel \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
 create_pickup() {
     # ep create_pickup: Create a pickup
     printf "%s\n" "Enter a shipment ID for the pickup: "
@@ -59,5 +31,33 @@ retrieve_pickup() {
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP" \
     -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+cancel_pickup() {
+    # ep cancel_pickup: Cancel a pickup
+    printf "%s\n" "Enter a pickup ID: "
+    read -r PICKUP
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/cancel \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+buy_pickup() {
+    # ep buy_pickup: Buy a pickup
+    printf "%s\n" "Enter a pickup ID: "
+    read -r PICKUP
+    printf "%s\n" "Enter a carrier code (eg: \"UPS\"): "
+    read -r CARRIER
+    printf "%s\n" "Enter a service level (eg: \"Same-Day Pickup\"): "
+    read -r SERVICE
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/buy \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "carrier=$CARRIER" \
+    -d "service=$SERVICE" \
     | json_pp
 }
