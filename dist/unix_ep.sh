@@ -11,7 +11,7 @@
 main() {
     # Run this main function anytime the CLI is used
     EASYPOST_API_URL="https://api.easypost.com/v2"
-    EASYPOST_CLI_VERSION="1.5.0"
+    EASYPOST_CLI_VERSION="1.6.0"
 
     check_config_file
     check_api_key
@@ -77,6 +77,7 @@ create_address() {
     read -r PHONE
     printf "%s\n" "Enter email (optional): "
     read -r EMAIL
+    # TODO: Address Verification
 
     # Build Curl Request
     curl -s -X POST "$EASYPOST_API_URL"/addresses \
@@ -94,18 +95,6 @@ create_address() {
     | json_pp
 }
 
-retrieve_address() {
-    # ep retrieve_address: Retrieve an address record
-    # Prompt user for input
-    printf "%s\n" "Enter address ID: "
-    read -r ADDRESS
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/addresses/"$ADDRESS" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
 retrieve_addresses() {
     # ep retrieve_addresses: Retrieve a list of addresses
 
@@ -115,18 +104,15 @@ retrieve_addresses() {
     | json_pp
 }
 
-add_shipment_to_batch() {
-    # ep add_shipment_to_batch: Add a shipment to a batch
+retrieve_address() {
+    # ep retrieve_address: Retrieve an address record
     # Prompt user for input
-    printf "%s\n" "Enter a batch ID to add shipments to: "
-    read -r BATCH
-    printf "%s\n" "Enter a shipment ID to add to the batch: "
-    read -r SHIPMENT
+    printf "%s\n" "Enter address ID: "
+    read -r ADDRESS
 
     # Build curl request
-    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/add_shipments \
+    curl -s -X GET "$EASYPOST_API_URL"/addresses/"$ADDRESS" \
     -u "$EASYPOST_CLI_API_KEY": \
-    -d "shipments[0][id]=$SHIPMENT" \
     | json_pp
 }
 
@@ -151,6 +137,21 @@ generate_batch_label() {
     curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/label \
     -u "$EASYPOST_CLI_API_KEY": \
     -d "label_format=$FORMAT" \
+    | json_pp
+}
+
+add_shipment_to_batch() {
+    # ep add_shipment_to_batch: Add a shipment to a batch
+    # Prompt user for input
+    printf "%s\n" "Enter a batch ID to add shipments to: "
+    read -r BATCH
+    printf "%s\n" "Enter a shipment ID to add to the batch: "
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/add_shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "shipments[0][id]=$SHIPMENT" \
     | json_pp
 }
 
@@ -202,6 +203,15 @@ create_insurance() {
     | json_pp
 }
 
+retrieve_insurances() {
+    # ep retrieve_insurances: Retrieve a list of insurances
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/insurances \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_insurance() {
     # ep retrieve_insurance: Retrieve an insurnace record
     # Prompt user for input
@@ -210,15 +220,6 @@ retrieve_insurance() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/insurances/"$INSURANCE" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_insurances() {
-    # ep retrieve_insurances: Retrieve a list of insurances
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/insurances \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -269,34 +270,6 @@ retrieve_parcel() {
     | json_pp
 }
 
-buy_pickup() {
-    # ep buy_pickup: Buy a pickup
-    printf "%s\n" "Enter a pickup ID: "
-    read -r PICKUP
-    printf "%s\n" "Enter a carrier code (eg: \"UPS\"): "
-    read -r CARRIER
-    printf "%s\n" "Enter a service level (eg: \"Same-Day Pickup\"): "
-    read -r SERVICE
-    
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/buy \
-    -u "$EASYPOST_CLI_API_KEY": \
-    -d "carrier=$CARRIER" \
-    -d "service=$SERVICE" \
-    | json_pp
-}
-
-cancel_pickup() {
-    # ep cancel_pickup: Cancel a pickup
-    printf "%s\n" "Enter a pickup ID: "
-    read -r PICKUP
-    
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/cancel \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
 create_pickup() {
     # ep create_pickup: Create a pickup
     printf "%s\n" "Enter a shipment ID for the pickup: "
@@ -332,7 +305,53 @@ retrieve_pickup() {
     | json_pp
 }
 
+cancel_pickup() {
+    # ep cancel_pickup: Cancel a pickup
+    printf "%s\n" "Enter a pickup ID: "
+    read -r PICKUP
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/cancel \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+buy_pickup() {
+    # ep buy_pickup: Buy a pickup
+    printf "%s\n" "Enter a pickup ID: "
+    read -r PICKUP
+    printf "%s\n" "Enter a carrier code (eg: \"UPS\"): "
+    read -r CARRIER
+    printf "%s\n" "Enter a service level (eg: \"Same-Day Pickup\"): "
+    read -r SERVICE
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/pickups/"$PICKUP"/buy \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "carrier=$CARRIER" \
+    -d "service=$SERVICE" \
+    | json_pp
+}
+
+create_report() {
+    # ep create_report: Create a report
+    # Prompt user for input
+    printf "%s\n" "Type of report (eg: cash_flow, payment_log, refund, shipment, shipment_invoice, tracker): "
+    read -r REPORT_TYPE
+    printf "%s\n" "Enter a start date (eg: 2016-10-01): "
+    read -r STARTDATE
+    printf "%s\n" "Enter an end date (eg: 2016-10-31): "
+    read -r ENDDATE
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/reports/"$REPORT_TYPE" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "{'start_date':$STARTDATE,'end_date':$ENDDATE}" \
+    | json_pp
+}
+
 create_payment_log_report() {
+    # DEPRECATED, use `create_report` instead
     # ep create_payment_log_report: Create a payment log report
     # Prompt user for input
     printf "%s\n" "Enter a start date (eg: 2016-10-01): "
@@ -348,6 +367,7 @@ create_payment_log_report() {
 }
 
 create_refund_report() {
+    # DEPRECATED, use `create_report` instead
     # ep create_refund_report: Create a payment log report
     # Prompt user for input
     printf "%s\n" "Enter a start date (eg: 2016-10-01): "
@@ -363,6 +383,7 @@ create_refund_report() {
 }
 
 create_shipment_report() {
+    # DEPRECATED, use `create_report` instead
     # ep create_shipment_report: Create a payment log report
     # Prompt user for input
     printf "%s\n" "Enter a start date (eg: 2016-10-01): "
@@ -378,6 +399,7 @@ create_shipment_report() {
 }
 
 create_shipment_invoice_report() {
+    # DEPRECATED, use `create_report` instead
     # ep create_shipment_invoice_report: Create a shipment invoice report
     # Prompt user for input
     printf "%s\n" "Enter a start date (eg: 2016-10-01): "
@@ -393,6 +415,7 @@ create_shipment_invoice_report() {
 }
 
 create_tracker_report() {
+    # DEPRECATED, use `create_report` instead
     # ep create_tracker_report: Create a payment log report
     # Prompt user for input
     printf "%s\n" "Enter a start date (eg: 2016-10-01): "
@@ -407,7 +430,84 @@ create_tracker_report() {
     | json_pp
 }
 
+retrieve_reports() {
+    # ep retrieve_reports: Retrieve a list of reports
+    # Prompt user for input
+    printf "%s\n" "Type of reports (eg: cash_flow, payment_log, refund, shipment, shipment_invoice, tracker): "
+    read -r REPORT_TYPE
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/"$REPORT_TYPE" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_payment_log_reports() {
+    # DEPRECATED, use `retrieve_reports` instead
+    # ep retrieve_payment_log_reports: Retrieve a list of payment log reports
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/payment_log \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_refund_reports() {
+    # DEPRECATED, use `retrieve_reports` instead
+    # ep retrieve_refund_reports: Retrieve a list of refund reports
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/refund \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_shipment_reports() {
+    # DEPRECATED, use `retrieve_reports` instead
+    # ep retrieve_shipment_reports: Retrieve a list of shipment reports
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/shipment \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_shipment_invoice_reports() {
+    # DEPRECATED, use `retrieve_reports` instead
+    # ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/shipment_invoice \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_tracker_reports() {
+    # DEPRECATED, use `retrieve_reports` instead
+    # ep retrieve_tracker_reports: Retrieve a list of tracker reports
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/tracker \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_report() {
+    # ep retrieve_payment: Retrieve a report
+    # Prompt user for input
+    printf "%s\n" "Type of report (eg: cash_flow, payment_log, refund, shipment, shipment_invoice, tracker): "
+    read -r REPORT_TYPE
+    printf "%s\n" "Enter report ID: "
+    read -r REPORT
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/reports/"$REPORT_TYPE"/"$REPORT" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_payment_log_report() {
+    # DEPRECATED, use `retrieve_report` instead
     # ep retrieve_payment_log_report: Retrieve a single payment log report
     # Prompt user for input
     printf "%s\n" "Enter report ID: "
@@ -420,6 +520,7 @@ retrieve_payment_log_report() {
 }
 
 retrieve_refund_report() {
+    # DEPRECATED, use `retrieve_report` instead
     # ep retrieve_refund_report: Retrieve a single refund report
     # Prompt user for input
     printf "%s\n" "Enter report ID: "
@@ -432,6 +533,7 @@ retrieve_refund_report() {
 }
 
 retrieve_shipment_report() {
+    # DEPRECATED, use `retrieve_report` instead
     # ep retrieve_shipment_report: Retrieve a single shipment report
     # Prompt user for input
     printf "%s\n" "Enter report ID: "
@@ -444,6 +546,7 @@ retrieve_shipment_report() {
 }
 
 retrieve_shipment_invoice_report() {
+    # DEPRECATED, use `retrieve_report` instead
     # ep retrieve_shipment_invoice_report: Retrieve a single shipment invoice report
     # Prompt user for input
     printf "%s\n" "Enter report ID: "
@@ -456,6 +559,7 @@ retrieve_shipment_invoice_report() {
 }
 
 retrieve_tracker_report() {
+    # DEPRECATED, use `retrieve_report` instead
     # ep retrieve_tracker_report: Retrieve a single tracker report
     # Prompt user for input
     printf "%s\n" "Enter report ID: "
@@ -463,62 +567,6 @@ retrieve_tracker_report() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/reports/tracker/"$REPORT" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_payment_log_reports() {
-    # ep retrieve_payment_log_reports: Retrieve a list of payment log reports
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/reports/payment_log \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_refund_reports() {
-    # ep retrieve_refund_reports: Retrieve a list of refund reports
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/reports/refund \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_shipment_reports() {
-    # ep retrieve_shipment_reports: Retrieve a list of shipment reports
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/reports/shipment \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_shipment_invoice_reports() {
-    # ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/reports/shipment_invoice \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_tracker_reports() {
-    # ep retrieve_tracker_reports: Retrieve a list of tracker reports
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/reports/tracker \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-manifest_batch() {
-    # ep manifest_batch: Manifest or scanform a batch
-    printf "%s\n" "Enter a batch ID you'd like to manifest: "
-    read -r BATCH
-    
-    # Build curl request
-    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/scan_form \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -539,6 +587,122 @@ retrieve_scanforms() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/scan_forms \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+manifest_batch() {
+    # ep manifest_batch: Manifest or scanform a batch
+    printf "%s\n" "Enter a batch ID you'd like to manifest: "
+    read -r BATCH
+    
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/batches/"$BATCH"/scan_form \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+create_shipment() {
+    # ep create_shipment: Create a shipment record that can then be used to purchase a label
+    # Prompt user for input
+    printf "%s\n" "Enter to_street1: "
+    read -r TO_STREET1
+    printf "%s\n" "Enter to_street2 (optional): "
+    read -r TO_STREET2
+    printf "%s\n" "Enter to_city: "
+    read -r TO_CITY
+    printf "%s\n" "Enter to_state: "
+    read -r TO_STATE
+    printf "%s\n" "Enter to_zip: "
+    read -r TO_ZIP
+    printf "%s\n" "Enter to_country (optional): "
+    read -r TO_COUNTRY
+    printf "%s\n" "Enter to_name (optional): "
+    read -r TO_NAME
+    printf "%s\n" "Enter to_company (optional): "
+    read -r TO_COMPANY
+    printf "%s\n" "Enter to_phone (optional): "
+    read -r TO_PHONE
+    printf "%s\n" "Enter to_email (optional): "
+    read -r TO_EMAIL
+
+    printf "%s\n" "Enter from_street1: "
+    read -r FROM_STREET1
+    printf "%s\n" "Enter from_street2 (optional): "
+    read -r FROM_STREET2
+    printf "%s\n" "Enter from_city: "
+    read -r FROM_CITY
+    printf "%s\n" "Enter from_state: "
+    read -r FROM_STATE
+    printf "%s\n" "Enter from_zip: "
+    read -r FROM_ZIP
+    printf "%s\n" "Enter from_country (optional): "
+    read -r FROM_COUNTRY
+    printf "%s\n" "Enter from_name (optional): "
+    read -r FROM_NAME
+    printf "%s\n" "Enter from_company (optional): "
+    read -r FROM_COMPANY
+    printf "%s\n" "Enter from_phone (optional): "
+    read -r FROM_PHONE
+    printf "%s\n" "Enter from_email (optional): "
+    read -r FROM_EMAIL
+
+    printf "%s\n" "Enter parcel length: "
+    read -r LENGTH
+    printf "%s\n" "Enter parcel width: "
+    read -r WIDTH
+    printf "%s\n" "Enter parcel height: "
+    read -r HEIGHT
+    printf "%s\n" "Enter parcel weight: "
+    read -r WEIGHT
+
+    # Build curl request
+    curl -s -X POST "$EASYPOST_API_URL"/shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    -d "shipment[to_address][street1]=$TO_STREET1" \
+    -d "shipment[to_address][street2]=$TO_STREET2" \
+    -d "shipment[to_address][city]=$TO_CITY" \
+    -d "shipment[to_address][state]=$TO_STATE" \
+    -d "shipment[to_address][zip]=$TO_ZIP" \
+    -d "shipment[to_address][country]=$TO_COUNTRY" \
+    -d "shipment[to_address][name]=$TO_NAME" \
+    -d "shipment[to_address][company]=$TO_COMPANY" \
+    -d "shipment[to_address][phone]=$TO_PHONE" \
+    -d "shipment[to_address][email]=$TO_EMAIL" \
+    -d "shipment[from_address][street1]=$FROM_STREET1" \
+    -d "shipment[from_address][street2]=$FROM_STREET2" \
+    -d "shipment[from_address][city]=$FROM_CITY" \
+    -d "shipment[from_address][state]=$FROM_STATE" \
+    -d "shipment[from_address][zip]=$FROM_ZIP" \
+    -d "shipment[from_address][country]=$FROM_COUNTRY" \
+    -d "shipment[from_address][name]=$FROM_NAME" \
+    -d "shipment[from_address][company]=$FROM_COMPANY" \
+    -d "shipment[from_address][phone]=$FROM_PHONE" \
+    -d "shipment[from_address][email]=$FROM_EMAIL" \
+    -d "shipment[parcel][length]=$LENGTH" \
+    -d "shipment[parcel][width]=$WIDTH" \
+    -d "shipment[parcel][height]=$HEIGHT" \
+    -d "shipment[parcel][weight]=$WEIGHT" \
+    | json_pp
+}
+
+retrieve_shipments() {
+    # ep retrieve_shipments: Retrieve a list of shipments
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/shipments \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_shipment() {
+    # ep retrieve_shipment: Retrieve a shipment record
+    # Prompt user for input
+    printf "%s\n" "Enter shipment ID: "
+    read -r SHIPMENT
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT" \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -663,90 +827,6 @@ create_return() {
     | json_pp
 }
 
-create_shipment() {
-    # ep create_shipment: Create a shipment record that can then be used to purchase a label
-    # Prompt user for input
-    printf "%s\n" "Enter to_street1: "
-    read -r TO_STREET1
-    printf "%s\n" "Enter to_street2 (optional): "
-    read -r TO_STREET2
-    printf "%s\n" "Enter to_city: "
-    read -r TO_CITY
-    printf "%s\n" "Enter to_state: "
-    read -r TO_STATE
-    printf "%s\n" "Enter to_zip: "
-    read -r TO_ZIP
-    printf "%s\n" "Enter to_country (optional): "
-    read -r TO_COUNTRY
-    printf "%s\n" "Enter to_name (optional): "
-    read -r TO_NAME
-    printf "%s\n" "Enter to_company (optional): "
-    read -r TO_COMPANY
-    printf "%s\n" "Enter to_phone (optional): "
-    read -r TO_PHONE
-    printf "%s\n" "Enter to_email (optional): "
-    read -r TO_EMAIL
-
-    printf "%s\n" "Enter from_street1: "
-    read -r FROM_STREET1
-    printf "%s\n" "Enter from_street2 (optional): "
-    read -r FROM_STREET2
-    printf "%s\n" "Enter from_city: "
-    read -r FROM_CITY
-    printf "%s\n" "Enter from_state: "
-    read -r FROM_STATE
-    printf "%s\n" "Enter from_zip: "
-    read -r FROM_ZIP
-    printf "%s\n" "Enter from_country (optional): "
-    read -r FROM_COUNTRY
-    printf "%s\n" "Enter from_name (optional): "
-    read -r FROM_NAME
-    printf "%s\n" "Enter from_company (optional): "
-    read -r FROM_COMPANY
-    printf "%s\n" "Enter from_phone (optional): "
-    read -r FROM_PHONE
-    printf "%s\n" "Enter from_email (optional): "
-    read -r FROM_EMAIL
-
-    printf "%s\n" "Enter parcel length: "
-    read -r LENGTH
-    printf "%s\n" "Enter parcel width: "
-    read -r WIDTH
-    printf "%s\n" "Enter parcel height: "
-    read -r HEIGHT
-    printf "%s\n" "Enter parcel weight: "
-    read -r WEIGHT
-
-    # Build curl request
-    curl -s -X POST "$EASYPOST_API_URL"/shipments \
-    -u "$EASYPOST_CLI_API_KEY": \
-    -d "shipment[to_address][street1]=$TO_STREET1" \
-    -d "shipment[to_address][street2]=$TO_STREET2" \
-    -d "shipment[to_address][city]=$TO_CITY" \
-    -d "shipment[to_address][state]=$TO_STATE" \
-    -d "shipment[to_address][zip]=$TO_ZIP" \
-    -d "shipment[to_address][country]=$TO_COUNTRY" \
-    -d "shipment[to_address][name]=$TO_NAME" \
-    -d "shipment[to_address][company]=$TO_COMPANY" \
-    -d "shipment[to_address][phone]=$TO_PHONE" \
-    -d "shipment[to_address][email]=$TO_EMAIL" \
-    -d "shipment[from_address][street1]=$FROM_STREET1" \
-    -d "shipment[from_address][street2]=$FROM_STREET2" \
-    -d "shipment[from_address][city]=$FROM_CITY" \
-    -d "shipment[from_address][state]=$FROM_STATE" \
-    -d "shipment[from_address][zip]=$FROM_ZIP" \
-    -d "shipment[from_address][country]=$FROM_COUNTRY" \
-    -d "shipment[from_address][name]=$FROM_NAME" \
-    -d "shipment[from_address][company]=$FROM_COMPANY" \
-    -d "shipment[from_address][phone]=$FROM_PHONE" \
-    -d "shipment[from_address][email]=$FROM_EMAIL" \
-    -d "shipment[parcel][length]=$LENGTH" \
-    -d "shipment[parcel][width]=$WIDTH" \
-    -d "shipment[parcel][height]=$HEIGHT" \
-    -d "shipment[parcel][weight]=$WEIGHT" \
-    | json_pp
-}
-
 refund_shipment() {
     # ep refund_shipment: Refund a specified shipment
     # Prompt user for input
@@ -767,27 +847,6 @@ regenerate_rates() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT"/rates \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_shipment() {
-    # ep retrieve_shipment: Retrieve a shipment record
-    # Prompt user for input
-    printf "%s\n" "Enter shipment ID: "
-    read -r SHIPMENT
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/shipments/"$SHIPMENT" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_shipments() {
-    # ep retrieve_shipments: Retrieve a list of shipments
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/shipments \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -820,6 +879,15 @@ create_tracker() {
     | json_pp
 }
 
+retrieve_trackers() {
+    # ep retrieve_trackers: Retrieve a list of trackers
+
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/trackers \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_tracker() {
     # ep retrieve_tracker: Retrieve a tracker record
     # Prompt user for input
@@ -828,15 +896,6 @@ retrieve_tracker() {
 
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/trackers/"$TRACKER" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_trackers() {
-    # ep retrieve_trackers: Retrieve a list of trackers
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/trackers \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -862,6 +921,15 @@ retrieve_api_keys() {
     | json_pp
 }
 
+retrieve_carrier_accounts() {
+    # ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
+    
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/carrier_accounts \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
 retrieve_carrier_account() {
     # ep retrieve_carrier_account: Retrieve a single configured carrier account
     # Prompt user for input
@@ -874,19 +942,18 @@ retrieve_carrier_account() {
     | json_pp
 }
 
-retrieve_carrier_accounts() {
-    # ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
-    
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/carrier_accounts \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
 retrieve_carrier_types() {
     # ep retrieve_carrier_types: Retrieve the list of all carrier types available to the account of the given API key.
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/carrier_types \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+retrieve_users() {
+    # ep retrieve_users: Retrieve the users of the associated account
+    # Build curl request
+    curl -s -X GET "$EASYPOST_API_URL"/users \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -899,14 +966,6 @@ retrieve_user() {
     
     # Build curl request
     curl -s -X GET "$EASYPOST_API_URL"/users/"$USER" \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
-retrieve_users() {
-    # ep retrieve_users: Retrieve the users of the associated account
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/users \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -929,14 +988,11 @@ create_webhook() {
     | json_pp
 }
 
-delete_webhook() {
-    # ep delete_webhook: Enables a Webhook that has been disabled.
-    # Prompt user for input
-    printf "%s\n" "Enter a webhook ID: "
-    read -r WEBHOOK
+retrieve_webhooks() {
+    # ep retrieve_webhooks: Retrieve a list of webhooks
 
     # Build curl request
-    curl -s -X DELETE "$EASYPOST_API_URL"/webhooks/"$WEBHOOK" \
+    curl -s -X GET "$EASYPOST_API_URL"/webhooks \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }
@@ -953,15 +1009,6 @@ retrieve_webhook() {
     | json_pp
 }
 
-retrieve_webhooks() {
-    # ep retrieve_webhooks: Retrieve a list of webhooks
-
-    # Build curl request
-    curl -s -X GET "$EASYPOST_API_URL"/webhooks \
-    -u "$EASYPOST_CLI_API_KEY": \
-    | json_pp
-}
-
 update_webhook() {
     # ep update_webhook: Enables a Webhook that has been disabled.
     # Prompt user for input
@@ -970,6 +1017,18 @@ update_webhook() {
 
     # Build curl request
     curl -s -X PUT "$EASYPOST_API_URL"/webhooks/"$WEBHOOK" \
+    -u "$EASYPOST_CLI_API_KEY": \
+    | json_pp
+}
+
+delete_webhook() {
+    # ep delete_webhook: Enables a Webhook that has been disabled.
+    # Prompt user for input
+    printf "%s\n" "Enter a webhook ID: "
+    read -r WEBHOOK
+
+    # Build curl request
+    curl -s -X DELETE "$EASYPOST_API_URL"/webhooks/"$WEBHOOK" \
     -u "$EASYPOST_CLI_API_KEY": \
     | json_pp
 }

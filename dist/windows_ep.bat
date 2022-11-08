@@ -10,7 +10,7 @@
     :: Run this main function anytime the CLI is used
     @echo off
     set EASYPOST_API_URL="https://api.easypost.com/v2"
-    set EASYPOST_CLI_VERSION="1.5.0"
+    set EASYPOST_CLI_VERSION="1.6.0"
 
     call :check_config_file
     call :check_api_key
@@ -70,6 +70,7 @@ exit /b 0
     set /P PHONE=
     echo Enter email (optional): 
     set /P EMAIL=
+    :: TODO: Address Verification
 
     :: Build Curl Request
     curl -s -X POST %EASYPOST_API_URL%/addresses ^
@@ -87,18 +88,6 @@ exit /b 0
     | jq .
 exit /b 0
 
-:retrieve_address
-    :: ep retrieve_address: Retrieve an address record
-    :: Prompt user for input
-    echo Enter address ID: 
-    set /P ADDRESS=
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/addresses/%ADDRESS% ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
 :retrieve_addresses
     :: ep retrieve_addresses: Retrieve a list of addresses
 
@@ -108,18 +97,15 @@ exit /b 0
     | jq .
 exit /b 0
 
-:add_shipment_to_batch
-    :: ep add_shipment_to_batch: Add a shipment to a batch
+:retrieve_address
+    :: ep retrieve_address: Retrieve an address record
     :: Prompt user for input
-    echo Enter a batch ID to add shipments to: 
-    set /P BATCH=
-    echo Enter a shipment ID to add to the batch: 
-    set /P SHIPMENT=
+    echo Enter address ID: 
+    set /P ADDRESS=
 
     :: Build curl request
-    curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/add_shipments ^
+    curl -s -X GET %EASYPOST_API_URL%/addresses/%ADDRESS% ^
     -u %EASYPOST_CLI_API_KEY%: ^
-    -d "shipments[0][id]=%SHIPMENT%" ^
     | jq .
 exit /b 0
 
@@ -144,6 +130,21 @@ exit /b 0
     curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/label ^
     -u %EASYPOST_CLI_API_KEY%: ^
     -d "label_format=%FORMAT%" ^
+    | jq .
+exit /b 0
+
+:add_shipment_to_batch
+    :: ep add_shipment_to_batch: Add a shipment to a batch
+    :: Prompt user for input
+    echo Enter a batch ID to add shipments to: 
+    set /P BATCH=
+    echo Enter a shipment ID to add to the batch: 
+    set /P SHIPMENT=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/add_shipments ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "shipments[0][id]=%SHIPMENT%" ^
     | jq .
 exit /b 0
 
@@ -195,6 +196,15 @@ exit /b 0
     | jq .
 exit /b 0
 
+:retrieve_insurances
+    :: ep retrieve_insurances: Retrieve a list of insurances
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/insurances ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
 :retrieve_insurance
     :: ep retrieve_insurance: Retrieve an insurnace record
     :: Prompt user for input
@@ -203,15 +213,6 @@ exit /b 0
 
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/insurances/%INSURANCE% ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_insurances
-    :: ep retrieve_insurances: Retrieve a list of insurances
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/insurances ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -262,34 +263,6 @@ exit /b 0
     | jq .
 exit /b 0
 
-:buy_pickup
-    :: ep buy_pickup: Buy a pickup
-    echo Enter a pickup ID: 
-    set /P PICKUP=
-    echo Enter a carrier code (eg: "UPS"): 
-    set /P CARRIER=
-    echo Enter a service level (eg: "Same-Day Pickup"): 
-    set /P SERVICE=
-    
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP%/buy ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    -d "carrier=%CARRIER%" ^
-    -d "service=%SERVICE%" ^
-    | jq .
-exit /b 0
-
-:cancel_pickup
-    :: ep cancel_pickup: Cancel a pickup
-    echo Enter a pickup ID: 
-    set /P PICKUP=
-    
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP%/cancel ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
 :create_pickup
     :: ep create_pickup: Create a pickup
     echo Enter a shipment ID for the pickup: 
@@ -325,7 +298,53 @@ exit /b 0
     | jq .
 exit /b 0
 
+:cancel_pickup
+    :: ep cancel_pickup: Cancel a pickup
+    echo Enter a pickup ID: 
+    set /P PICKUP=
+    
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP%/cancel ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:buy_pickup
+    :: ep buy_pickup: Buy a pickup
+    echo Enter a pickup ID: 
+    set /P PICKUP=
+    echo Enter a carrier code (eg: "UPS"): 
+    set /P CARRIER=
+    echo Enter a service level (eg: "Same-Day Pickup"): 
+    set /P SERVICE=
+    
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/pickups/%PICKUP%/buy ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "carrier=%CARRIER%" ^
+    -d "service=%SERVICE%" ^
+    | jq .
+exit /b 0
+
+:create_report
+    :: ep create_report: Create a report
+    :: Prompt user for input
+    echo Type of report (eg: cash_flow, payment_log, refund, shipment, shipment_invoice, tracker): 
+    set /P REPORT_TYPE=
+    echo Enter a start date (eg: 2016-10-01): 
+    set /P STARTDATE=
+    echo Enter an end date (eg: 2016-10-31): 
+    set /P ENDDATE=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/reports/%REPORT_TYPE% ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "{'start_date':%STARTDATE%,'end_date':%ENDDATE%}" ^
+    | jq .
+exit /b 0
+
 :create_payment_log_report
+    :: DEPRECATED, use `create_report` instead
     :: ep create_payment_log_report: Create a payment log report
     :: Prompt user for input
     echo Enter a start date (eg: 2016-10-01): 
@@ -341,6 +360,7 @@ exit /b 0
 exit /b 0
 
 :create_refund_report
+    :: DEPRECATED, use `create_report` instead
     :: ep create_refund_report: Create a payment log report
     :: Prompt user for input
     echo Enter a start date (eg: 2016-10-01): 
@@ -356,6 +376,7 @@ exit /b 0
 exit /b 0
 
 :create_shipment_report
+    :: DEPRECATED, use `create_report` instead
     :: ep create_shipment_report: Create a payment log report
     :: Prompt user for input
     echo Enter a start date (eg: 2016-10-01): 
@@ -371,6 +392,7 @@ exit /b 0
 exit /b 0
 
 :create_shipment_invoice_report
+    :: DEPRECATED, use `create_report` instead
     :: ep create_shipment_invoice_report: Create a shipment invoice report
     :: Prompt user for input
     echo Enter a start date (eg: 2016-10-01): 
@@ -386,6 +408,7 @@ exit /b 0
 exit /b 0
 
 :create_tracker_report
+    :: DEPRECATED, use `create_report` instead
     :: ep create_tracker_report: Create a payment log report
     :: Prompt user for input
     echo Enter a start date (eg: 2016-10-01): 
@@ -400,7 +423,84 @@ exit /b 0
     | jq .
 exit /b 0
 
+:retrieve_reports
+    :: ep retrieve_reports: Retrieve a list of reports
+    :: Prompt user for input
+    echo Type of reports (eg: cash_flow, payment_log, refund, shipment, shipment_invoice, tracker): 
+    set /P REPORT_TYPE=
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/%REPORT_TYPE% ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_payment_log_reports
+    :: DEPRECATED, use `retrieve_reports` instead
+    :: ep retrieve_payment_log_reports: Retrieve a list of payment log reports
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/payment_log ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_refund_reports
+    :: DEPRECATED, use `retrieve_reports` instead
+    :: ep retrieve_refund_reports: Retrieve a list of refund reports
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/refund ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_shipment_reports
+    :: DEPRECATED, use `retrieve_reports` instead
+    :: ep retrieve_shipment_reports: Retrieve a list of shipment reports
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/shipment ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_shipment_invoice_reports
+    :: DEPRECATED, use `retrieve_reports` instead
+    :: ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/shipment_invoice ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_tracker_reports
+    :: DEPRECATED, use `retrieve_reports` instead
+    :: ep retrieve_tracker_reports: Retrieve a list of tracker reports
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/tracker ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_report
+    :: ep retrieve_payment: Retrieve a report
+    :: Prompt user for input
+    echo Type of report (eg: cash_flow, payment_log, refund, shipment, shipment_invoice, tracker): 
+    set /P REPORT_TYPE=
+    echo Enter report ID: 
+    set /P REPORT=
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/reports/%REPORT_TYPE%/%REPORT% ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
 :retrieve_payment_log_report
+    :: DEPRECATED, use `retrieve_report` instead
     :: ep retrieve_payment_log_report: Retrieve a single payment log report
     :: Prompt user for input
     echo Enter report ID: 
@@ -413,6 +513,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_refund_report
+    :: DEPRECATED, use `retrieve_report` instead
     :: ep retrieve_refund_report: Retrieve a single refund report
     :: Prompt user for input
     echo Enter report ID: 
@@ -425,6 +526,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_shipment_report
+    :: DEPRECATED, use `retrieve_report` instead
     :: ep retrieve_shipment_report: Retrieve a single shipment report
     :: Prompt user for input
     echo Enter report ID: 
@@ -437,6 +539,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_shipment_invoice_report
+    :: DEPRECATED, use `retrieve_report` instead
     :: ep retrieve_shipment_invoice_report: Retrieve a single shipment invoice report
     :: Prompt user for input
     echo Enter report ID: 
@@ -449,6 +552,7 @@ exit /b 0
 exit /b 0
 
 :retrieve_tracker_report
+    :: DEPRECATED, use `retrieve_report` instead
     :: ep retrieve_tracker_report: Retrieve a single tracker report
     :: Prompt user for input
     echo Enter report ID: 
@@ -456,62 +560,6 @@ exit /b 0
 
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/reports/tracker/%REPORT% ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_payment_log_reports
-    :: ep retrieve_payment_log_reports: Retrieve a list of payment log reports
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/payment_log ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_refund_reports
-    :: ep retrieve_refund_reports: Retrieve a list of refund reports
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/refund ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_shipment_reports
-    :: ep retrieve_shipment_reports: Retrieve a list of shipment reports
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/shipment ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_shipment_invoice_reports
-    :: ep retrieve_shipment_invoice_reports: Retrieve a list of shipment invoice reports
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/shipment_invoice ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_tracker_reports
-    :: ep retrieve_tracker_reports: Retrieve a list of tracker reports
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/reports/tracker ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:manifest_batch
-    :: ep manifest_batch: Manifest or scanform a batch
-    echo Enter a batch ID you'd like to manifest: 
-    set /P BATCH=
-    
-    :: Build curl request
-    curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/scan_form ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -532,6 +580,122 @@ exit /b 0
 
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/scan_forms ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:manifest_batch
+    :: ep manifest_batch: Manifest or scanform a batch
+    echo Enter a batch ID you'd like to manifest: 
+    set /P BATCH=
+    
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/batches/%BATCH%/scan_form ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:create_shipment
+    :: ep create_shipment: Create a shipment record that can then be used to purchase a label
+    :: Prompt user for input
+    echo Enter to_street1: 
+    set /P TO_STREET1=
+    echo Enter to_street2 (optional): 
+    set /P TO_STREET2=
+    echo Enter to_city: 
+    set /P TO_CITY=
+    echo Enter to_state: 
+    set /P TO_STATE=
+    echo Enter to_zip: 
+    set /P TO_ZIP=
+    echo Enter to_country (optional): 
+    set /P TO_COUNTRY=
+    echo Enter to_name (optional): 
+    set /P TO_NAME=
+    echo Enter to_company (optional): 
+    set /P TO_COMPANY=
+    echo Enter to_phone (optional): 
+    set /P TO_PHONE=
+    echo Enter to_email (optional): 
+    set /P TO_EMAIL=
+
+    echo Enter from_street1: 
+    set /P FROM_STREET1=
+    echo Enter from_street2 (optional): 
+    set /P FROM_STREET2=
+    echo Enter from_city: 
+    set /P FROM_CITY=
+    echo Enter from_state: 
+    set /P FROM_STATE=
+    echo Enter from_zip: 
+    set /P FROM_ZIP=
+    echo Enter from_country (optional): 
+    set /P FROM_COUNTRY=
+    echo Enter from_name (optional): 
+    set /P FROM_NAME=
+    echo Enter from_company (optional): 
+    set /P FROM_COMPANY=
+    echo Enter from_phone (optional): 
+    set /P FROM_PHONE=
+    echo Enter from_email (optional): 
+    set /P FROM_EMAIL=
+
+    echo Enter parcel length: 
+    set /P LENGTH=
+    echo Enter parcel width: 
+    set /P WIDTH=
+    echo Enter parcel height: 
+    set /P HEIGHT=
+    echo Enter parcel weight: 
+    set /P WEIGHT=
+
+    :: Build curl request
+    curl -s -X POST %EASYPOST_API_URL%/shipments ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    -d "shipment[to_address][street1]=%TO_STREET1%" ^
+    -d "shipment[to_address][street2]=%TO_STREET2%" ^
+    -d "shipment[to_address][city]=%TO_CITY%" ^
+    -d "shipment[to_address][state]=%TO_STATE%" ^
+    -d "shipment[to_address][zip]=%TO_ZIP%" ^
+    -d "shipment[to_address][country]=%TO_COUNTRY%" ^
+    -d "shipment[to_address][name]=%TO_NAME%" ^
+    -d "shipment[to_address][company]=%TO_COMPANY%" ^
+    -d "shipment[to_address][phone]=%TO_PHONE%" ^
+    -d "shipment[to_address][email]=%TO_EMAIL%" ^
+    -d "shipment[from_address][street1]=%FROM_STREET1%" ^
+    -d "shipment[from_address][street2]=%FROM_STREET2%" ^
+    -d "shipment[from_address][city]=%FROM_CITY%" ^
+    -d "shipment[from_address][state]=%FROM_STATE%" ^
+    -d "shipment[from_address][zip]=%FROM_ZIP%" ^
+    -d "shipment[from_address][country]=%FROM_COUNTRY%" ^
+    -d "shipment[from_address][name]=%FROM_NAME%" ^
+    -d "shipment[from_address][company]=%FROM_COMPANY%" ^
+    -d "shipment[from_address][phone]=%FROM_PHONE%" ^
+    -d "shipment[from_address][email]=%FROM_EMAIL%" ^
+    -d "shipment[parcel][length]=%LENGTH%" ^
+    -d "shipment[parcel][width]=%WIDTH%" ^
+    -d "shipment[parcel][height]=%HEIGHT%" ^
+    -d "shipment[parcel][weight]=%WEIGHT%" ^
+    | jq .
+exit /b 0
+
+:retrieve_shipments
+    :: ep retrieve_shipments: Retrieve a list of shipments
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/shipments ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_shipment
+    :: ep retrieve_shipment: Retrieve a shipment record
+    :: Prompt user for input
+    echo Enter shipment ID: 
+    set /P SHIPMENT=
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -656,90 +820,6 @@ exit /b 0
     | jq .
 exit /b 0
 
-:create_shipment
-    :: ep create_shipment: Create a shipment record that can then be used to purchase a label
-    :: Prompt user for input
-    echo Enter to_street1: 
-    set /P TO_STREET1=
-    echo Enter to_street2 (optional): 
-    set /P TO_STREET2=
-    echo Enter to_city: 
-    set /P TO_CITY=
-    echo Enter to_state: 
-    set /P TO_STATE=
-    echo Enter to_zip: 
-    set /P TO_ZIP=
-    echo Enter to_country (optional): 
-    set /P TO_COUNTRY=
-    echo Enter to_name (optional): 
-    set /P TO_NAME=
-    echo Enter to_company (optional): 
-    set /P TO_COMPANY=
-    echo Enter to_phone (optional): 
-    set /P TO_PHONE=
-    echo Enter to_email (optional): 
-    set /P TO_EMAIL=
-
-    echo Enter from_street1: 
-    set /P FROM_STREET1=
-    echo Enter from_street2 (optional): 
-    set /P FROM_STREET2=
-    echo Enter from_city: 
-    set /P FROM_CITY=
-    echo Enter from_state: 
-    set /P FROM_STATE=
-    echo Enter from_zip: 
-    set /P FROM_ZIP=
-    echo Enter from_country (optional): 
-    set /P FROM_COUNTRY=
-    echo Enter from_name (optional): 
-    set /P FROM_NAME=
-    echo Enter from_company (optional): 
-    set /P FROM_COMPANY=
-    echo Enter from_phone (optional): 
-    set /P FROM_PHONE=
-    echo Enter from_email (optional): 
-    set /P FROM_EMAIL=
-
-    echo Enter parcel length: 
-    set /P LENGTH=
-    echo Enter parcel width: 
-    set /P WIDTH=
-    echo Enter parcel height: 
-    set /P HEIGHT=
-    echo Enter parcel weight: 
-    set /P WEIGHT=
-
-    :: Build curl request
-    curl -s -X POST %EASYPOST_API_URL%/shipments ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    -d "shipment[to_address][street1]=%TO_STREET1%" ^
-    -d "shipment[to_address][street2]=%TO_STREET2%" ^
-    -d "shipment[to_address][city]=%TO_CITY%" ^
-    -d "shipment[to_address][state]=%TO_STATE%" ^
-    -d "shipment[to_address][zip]=%TO_ZIP%" ^
-    -d "shipment[to_address][country]=%TO_COUNTRY%" ^
-    -d "shipment[to_address][name]=%TO_NAME%" ^
-    -d "shipment[to_address][company]=%TO_COMPANY%" ^
-    -d "shipment[to_address][phone]=%TO_PHONE%" ^
-    -d "shipment[to_address][email]=%TO_EMAIL%" ^
-    -d "shipment[from_address][street1]=%FROM_STREET1%" ^
-    -d "shipment[from_address][street2]=%FROM_STREET2%" ^
-    -d "shipment[from_address][city]=%FROM_CITY%" ^
-    -d "shipment[from_address][state]=%FROM_STATE%" ^
-    -d "shipment[from_address][zip]=%FROM_ZIP%" ^
-    -d "shipment[from_address][country]=%FROM_COUNTRY%" ^
-    -d "shipment[from_address][name]=%FROM_NAME%" ^
-    -d "shipment[from_address][company]=%FROM_COMPANY%" ^
-    -d "shipment[from_address][phone]=%FROM_PHONE%" ^
-    -d "shipment[from_address][email]=%FROM_EMAIL%" ^
-    -d "shipment[parcel][length]=%LENGTH%" ^
-    -d "shipment[parcel][width]=%WIDTH%" ^
-    -d "shipment[parcel][height]=%HEIGHT%" ^
-    -d "shipment[parcel][weight]=%WEIGHT%" ^
-    | jq .
-exit /b 0
-
 :refund_shipment
     :: ep refund_shipment: Refund a specified shipment
     :: Prompt user for input
@@ -760,27 +840,6 @@ exit /b 0
 
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT%/rates ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_shipment
-    :: ep retrieve_shipment: Retrieve a shipment record
-    :: Prompt user for input
-    echo Enter shipment ID: 
-    set /P SHIPMENT=
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/shipments/%SHIPMENT% ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_shipments
-    :: ep retrieve_shipments: Retrieve a list of shipments
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/shipments ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -813,6 +872,15 @@ exit /b 0
     | jq .
 exit /b 0
 
+:retrieve_trackers
+    :: ep retrieve_trackers: Retrieve a list of trackers
+
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/trackers ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
 :retrieve_tracker
     :: ep retrieve_tracker: Retrieve a tracker record
     :: Prompt user for input
@@ -821,15 +889,6 @@ exit /b 0
 
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/trackers/%TRACKER% ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_trackers
-    :: ep retrieve_trackers: Retrieve a list of trackers
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/trackers ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -855,6 +914,15 @@ exit /b 0
     | jq .
 exit /b 0
 
+:retrieve_carrier_accounts
+    :: ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
+    
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/carrier_accounts ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
 :retrieve_carrier_account
     :: ep retrieve_carrier_account: Retrieve a single configured carrier account
     :: Prompt user for input
@@ -867,19 +935,18 @@ exit /b 0
     | jq .
 exit /b 0
 
-:retrieve_carrier_accounts
-    :: ep retrieve_carrier_accounts: Retrieve the list of configured carrier accounts
-    
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/carrier_accounts ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
 :retrieve_carrier_types
     :: ep retrieve_carrier_types: Retrieve the list of all carrier types available to the account of the given API key.
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/carrier_types ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:retrieve_users
+    :: ep retrieve_users: Retrieve the users of the associated account
+    :: Build curl request
+    curl -s -X GET %EASYPOST_API_URL%/users ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -892,14 +959,6 @@ exit /b 0
     
     :: Build curl request
     curl -s -X GET %EASYPOST_API_URL%/users/%USER% ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
-:retrieve_users
-    :: ep retrieve_users: Retrieve the users of the associated account
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/users ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -922,14 +981,11 @@ exit /b 0
     | jq .
 exit /b 0
 
-:delete_webhook
-    :: ep delete_webhook: Enables a Webhook that has been disabled.
-    :: Prompt user for input
-    echo Enter a webhook ID: 
-    set /P WEBHOOK=
+:retrieve_webhooks
+    :: ep retrieve_webhooks: Retrieve a list of webhooks
 
     :: Build curl request
-    curl -s -X DELETE %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
+    curl -s -X GET %EASYPOST_API_URL%/webhooks ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
@@ -946,15 +1002,6 @@ exit /b 0
     | jq .
 exit /b 0
 
-:retrieve_webhooks
-    :: ep retrieve_webhooks: Retrieve a list of webhooks
-
-    :: Build curl request
-    curl -s -X GET %EASYPOST_API_URL%/webhooks ^
-    -u %EASYPOST_CLI_API_KEY%: ^
-    | jq .
-exit /b 0
-
 :update_webhook
     :: ep update_webhook: Enables a Webhook that has been disabled.
     :: Prompt user for input
@@ -963,6 +1010,18 @@ exit /b 0
 
     :: Build curl request
     curl -s -X PUT %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
+    -u %EASYPOST_CLI_API_KEY%: ^
+    | jq .
+exit /b 0
+
+:delete_webhook
+    :: ep delete_webhook: Enables a Webhook that has been disabled.
+    :: Prompt user for input
+    echo Enter a webhook ID: 
+    set /P WEBHOOK=
+
+    :: Build curl request
+    curl -s -X DELETE %EASYPOST_API_URL%/webhooks/%WEBHOOK% ^
     -u %EASYPOST_CLI_API_KEY%: ^
     | jq .
 exit /b 0
